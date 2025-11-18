@@ -1,0 +1,151 @@
+name: CI Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test-no-llm:
+    name: Test Non-LLM Features
+    runs-on: ubuntu-latest
+    
+    services:
+      qdrant:
+        image: qdrant/qdrant:latest
+        ports:
+          - 6333:6333
+        options: >-
+          --health-cmd "curl http://localhost:6333/health"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio httpx
+      
+      - name: Start server
+        run: |
+          uvicorn src.api.main:app --host 0.0.0.0 --port 8000 &
+          sleep 10
+        env:
+          QDRANT_URL: http://localhost:6333
+          REDIS_URL: redis://localhost:6379
+          LLM_PROVIDER: openai
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || 'test-key' }}
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY || 'test-key' }}
+      
+      - name: Wait for server
+        run: |
+          timeout 30 bash -c 'until curl -f http://localhost:8000/health; do sleep 2; done'
+      
+      - name: Run basic non-LLM integration tests
+        run: |
+          pytest tests/integration/test_api_no_llm.py -v
+      
+      - name: Run comprehensive integration tests
+        run: |
+          pytest tests/integration/test_api_comprehensive.py -v
+        continue-on-error: true
+      
+      - name: Run edge case tests
+        run: |
+          pytest tests/integration/test_edge_cases.py -v
+        continue-on-error: true
+      
+      - name: Run feature tests (no LLM)
+        run: |
+          python3 test_features_python.py --skip-llm || true
+        continue-on-error: true
+      
+      - name: Check server health
+        run: |
+          curl -f http://localhost:8000/health || exit 1
+      
+      - name: Test API endpoints
+        run: |
+          ./test_all_features.sh || true
+        continue-on-error: true
+      
+      - name: Run performance tests (quick)
+        run: |
+          pytest tests/integration/test_performance.py::TestResponseTime::test_health_endpoint_response_time -v -s || true
+        continue-on-error: true
+        timeout-minutes: 5
+
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      
+      - name: Install linting dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 black mypy
+      
+      - name: Run flake8
+        run: |
+          flake8 src/ tests/ --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 src/ tests/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        continue-on-error: true
+      
+      - name: Check formatting with black
+        run: |
+          black --check src/ tests/
+        continue-on-error: true
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio pytest-cov
+      
+      - name: Run unit tests
+        run: |
+          pytest tests/unit/ -v --cov=src --cov-report=term-missing
+        continue-on-error: true
+

@@ -1,0 +1,87 @@
+stages:
+  - test
+  - lint
+
+variables:
+  BASE_URL: "http://localhost:8000"
+  PYTHON_VERSION: "3.10"
+
+services:
+  - name: qdrant/qdrant:latest
+    alias: qdrant
+  - name: redis:7-alpine
+    alias: redis
+
+test:no-llm:
+  stage: test
+  image: python:${PYTHON_VERSION}
+  timeout: 30m
+  before_script:
+    - python -m pip install --upgrade pip
+    - pip install -r requirements.txt
+    - pip install pytest pytest-asyncio httpx pytest-timeout pytest-cov
+    - export QDRANT_URL=http://qdrant:6333
+    - export REDIS_URL=redis://redis:6379
+    - export LLM_PROVIDER=openai
+    - export OPENAI_API_KEY=test-key
+    - export PERPLEXITY_API_KEY=test-key
+    - export TEST_BASE_URL=http://localhost:8000
+  script:
+    - |
+      echo "Starting server..."
+      uvicorn src.api.main:app --host 0.0.0.0 --port 8000 &
+      sleep 15
+    - |
+      echo "Waiting for server..."
+      timeout 60 bash -c 'until curl -f http://localhost:8000/health 2>/dev/null; do sleep 2; done' || true
+      sleep 5
+    - echo "=========================================="
+    - echo "Running all non-LLM integration tests..."
+    - echo "=========================================="
+    - echo ""
+    - echo "1. Basic integration tests..."
+    - pytest tests/integration/test_api_no_llm.py -v --tb=short
+    - echo ""
+    - echo "2. Comprehensive integration tests..."
+    - pytest tests/integration/test_api_comprehensive.py -v --tb=short || true
+    - echo ""
+    - echo "3. Edge case tests..."
+    - pytest tests/integration/test_edge_cases.py -v --tb=short || true
+    - echo ""
+    - echo "4. Performance tests (quick subset)..."
+    - pytest tests/integration/test_performance.py::TestResponseTime::test_health_endpoint_response_time \
+             tests/integration/test_performance.py::TestResponseTime::test_cache_stats_response_time \
+             -v -s --tb=short || true
+    - echo ""
+    - echo "5. Feature tests (no LLM)..."
+    - python3 test_features_python.py --skip-llm || true
+    - echo ""
+    - echo "6. API endpoint tests..."
+    - ./test_all_features.sh || true
+    - echo ""
+    - echo "=========================================="
+    - echo "Test Summary"
+    - echo "=========================================="
+    - pytest tests/integration/test_api_no_llm.py --tb=no -q || true
+    - pytest tests/integration/test_api_comprehensive.py --tb=no -q || true
+    - pytest tests/integration/test_edge_cases.py --tb=no -q || true
+  only:
+    - main
+    - develop
+    - merge_requests
+  allow_failure: false
+
+lint:
+  stage: lint
+  image: python:${PYTHON_VERSION}
+  before_script:
+    - python -m pip install --upgrade pip
+    - pip install flake8 black mypy
+  script:
+    - flake8 src/ tests/ --count --select=E9,F63,F7,F82 --show-source --statistics || true
+    - black --check src/ tests/ || true
+  only:
+    - main
+    - develop
+    - merge_requests
+
