@@ -1,5 +1,5 @@
 {
-  "name": "@discoverer/sdk",
+  "name": "discoverer-sdk",
   "version": "1.0.0",
   "description": "JavaScript SDK for The Discoverer API",
   "main": "dist/index.js",
