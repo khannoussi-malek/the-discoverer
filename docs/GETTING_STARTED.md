@@ -19,7 +19,7 @@ docker-compose --version
 
 ```bash
 # Clone repository
-git clone <repository-url>
+git clone https://github.com/khannoussi-malek/the-discoverer.git
 cd the-discoverer
 
 # Install dependencies

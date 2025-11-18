@@ -8,7 +8,12 @@
 
 ## Local Development
 
-1. Clone repository
+1. Clone repository:
+```bash
+git clone https://github.com/khannoussi-malek/the-discoverer.git
+cd the-discoverer
+```
+
 2. Install dependencies:
 ```bash
 pip install -r requirements.txt
