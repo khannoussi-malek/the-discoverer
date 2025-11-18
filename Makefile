@@ -4,7 +4,13 @@ help:
 	@echo "Available commands:"
 	@echo "  make install         - Install dependencies"
 	@echo "  make dev            - Install development dependencies"
-	@echo "  make test           - Run tests"
+	@echo "  make test           - Run all tests"
+	@echo "  make test-no-llm    - Run basic non-LLM integration tests (25 tests)"
+	@echo "  make test-comprehensive - Run comprehensive tests (70+ tests)"
+	@echo "  make test-all-integration - Run all integration tests (125+ tests)"
+	@echo "  make test-performance - Run performance/load tests"
+	@echo "  make test-api       - Run Python feature tests"
+	@echo "  make test-all-features - Run shell-based feature tests"
 	@echo "  make lint           - Run linters"
 	@echo "  make format         - Format code"
 	@echo "  make clean          - Clean build artifacts"
@@ -29,6 +35,24 @@ dev:
 
 test:
 	pytest tests/ -v
+
+test-no-llm:
+	pytest tests/integration/test_api_no_llm.py -v
+
+test-comprehensive:
+	pytest tests/integration/test_api_comprehensive.py -v
+
+test-all-integration:
+	pytest tests/integration/ -v
+
+test-performance:
+	pytest tests/integration/test_performance.py -v -s
+
+test-api:
+	python3 test_features_python.py --skip-llm
+
+test-all-features:
+	./test_all_features.sh
 
 lint:
 	flake8 src/ tests/

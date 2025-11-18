@@ -20,16 +20,29 @@ async def get_database_health(
     health_monitor: DatabaseHealthMonitor = Depends(get_health_monitor)
 ):
     """Get health status of all databases."""
-    statuses = health_monitor.get_all_status()
+    statuses = health_monitor.get_all_health()
+    # Convert DatabaseHealth objects to dicts
+    statuses_dict = {
+        db_id: {
+            "database_id": health.database_id,
+            "status": "healthy" if health.is_healthy else "unhealthy",
+            "last_check": health.last_check.isoformat() if health.last_check else None,
+            "last_success": health.last_success.isoformat() if health.last_success else None,
+            "consecutive_failures": health.consecutive_failures,
+            "response_time": health.response_time,
+            "error_message": health.error_message
+        }
+        for db_id, health in statuses.items()
+    }
     return {
-        "databases": statuses,
-        "total": len(statuses),
+        "databases": statuses_dict,
+        "total": len(statuses_dict),
         "healthy": sum(
-            1 for s in statuses.values()
+            1 for s in statuses_dict.values()
             if s.get("status") == "healthy"
         ),
         "unhealthy": sum(
-            1 for s in statuses.values()
+            1 for s in statuses_dict.values()
             if s.get("status") == "unhealthy"
         )
     }
@@ -42,8 +55,17 @@ async def get_database_health_by_id(
 ):
     """Get health status of a specific database."""
     # Check immediately
-    status = await health_monitor.check_health(db_id)
-    return status
+    health = await health_monitor.check_database(db_id)
+    # Convert DatabaseHealth to dict
+    return {
+        "database_id": health.database_id,
+        "status": "healthy" if health.is_healthy else "unhealthy",
+        "last_check": health.last_check.isoformat() if health.last_check else None,
+        "last_success": health.last_success.isoformat() if health.last_success else None,
+        "consecutive_failures": health.consecutive_failures,
+        "response_time": health.response_time,
+        "error_message": health.error_message
+    }
 
 
 @router.post("/databases/check-all")
@@ -51,7 +73,22 @@ async def check_all_databases(
     health_monitor: DatabaseHealthMonitor = Depends(get_health_monitor)
 ):
     """Manually trigger health check for all databases."""
-    results = await health_monitor.check_all()
+    await health_monitor.check_all_databases()
+    # Get updated health status
+    statuses = health_monitor.get_all_health()
+    # Convert DatabaseHealth objects to dicts
+    results = {
+        db_id: {
+            "database_id": health.database_id,
+            "status": "healthy" if health.is_healthy else "unhealthy",
+            "last_check": health.last_check.isoformat() if health.last_check else None,
+            "last_success": health.last_success.isoformat() if health.last_success else None,
+            "consecutive_failures": health.consecutive_failures,
+            "response_time": health.response_time,
+            "error_message": health.error_message
+        }
+        for db_id, health in statuses.items()
+    }
     return {
         "results": results,
         "checked_at": datetime.now().isoformat()
