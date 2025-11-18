@@ -85,9 +85,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/khannoussi-malek"
-Repository = "https://github.com/khannoussi-malek/exploarer"
-Documentation = "https://github.com/khannoussi-malek/exploarer"
+Homepage = "https://github.com/khannoussi-malek/the-discoverer"
+Repository = "https://github.com/khannoussi-malek/the-discoverer"
+Documentation = "https://github.com/khannoussi-malek/the-discoverer"
+Issues = "https://github.com/khannoussi-malek/the-discoverer/issues"
 LinkedIn = "https://www.linkedin.com/in/khannoussi-malek/"
 
 [project.scripts]
