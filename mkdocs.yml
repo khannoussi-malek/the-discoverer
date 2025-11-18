@@ -1,0 +1,87 @@
+site_name: The Discoverer
+site_description: AI-powered database discovery and query agent
+site_author: Malek Khannoussi
+site_url: https://khannoussi-malek.github.io/the-discoverer
+
+repo_name: the-discoverer
+repo_url: https://github.com/khannoussi-malek/the-discoverer
+edit_uri: edit/main/docs/
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: README.md
+  - Getting Started: GETTING_STARTED.md
+  - Examples: EXAMPLES.md
+  - API Reference: API.md
+  - Architecture: ARCHITECTURE.md
+  - Deployment: DEPLOYMENT.md
+  - Features: FEATURES.md
+  - SDKs:
+    - Python SDK: SDK.md
+    - JavaScript SDK: JAVASCRIPT_SDK.md
+    - CLI Tool: CLI.md
+  - Features:
+    - Dashboards: DASHBOARDS.md
+    - Chart Templates: CHART_TEMPLATES.md
+    - Query Result Sharing: QUERY_RESULT_SHARING.md
+    - Webhooks: WEBHOOKS.md
+    - Scheduler: SCHEDULER.md
+    - Query Versioning: QUERY_VERSIONING.md
+    - Connection Pools: CONNECTION_POOLS.md
+    - Compression: COMPRESSION.md
+    - WebSocket: WEBSOCKET.md
+    - Chart Export: CHART_EXPORT.md
+    - Metrics: METRICS.md
+
+copyright: Copyright &copy; 2024 Malek Khannoussi
+
