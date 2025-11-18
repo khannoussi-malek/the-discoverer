@@ -16,11 +16,8 @@ jobs:
         image: qdrant/qdrant:latest
         ports:
           - 6333:6333
-        options: >-
-          --health-cmd "curl http://localhost:6333/health"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        # Health check removed - qdrant container doesn't have curl
+        # We'll wait for it in a step instead
       
       redis:
         image: redis:7-alpine
@@ -46,6 +43,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest pytest-asyncio httpx
+      
+      - name: Wait for services to be ready
+        run: |
+          echo "Waiting for Qdrant to be ready..."
+          timeout 60 bash -c 'until curl -f http://localhost:6333/health 2>/dev/null; do sleep 2; done' || true
+          echo "Waiting for Redis to be ready..."
+          timeout 30 bash -c 'until timeout 1 bash -c "</dev/tcp/localhost/6379" 2>/dev/null; do sleep 2; done' || true
+          echo "Services are ready!"
       
       - name: Start server
         run: |
