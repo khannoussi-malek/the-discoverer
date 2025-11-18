@@ -1,7 +1,7 @@
 """API key management for authentication."""
 import secrets
 import hashlib
-from typing import Dict, Optional, List
+from typing import Dict, Optional, List, Any
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field
 

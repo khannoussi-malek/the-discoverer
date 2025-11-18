@@ -24,11 +24,18 @@ class Settings(BaseSettings):
     embedding_dimension: int = 384
     
     # LLM Configuration
+    llm_provider: str = "openai"  # "openai" or "perplexity"
     openai_api_key: str = ""
     openai_model: str = "gpt-3.5-turbo"
     openai_model_complex: str = "gpt-4"
     openai_temperature: float = 0.0
     openai_max_tokens: int = 1000
+    
+    # Perplexity Configuration
+    perplexity_api_key: str = ""
+    perplexity_model: str = "sonar"  # Valid models: "sonar", "sonar-pro", "llama-3.1-sonar-large-128k-online" (check docs)
+    perplexity_model_complex: str = "sonar-pro"  # Use "sonar-pro" for more capable model
+    perplexity_base_url: str = "https://api.perplexity.ai"
     
     # Redis Cache
     redis_url: str = "redis://localhost:6379"
@@ -51,6 +58,45 @@ class Settings(BaseSettings):
     # Security
     secret_key: str = "change-me-in-production"
     allowed_origins: str = "http://localhost:3000,http://localhost:8000"
+    
+    # Server Configuration
+    server_host: str = "0.0.0.0"
+    server_port: int = 8000
+    api_base_url: str = "http://localhost:8000"
+    
+    # Rate Limiting
+    rate_limit_requests_per_minute: int = 60
+    
+    # Query History
+    query_history_max_size: int = 1000
+    
+    # Health Monitoring
+    health_check_interval: int = 30  # seconds
+    
+    # Scheduler
+    scheduler_check_interval: int = 60  # seconds
+    scheduled_export_check_interval: int = 60  # seconds
+    
+    # Webhooks
+    webhook_timeout: float = 30.0  # seconds
+    webhook_max_retries: int = 3
+    
+    # Connection Pool Defaults
+    pool_default_timeout: float = 30.0  # seconds
+    
+    # Vector DB Client
+    qdrant_client_timeout: float = 5.0  # seconds
+    
+    # Export Storage
+    export_storage_path: str = "/tmp/exports"
+    
+    # HTTP Client Defaults
+    http_client_timeout: float = 30.0  # seconds
+    http_client_connect_timeout: float = 5.0  # seconds
+    
+    # CLI Defaults
+    cli_timeout: float = 60.0  # seconds
+    cli_health_check_timeout: float = 5.0  # seconds
     
     @property
     def allowed_origins_list(self) -> List[str]:

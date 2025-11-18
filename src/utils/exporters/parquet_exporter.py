@@ -2,8 +2,14 @@
 from typing import List, Dict, Any, Optional
 from io import BytesIO
 import pandas as pd
-import pyarrow as pa
-import pyarrow.parquet as pq
+try:
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    PYARROW_AVAILABLE = True
+except ImportError:
+    pa = None
+    pq = None
+    PYARROW_AVAILABLE = False
 
 from src.utils.exporters.base import Exporter
 
@@ -17,6 +23,8 @@ class ParquetExporter(Exporter):
         filename: Optional[str] = None
     ) -> BytesIO:
         """Export data to Parquet format."""
+        if not PYARROW_AVAILABLE:
+            raise ImportError("pyarrow is required for Parquet export. Install with: pip install pyarrow")
         try:
             # Convert to DataFrame
             df = pd.DataFrame(data)

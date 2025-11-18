@@ -19,6 +19,12 @@ from src.infrastructure.llm.generators.factory import QueryGeneratorFactory
 from src.application.services.discovery_service import DiscoveryService
 from src.application.services.query_service import QueryService
 from src.application.services.visualization_service import VisualizationService
+from src.application.services.query_template_service import QueryTemplateService
+from src.application.services.batch_query_service import BatchQueryService
+from src.application.services.scheduler_service import SchedulerService
+from src.infrastructure.query_templates.repository import QueryTemplateRepository
+from src.infrastructure.scheduler.repository import ScheduledQueryRepository
+from src.infrastructure.auth.user_repository import UserRepository
 
 from src.api.routes import discovery, query, visualization, indexing, stats, history, health, management, templates, export, optimization, batch, scheduler, metrics, websocket, pagination, transformation, analytics, auth, versioning, api_keys, comparison, chart_templates, dashboards, sharing, cache, cost_tracking, webhooks, compression, pool_management, export_templates, scheduled_exports
 from src.infrastructure.vector_db.content_indexer import ContentIndexer
@@ -39,9 +45,9 @@ def create_app() -> FastAPI:
     settings = get_settings()
     
     app = FastAPI(
-        title="The Discoverer",
+        title=settings.app_name,
         description="AI-powered database discovery and query agent",
-        version="1.0.0"
+        version=settings.app_version
     )
     
     # Request ID middleware (first, so all requests have IDs)
@@ -51,7 +57,7 @@ def create_app() -> FastAPI:
     app.add_middleware(LoggingMiddleware)
     
     # Rate limiting middleware
-    app.add_middleware(RateLimitMiddleware, requests_per_minute=60)
+    app.add_middleware(RateLimitMiddleware, requests_per_minute=settings.rate_limit_requests_per_minute)
     
     # CORS middleware
     app.add_middleware(
@@ -77,25 +83,25 @@ def create_app() -> FastAPI:
     embedding_generator = EmbeddingGenerator()
     schema_indexer = SchemaIndexer(vector_db_client, embedding_generator)
     vector_db_repository = VectorDBRepository(vector_db_client, embedding_generator)
-    cache = MultiLayerCacheRepository()
+    cache_repository = MultiLayerCacheRepository()
     llm_client = LLMClient()
     query_generator_factory = QueryGeneratorFactory(llm_client)
     
     # Initialize services
-    discovery_service = DiscoveryService(db_repository, schema_indexer, cache)
-    query_history_repository = QueryHistoryRepository(max_history=1000)
+    discovery_service = DiscoveryService(db_repository, schema_indexer, cache_repository)
+    query_history_repository = QueryHistoryRepository(max_history=settings.query_history_max_size)
     
     query_service = QueryService(
         db_repository,
         vector_db_repository,
         query_generator_factory,
-        cache,
+        cache_repository,
         query_history_repository
     )
     visualization_service = VisualizationService()
     content_indexer = ContentIndexer(vector_db_client, embedding_generator)
     indexing_service = IndexingService(content_indexer, db_repository)
-    health_monitor = DatabaseHealthMonitor(db_repository, check_interval=30)
+    health_monitor = DatabaseHealthMonitor(db_repository, check_interval=settings.health_check_interval)
     
     # Query templates
     template_repository = QueryTemplateRepository()
@@ -170,11 +176,11 @@ def create_app() -> FastAPI:
             await app.state.health_monitor.start_monitoring()
         
         # Start scheduler
-        await scheduler_service.start_scheduler(check_interval=60)
+        await scheduler_service.start_scheduler(check_interval=settings.scheduler_check_interval)
         
         # Start scheduled export scheduler
         if hasattr(app.state, 'scheduled_export_service'):
-            await app.state.scheduled_export_service.start_scheduler(check_interval=60)
+            await app.state.scheduled_export_service.start_scheduler(check_interval=settings.scheduled_export_check_interval)
     
     @app.on_event("shutdown")
     async def shutdown():
@@ -197,13 +203,13 @@ def create_app() -> FastAPI:
     async def root():
         """Root endpoint."""
         return {
-            "name": "The Discoverer",
-            "version": "1.0.0",
+            "name": settings.app_name,
+            "version": settings.app_version,
             "status": "running"
         }
     
     @app.get("/health")
-    async def health():
+    async def health_check():
         """Health check endpoint with system status."""
         health_status = {
             "status": "healthy",
@@ -220,7 +226,7 @@ def create_app() -> FastAPI:
         
         # Check cache
         try:
-            await cache.get("health_check")
+            await cache_repository.get("health_check")
             health_status["services"]["cache"] = "healthy"
         except Exception as e:
             health_status["services"]["cache"] = f"unhealthy: {str(e)}"

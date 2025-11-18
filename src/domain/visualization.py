@@ -1,7 +1,7 @@
 """Visualization domain entities."""
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 import uuid
 
 
@@ -21,10 +21,10 @@ class ChartConfig:
 class Visualization:
     """Visualization entity - KISS: Simple data class."""
     
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     query_id: str
     chart_config: ChartConfig
     data: List[Dict[str, Any]]
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     format: str = "json"  # "json", "html", "png"
     created_at: datetime = field(default_factory=datetime.now)
 

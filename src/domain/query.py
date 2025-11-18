@@ -9,11 +9,11 @@ import uuid
 class Query:
     """Query entity - KISS: Simple data class."""
     
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     user_query: str
     generated_query: str  # SQL, MongoDB query, etc.
     query_type: str  # "sql", "mongodb", "cql", etc.
     database_id: str
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     parameters: Dict[str, Any] = field(default_factory=dict)
     confidence: float = 1.0
     execution_plan: Optional[Dict[str, Any]] = None

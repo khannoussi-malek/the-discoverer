@@ -2,7 +2,7 @@
 from fastapi import APIRouter, HTTPException, Depends, Query, Body
 from typing import Optional, List
 
-from src.application.services.query_result_sharing import QueryResultSharingService
+from src.utils.query_result_sharing import QueryResultSharingService
 from src.infrastructure.query_history.repository import QueryHistoryRepository
 
 

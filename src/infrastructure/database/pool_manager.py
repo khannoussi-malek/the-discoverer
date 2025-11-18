@@ -8,6 +8,7 @@ import asyncio
 from src.domain.database import Database
 from src.infrastructure.database.adapters.factory import DatabaseAdapterFactory
 from src.infrastructure.database.adapters.base import DatabaseAdapter
+from config.settings import get_settings
 
 
 class PoolStatus(str, Enum):
@@ -49,6 +50,7 @@ class ConnectionPoolManager:
     """Manages connection pools per database."""
     
     def __init__(self):
+        self.settings = get_settings()
         self._pools: Dict[str, DatabaseAdapter] = {}
         self._pool_configs: Dict[str, PoolConfig] = {}
         self._pool_stats: Dict[str, PoolStats] = {}
@@ -256,7 +258,7 @@ class ConnectionPoolManager:
             max_size=pool_config.get("max_size", database.connection_pool_size),
             max_queries=pool_config.get("max_queries", 50000),
             max_inactive_time=pool_config.get("max_inactive_time", 300.0),
-            timeout=pool_config.get("timeout", 30.0)
+            timeout=pool_config.get("timeout", self.settings.pool_default_timeout)
         )
     
     async def health_check(self, database_id: str) -> Dict[str, Any]:

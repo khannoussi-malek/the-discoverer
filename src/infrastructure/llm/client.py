@@ -1,4 +1,4 @@
-"""OpenAI LLM client."""
+"""LLM client supporting OpenAI and Perplexity."""
 from openai import AsyncOpenAI
 from typing import List, Dict, Any, Optional
 import json
@@ -11,7 +11,19 @@ class LLMClient:
     
     def __init__(self):
         self.settings = get_settings()
-        self.client = AsyncOpenAI(api_key=self.settings.openai_api_key)
+        
+        # Determine provider and configure client
+        if self.settings.llm_provider.lower() == "perplexity":
+            self.client = AsyncOpenAI(
+                api_key=self.settings.perplexity_api_key,
+                base_url=self.settings.perplexity_base_url
+            )
+            self.default_model = self.settings.perplexity_model
+            self.complex_model = self.settings.perplexity_model_complex
+        else:  # Default to OpenAI
+            self.client = AsyncOpenAI(api_key=self.settings.openai_api_key)
+            self.default_model = self.settings.openai_model
+            self.complex_model = self.settings.openai_model_complex
     
     async def generate(
         self,
@@ -22,7 +34,7 @@ class LLMClient:
     ) -> str:
         """Generate text using LLM."""
         response = await self.client.chat.completions.create(
-            model=model or self.settings.openai_model,
+            model=model or self.default_model,
             messages=[
                 {"role": "system", "content": "You are a helpful database query assistant."},
                 {"role": "user", "content": prompt}
@@ -41,7 +53,7 @@ class LLMClient:
     ) -> Dict[str, Any]:
         """Generate with function calling for structured output."""
         response = await self.client.chat.completions.create(
-            model=model or self.settings.openai_model,
+            model=model or self.default_model,
             messages=[
                 {"role": "system", "content": "You are a helpful database query assistant."},
                 {"role": "user", "content": prompt}

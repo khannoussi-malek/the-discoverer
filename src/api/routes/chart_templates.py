@@ -1,6 +1,6 @@
 """Chart template API routes."""
 from fastapi import APIRouter, HTTPException, Depends, Query
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 
 from src.api.models.request import ChartTemplateCreateRequest, ChartTemplateUpdateRequest
 from src.application.services.chart_template_service import ChartTemplateService

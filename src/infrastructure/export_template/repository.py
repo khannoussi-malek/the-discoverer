@@ -1,5 +1,5 @@
 """Export template repository."""
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Any
 from datetime import datetime
 
 from src.domain.export_template import ExportTemplate

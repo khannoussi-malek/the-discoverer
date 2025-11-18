@@ -25,3 +25,7 @@ def setup_logger(name: str = "the_discoverer") -> logging.Logger:
     
     return logger
 
+
+# Default logger instance
+logger = setup_logger()
+

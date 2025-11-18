@@ -1,10 +1,14 @@
 """Embedding generator using sentence transformers."""
-from sentence_transformers import SentenceTransformer
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING
 import numpy as np
 import asyncio
 
 from config.settings import get_settings
+
+if TYPE_CHECKING:
+    from sentence_transformers import SentenceTransformer
+else:
+    SentenceTransformer = None
 
 
 class EmbeddingGenerator:
@@ -12,13 +16,27 @@ class EmbeddingGenerator:
     
     def __init__(self):
         self.settings = get_settings()
-        self.model: Optional[SentenceTransformer] = None
+        self.model: Optional['SentenceTransformer'] = None
         self._model_loaded = False
+        self._sentence_transformers_available = False
+    
+    def _check_dependencies(self) -> bool:
+        """Check if sentence-transformers is available."""
+        if not self._sentence_transformers_available:
+            try:
+                from sentence_transformers import SentenceTransformer
+                self._SentenceTransformer = SentenceTransformer
+                self._sentence_transformers_available = True
+            except ImportError:
+                return False
+        return self._sentence_transformers_available
     
     def _load_model(self) -> None:
         """Lazy load model."""
+        if not self._check_dependencies():
+            raise ImportError("sentence-transformers is not installed. Install it with: pip install sentence-transformers")
         if not self._model_loaded:
-            self.model = SentenceTransformer(self.settings.embedding_model)
+            self.model = self._SentenceTransformer(self.settings.embedding_model)
             self._model_loaded = True
     
     async def generate(self, text: str) -> List[float]:

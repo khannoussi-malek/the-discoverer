@@ -22,7 +22,7 @@ class QdrantVectorDBClient:
         self.client = QdrantClient(
             url=self.settings.qdrant_url,
             api_key=self.settings.qdrant_api_key if self.settings.qdrant_api_key else None,
-            timeout=5,
+            timeout=self.settings.qdrant_client_timeout,
             prefer_grpc=True  # gRPC is faster
         )
         self._collections_initialized = False

@@ -39,10 +39,10 @@ class ScheduledQuery:
     updated_at: datetime
     last_run_at: Optional[datetime]
     next_run_at: Optional[datetime]
+    created_by: Optional[str]
     run_count: int = 0
     success_count: int = 0
     failure_count: int = 0
-    created_by: Optional[str]
     notify_on_failure: bool = False
     notify_email: Optional[str] = None
 

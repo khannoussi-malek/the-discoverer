@@ -48,7 +48,8 @@ clean:
 	rm -rf build dist
 
 run:
-	uvicorn src.api.main:app --reload --host 0.0.0.0 --port 8000
+	@python3 -c "from config.settings import get_settings; s = get_settings(); print(f'Starting server on {s.server_host}:{s.server_port}')" || echo "Starting server..."
+	uvicorn src.api.main:app --reload --host $$(python3 -c "from config.settings import get_settings; print(get_settings().server_host)") --port $$(python3 -c "from config.settings import get_settings; print(get_settings().server_port)")
 
 docker-up:
 	docker-compose up -d

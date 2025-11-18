@@ -8,6 +8,7 @@ from src.infrastructure.database.pool_manager import (
     PoolStatus
 )
 from src.infrastructure.database.repository import DatabaseRepository
+from config.settings import get_settings
 
 
 router = APIRouter(prefix="/api/pools", tags=["connection-pools"])
@@ -126,12 +127,13 @@ async def update_pool_config(
             raise HTTPException(status_code=404, detail="Database not found")
         
         # Create pool config
+        settings = get_settings()
         pool_config = PoolConfig(
             min_size=config.get("min_size", 2),
             max_size=config.get("max_size", 10),
             max_queries=config.get("max_queries", 50000),
             max_inactive_time=config.get("max_inactive_time", 300.0),
-            timeout=config.get("timeout", 30.0)
+            timeout=config.get("timeout", settings.pool_default_timeout)
         )
         
         success = await manager.update_pool_config(database_id, pool_config)
@@ -207,12 +209,13 @@ async def initialize_pool(
         # Create pool config if provided
         pool_config = None
         if config:
+            settings = get_settings()
             pool_config = PoolConfig(
                 min_size=config.get("min_size", 2),
                 max_size=config.get("max_size", 10),
                 max_queries=config.get("max_queries", 50000),
                 max_inactive_time=config.get("max_inactive_time", 300.0),
-                timeout=config.get("timeout", 30.0)
+                timeout=config.get("timeout", settings.pool_default_timeout)
             )
         
         # Get or create pool

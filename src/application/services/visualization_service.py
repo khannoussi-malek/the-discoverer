@@ -1,15 +1,36 @@
 """Visualization service - Chart generation."""
-from typing import List, Dict, Any, Optional
-import plotly.graph_objects as go
-import plotly.express as px
-import pandas as pd
+from typing import List, Dict, Any, Optional, TYPE_CHECKING
 
 from src.domain.visualization import Visualization, ChartConfig
 from src.domain.result import AggregatedResult
 
+# Lazy imports for optional dependencies
+if TYPE_CHECKING:
+    import plotly.graph_objects as go
+    import plotly.express as px
+    import pandas as pd
+else:
+    go = None
+    px = None
+    pd = None
+
 
 class VisualizationService:
     """Visualization service - KISS: One responsibility."""
+    
+    def _ensure_dependencies(self):
+        """Ensure plotly and pandas are available."""
+        global go, px, pd
+        if go is None or px is None or pd is None:
+            try:
+                import plotly.graph_objects as go
+                import plotly.express as px
+                import pandas as pd
+                globals()['go'] = go
+                globals()['px'] = px
+                globals()['pd'] = pd
+            except ImportError:
+                raise ImportError("plotly and pandas are required for visualization. Install with: pip install plotly pandas")
     
     def generate_chart(
         self,
@@ -17,6 +38,7 @@ class VisualizationService:
         chart_config: Optional[ChartConfig] = None
     ) -> Visualization:
         """Generate chart from query result."""
+        self._ensure_dependencies()
         if not chart_config:
             chart_config = self._detect_chart_type(result)
         
@@ -72,7 +94,7 @@ class VisualizationService:
     
     def _create_bar_chart(
         self,
-        df: pd.DataFrame,
+        df: Any,
         config: ChartConfig
     ) -> Dict[str, Any]:
         """Create bar chart."""
@@ -95,7 +117,7 @@ class VisualizationService:
     
     def _create_line_chart(
         self,
-        df: pd.DataFrame,
+        df: Any,
         config: ChartConfig
     ) -> Dict[str, Any]:
         """Create line chart."""
@@ -117,7 +139,7 @@ class VisualizationService:
     
     def _create_pie_chart(
         self,
-        df: pd.DataFrame,
+        df: Any,
         config: ChartConfig
     ) -> Dict[str, Any]:
         """Create pie chart."""
@@ -139,7 +161,7 @@ class VisualizationService:
     
     def _create_scatter_chart(
         self,
-        df: pd.DataFrame,
+        df: Any,
         config: ChartConfig
     ) -> Dict[str, Any]:
         """Create scatter chart."""
@@ -161,7 +183,7 @@ class VisualizationService:
     
     def _create_table(
         self,
-        df: pd.DataFrame,
+        df: Any,
         config: ChartConfig
     ) -> Dict[str, Any]:
         """Create table visualization."""

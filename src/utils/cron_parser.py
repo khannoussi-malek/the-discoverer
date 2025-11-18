@@ -1,5 +1,5 @@
 """Cron expression parser and scheduler."""
-from typing import Optional
+from typing import Optional, Dict, Any
 from datetime import datetime, timedelta
 import re
 

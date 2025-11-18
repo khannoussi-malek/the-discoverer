@@ -128,8 +128,12 @@ class QueryResultSharingService:
         
         return shares
     
-    def get_share_url(self, share_token: str, base_url: str = "http://localhost:8000") -> str:
+    def get_share_url(self, share_token: str, base_url: str = None) -> str:
         """Generate shareable URL."""
+        if base_url is None:
+            from config.settings import get_settings
+            settings = get_settings()
+            base_url = settings.api_base_url
         return f"{base_url}/api/shared/{share_token}"
 
 

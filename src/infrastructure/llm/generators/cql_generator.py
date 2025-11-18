@@ -123,9 +123,9 @@ Return only the CQL query, no explanations.
         """Select model based on query complexity."""
         complexity = self._estimate_complexity(query)
         if complexity == "simple":
-            return self.settings.openai_model
+            return self.llm_client.default_model
         else:
-            return self.settings.openai_model_complex
+            return self.llm_client.complex_model
     
     def _estimate_complexity(self, query: str) -> str:
         """Estimate query complexity."""

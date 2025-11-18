@@ -41,9 +41,11 @@ class Webhook:
 class WebhookService:
     """Service for managing and triggering webhooks."""
     
-    def __init__(self):
+    def __init__(self, timeout: float = None):
+        from config.settings import get_settings
+        settings = get_settings()
         self._webhooks: Dict[str, Webhook] = {}
-        self._client = httpx.AsyncClient(timeout=30.0)
+        self._client = httpx.AsyncClient(timeout=timeout or settings.webhook_timeout)
     
     @staticmethod
     def _generate_secret() -> str:

@@ -31,11 +31,15 @@ def get_scheduled_export_service() -> ScheduledExportService:
         if hasattr(app.state, 'webhook_service'):
             webhook_service = app.state.webhook_service
         
+        from config.settings import get_settings
+        settings = get_settings()
+        
         app.state.scheduled_export_service = ScheduledExportService(
             repository=repository,
             query_service=query_service,
             export_template_service=export_template_service,
-            webhook_service=webhook_service
+            webhook_service=webhook_service,
+            export_storage_path=settings.export_storage_path
         )
     return app.state.scheduled_export_service
 
