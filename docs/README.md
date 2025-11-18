@@ -2,7 +2,74 @@
 
 Welcome to The Discoverer documentation! This index will help you navigate through all available guides and find exactly what you need.
 
-## 🚀 Quick Start
+## 🎯 What is The Discoverer?
+
+**The Discoverer** is an AI-powered database discovery and query platform that transforms how you interact with your databases. Instead of writing complex SQL queries, you simply ask questions in natural language, and The Discoverer automatically:
+
+- **Discovers** your database schemas across multiple database types (PostgreSQL, MySQL, MongoDB, etc.)
+- **Understands** your data structure using AI and vector search
+- **Generates** optimized queries from natural language
+- **Executes** queries across multiple databases simultaneously
+- **Visualizes** results with beautiful, interactive charts
+- **Shares** insights with your team through dashboards and exports
+
+### Key Benefits
+
+✅ **No SQL Knowledge Required** - Ask questions in plain English  
+✅ **Multi-Database Support** - Query PostgreSQL, MySQL, MongoDB, SQLite, Cassandra, Elasticsearch  
+✅ **Fast Discovery** - AI-powered schema discovery with vector search  
+✅ **Automatic Visualization** - 15+ chart types generated automatically  
+✅ **Easy Integration** - REST API, Python SDK, JavaScript SDK, CLI  
+✅ **Enterprise Ready** - Authentication, scheduling, webhooks, monitoring  
+
+## 🚀 How to Implement The Discoverer
+
+### Option 1: Standalone Service (Recommended)
+
+Deploy The Discoverer as a separate microservice that your applications connect to.
+
+**Best for:** Multiple applications, centralized data access, team collaboration
+
+**Quick Start:**
+1. Follow the [Getting Started Guide](GETTING_STARTED.md) to deploy the service
+2. Register your databases via API or configuration file
+3. Integrate using [Python SDK](SDK.md), [JavaScript SDK](JAVASCRIPT_SDK.md), or REST API
+4. Start querying with natural language!
+
+### Option 2: Embedded Library
+
+Import The Discoverer as a Python library directly into your application.
+
+**Best for:** Single application use, tight integration requirements
+
+**Quick Start:**
+1. Install: `pip install the-discoverer`
+2. Import and use services directly in your code
+3. See [Python SDK](SDK.md) for examples
+
+### Option 3: API Integration
+
+Call The Discoverer REST API directly from any application.
+
+**Best for:** Non-Python applications, microservices architecture
+
+**Quick Start:**
+1. Deploy The Discoverer service
+2. Call REST API endpoints from your application
+3. See [API Reference](API.md) for complete endpoint documentation
+
+### Option 4: CLI Tool
+
+Use The Discoverer CLI in scripts and automation pipelines.
+
+**Best for:** Automation scripts, CI/CD pipelines, scheduled reports
+
+**Quick Start:**
+1. Install: `pip install -e .`
+2. Use CLI commands in your scripts
+3. See [CLI Documentation](CLI.md) for all commands
+
+## 📚 Quick Start
 
 **New to The Discoverer?** Start here:
 
@@ -16,7 +83,7 @@ Welcome to The Discoverer documentation! This index will help you navigate throu
    - Database registration examples
    - Query execution patterns
    - API usage samples
-   - Python client examples
+   - Python and JavaScript SDK examples
 
 ---
 
