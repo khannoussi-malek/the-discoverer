@@ -1,0 +1,107 @@
+[build-system]
+requires = ["setuptools==69.5.1", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "the-discoverer"
+version = "1.0.0"
+description = "AI-powered database discovery and query agent"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "Malek Khannoussi"}
+]
+maintainers = [
+    {name = "Malek Khannoussi"}
+]
+keywords = [
+    "database",
+    "discovery",
+    "query",
+    "ai",
+    "llm",
+    "sql",
+    "nosql",
+    "vector-database",
+    "qdrant",
+    "postgresql",
+    "mysql",
+    "mongodb",
+    "fastapi",
+    "data-visualization",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Database",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    # Core Dependencies
+    "fastapi>=0.104.1",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "python-dotenv>=1.0.0",
+    "click>=8.1.0",
+    "httpx>=0.25.2",
+    # Database Adapters
+    "asyncpg>=0.29.0",
+    "aiomysql>=0.2.0",
+    "motor>=3.3.2",
+    "cassandra-driver>=3.29.0",
+    "elasticsearch>=8.11.0",
+    "sqlalchemy>=2.0.23",
+    # Vector Database
+    "qdrant-client>=1.7.0",
+    "sentence-transformers>=2.2.2",
+    # LLM
+    "openai>=1.3.7",
+    "langchain>=0.0.350",
+    "langchain-openai>=0.0.2",
+    # Caching
+    "redis>=5.0.1",
+    "cachetools>=5.3.2",
+    # Visualization
+    "plotly>=5.18.0",
+    "pandas>=2.1.4",
+    "numpy>=1.26.2",
+    "openpyxl>=3.1.2",
+    "kaleido>=0.2.1",
+    "pyarrow>=14.0.1",
+    "fastavro>=1.8.2",
+    # Utilities
+    "aiohttp>=3.9.1",
+    "pyyaml>=6.0.1",
+    "aiosqlite>=0.19.0",
+    "pyjwt>=2.8.0",
+    "prometheus-client>=0.19.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/khannoussi-malek"
+Repository = "https://github.com/khannoussi-malek/exploarer"
+Documentation = "https://github.com/khannoussi-malek/exploarer"
+LinkedIn = "https://www.linkedin.com/in/khannoussi-malek/"
+
+[project.scripts]
+discoverer = "src.cli.main:cli"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.3",
+    "pytest-asyncio>=0.21.1",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+    "black>=23.11.0",
+    "flake8>=6.1.0",
+    "mypy>=1.7.1",
+]
+
+

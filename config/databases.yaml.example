@@ -1,0 +1,35 @@
+# Database Configuration Example
+# Copy this file to databases.yaml and fill in your database connections
+
+databases:
+  - id: "example_postgres"
+    type: "postgresql"
+    name: "Example PostgreSQL Database"
+    host: "localhost"
+    port: 5432
+    database: "example_db"
+    user: "${POSTGRES_USER}"
+    password: "${POSTGRES_PASSWORD}"
+    metadata:
+      description: "Example PostgreSQL database"
+      tags:
+        - "production"
+        - "postgresql"
+    connection_pool:
+      min_size: 5
+      max_size: 20
+
+  - id: "example_mongodb"
+    type: "mongodb"
+    name: "Example MongoDB Database"
+    host: "localhost"
+    port: 27017
+    database: "example_db"
+    user: "${MONGO_USER}"
+    password: "${MONGO_PASSWORD}"
+    metadata:
+      description: "Example MongoDB database"
+      tags:
+        - "production"
+        - "mongodb"
+
