@@ -287,26 +287,37 @@ python scripts/setup_vector_db.py
 
 ## Documentation
 
-📚 **Getting Started**: See [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md) for a quick start guide.
+📚 **[📖 Documentation Index](docs/README.md)** - Start here! Complete navigation guide to all documentation.
 
-📖 **Full Documentation**:
-- [Getting Started Guide](docs/GETTING_STARTED.md) - Quick start and setup instructions
-- [API Documentation](docs/API.md) - Complete API reference
-- [Examples](docs/EXAMPLES.md) - Usage examples and code samples
-- [Architecture](docs/ARCHITECTURE.md) - System architecture and design
-- [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment instructions
+### Quick Links
 
-🔧 **Feature-Specific Guides**:
-- [JavaScript SDK](docs/JAVASCRIPT_SDK.md) - JavaScript/TypeScript SDK usage
-- [Python SDK](docs/SDK.md) - Python SDK documentation
-- [Webhooks](docs/WEBHOOKS.md) - Webhook configuration and usage
-- [Dashboards](docs/DASHBOARDS.md) - Dashboard creation and management
-- [Chart Templates](docs/CHART_TEMPLATES.md) - Reusable chart configurations
-- [Query Result Sharing](docs/QUERY_RESULT_SHARING.md) - Share query results securely
-- [Connection Pools](docs/CONNECTION_POOLS.md) - Database connection pool management
-- [Compression](docs/COMPRESSION.md) - Data compression utilities
-- [WebSocket](docs/WEBSOCKET.md) - Real-time WebSocket support
-- [Scheduler](docs/SCHEDULER.md) - Query scheduling and automation
+**Getting Started:**
+- [📖 Documentation Index](docs/README.md) - Navigation hub for all docs
+- [🚀 Getting Started Guide](docs/GETTING_STARTED.md) - Quick setup (5 minutes)
+- [💡 Examples](docs/EXAMPLES.md) - Code samples and usage patterns
+
+**Core Documentation:**
+- [📡 API Reference](docs/API.md) - Complete API endpoint documentation
+- [🏗️ Architecture](docs/ARCHITECTURE.md) - System architecture and design
+- [🚢 Deployment Guide](docs/DEPLOYMENT.md) - Production deployment instructions
+
+**SDKs & Integration:**
+- [🐍 Python SDK](docs/SDK.md) - Python SDK documentation (async & sync)
+- [🌐 JavaScript/TypeScript SDK](docs/JAVASCRIPT_SDK.md) - Browser and Node.js support
+- [⚡ CLI Tool](docs/CLI.md) - Command-line interface
+
+**Feature Guides:**
+- [📊 Dashboards](docs/DASHBOARDS.md) - Dashboard creation and management
+- [📈 Chart Templates](docs/CHART_TEMPLATES.md) - Reusable chart configurations
+- [🔗 Query Result Sharing](docs/QUERY_RESULT_SHARING.md) - Share query results securely
+- [🔔 Webhooks](docs/WEBHOOKS.md) - Webhook configuration and usage
+- [⏰ Scheduler](docs/SCHEDULER.md) - Query scheduling and automation
+- [🔌 Connection Pools](docs/CONNECTION_POOLS.md) - Database connection pool management
+- [🗜️ Compression](docs/COMPRESSION.md) - Data compression utilities
+- [🌐 WebSocket](docs/WEBSOCKET.md) - Real-time WebSocket support
+- [📊 Metrics & Monitoring](docs/METRICS.md) - Performance monitoring
+
+**See the [Documentation Index](docs/README.md) for complete navigation and learning paths.**
 
 ## Quick Commands
 

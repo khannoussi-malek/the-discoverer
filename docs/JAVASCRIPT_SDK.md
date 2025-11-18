@@ -1,5 +1,7 @@
 # JavaScript/TypeScript SDK Documentation
 
+> 📖 **Navigation**: [Documentation Index](README.md) | [Getting Started](GETTING_STARTED.md) | [Examples](EXAMPLES.md) | [API Reference](API.md) | [Python SDK](SDK.md)
+
 ## Overview
 
 The Discoverer JavaScript/TypeScript SDK provides a complete client library for interacting with The Discoverer API from both browser and Node.js environments.

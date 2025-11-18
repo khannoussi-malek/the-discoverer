@@ -1,5 +1,7 @@
 # Usage Examples
 
+> 📖 **Navigation**: [Documentation Index](README.md) | [Getting Started](GETTING_STARTED.md) | [API Reference](API.md) | [Python SDK](SDK.md) | [JavaScript SDK](JAVASCRIPT_SDK.md)
+
 ## Database Discovery
 
 ### Register a PostgreSQL Database

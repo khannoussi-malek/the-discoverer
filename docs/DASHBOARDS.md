@@ -1,5 +1,7 @@
 # Dashboards Documentation
 
+> 📖 **Navigation**: [Documentation Index](README.md) | [Getting Started](GETTING_STARTED.md) | [Examples](EXAMPLES.md) | [Chart Templates](CHART_TEMPLATES.md)
+
 ## Overview
 
 Dashboards allow you to create custom views with multiple widgets (charts, queries, metrics, text) arranged in a flexible layout. Perfect for creating executive dashboards, KPI views, and data monitoring screens.
