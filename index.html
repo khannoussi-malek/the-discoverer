@@ -1,0 +1,2675 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI-powered database discovery and query agent">
+      
+      
+        <meta name="author" content="Malek Khannoussi">
+      
+      
+        <link rel="canonical" href="https://khannoussi-malek.github.io/the-discoverer/">
+      
+      
+      
+        <link rel="next" href="GETTING_STARTED/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>The Discoverer</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-discoverer-documentation-index" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="The Discoverer" class="md-header__button md-logo" aria-label="The Discoverer" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The Discoverer
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/khannoussi-malek/the-discoverer" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    the-discoverer
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="GETTING_STARTED/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="EXAMPLES/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Examples
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="API/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="ARCHITECTURE/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="DEPLOYMENT/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Deployment
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="FEATURES/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Features
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="SDK/" class="md-tabs__link">
+          
+  
+  
+  SDKs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="DASHBOARDS/" class="md-tabs__link">
+          
+  
+  
+  Features
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="The Discoverer" class="md-nav__button md-logo" aria-label="The Discoverer" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The Discoverer
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/khannoussi-malek/the-discoverer" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    the-discoverer
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Quick Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Learning Paths
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 Learning Paths">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-first-time-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For First-Time Users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-developers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Developers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-devopsadministrators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For DevOps/Administrators
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 Core Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📖 Core Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#essential-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Essential Guides
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Guides
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdk-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SDK Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operations &amp; Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Common Use Cases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Common Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-case-1-i-want-to-query-my-databases-with-natural-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 1: "I want to query my databases with natural language"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-2-i-want-to-build-a-dashboard-with-visualizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 2: "I want to build a dashboard with visualizations"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-3-i-want-to-integrate-the-discoverer-into-my-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 3: "I want to integrate The Discoverer into my application"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-4-i-want-to-automate-query-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 4: "I want to automate query execution"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-5-i-want-to-share-query-results-with-my-team" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 5: "I want to share query results with my team"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-6-i-want-to-monitor-and-optimize-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 6: "I want to monitor and optimize performance"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Feature Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Feature Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualization-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualization Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-management-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Management Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#administration-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Administration Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-endpoints-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ API Endpoints Quick Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ API Endpoints Quick Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sdk-quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📱 SDK Quick Start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📱 SDK Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python SDK
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#javascript-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript SDK
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚦 Getting Help
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚦 Getting Help">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Documentation Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎓 Learning Resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎓 Learning Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#beginner-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beginner Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intermediate-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intermediate Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Quick Links
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="GETTING_STARTED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="EXAMPLES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DEPLOYMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="FEATURES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDKs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SDKs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="SDK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python SDK
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="JAVASCRIPT_SDK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript SDK
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CLI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Tool
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Features
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DASHBOARDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CHART_TEMPLATES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chart Templates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="QUERY_RESULT_SHARING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query Result Sharing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="WEBHOOKS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="SCHEDULER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scheduler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="QUERY_VERSIONING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CONNECTION_POOLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connection Pools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="COMPRESSION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="WEBSOCKET/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebSocket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CHART_EXPORT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chart Export
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="METRICS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Quick Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Learning Paths
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 Learning Paths">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-first-time-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For First-Time Users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-developers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Developers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-devopsadministrators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For DevOps/Administrators
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 Core Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📖 Core Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#essential-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Essential Guides
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Guides
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdk-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SDK Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operations &amp; Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Common Use Cases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Common Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-case-1-i-want-to-query-my-databases-with-natural-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 1: "I want to query my databases with natural language"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-2-i-want-to-build-a-dashboard-with-visualizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 2: "I want to build a dashboard with visualizations"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-3-i-want-to-integrate-the-discoverer-into-my-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 3: "I want to integrate The Discoverer into my application"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-4-i-want-to-automate-query-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 4: "I want to automate query execution"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-5-i-want-to-share-query-results-with-my-team" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 5: "I want to share query results with my team"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-6-i-want-to-monitor-and-optimize-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 6: "I want to monitor and optimize performance"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Feature Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Feature Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualization-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualization Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-management-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Management Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#administration-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Administration Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-endpoints-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ API Endpoints Quick Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ API Endpoints Quick Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sdk-quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📱 SDK Quick Start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📱 SDK Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python SDK
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#javascript-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript SDK
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚦 Getting Help
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚦 Getting Help">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Documentation Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎓 Learning Resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎓 Learning Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#beginner-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beginner Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intermediate-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intermediate Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Quick Links
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="the-discoverer-documentation-index">The Discoverer - Documentation Index<a class="headerlink" href="#the-discoverer-documentation-index" title="Permanent link">&para;</a></h1>
+<p>Welcome to The Discoverer documentation! This index will help you navigate through all available guides and find exactly what you need.</p>
+<h2 id="quick-start">🚀 Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p><strong>New to The Discoverer?</strong> Start here:</p>
+<ol>
+<li><strong><a href="GETTING_STARTED/">Getting Started Guide</a></strong> - Complete setup instructions (5 minutes)</li>
+<li>Installation and prerequisites</li>
+<li>First database registration</li>
+<li>Your first query</li>
+<li>
+<p>Common workflows</p>
+</li>
+<li>
+<p><strong><a href="EXAMPLES/">Examples</a></strong> - Real-world usage examples</p>
+</li>
+<li>Database registration examples</li>
+<li>Query execution patterns</li>
+<li>API usage samples</li>
+<li>Python client examples</li>
+</ol>
+<hr />
+<h2 id="learning-paths">📚 Learning Paths<a class="headerlink" href="#learning-paths" title="Permanent link">&para;</a></h2>
+<h3 id="for-first-time-users">For First-Time Users<a class="headerlink" href="#for-first-time-users" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Start Here</strong>: <a href="GETTING_STARTED/">Getting Started Guide</a></li>
+<li><strong>See Examples</strong>: <a href="EXAMPLES/">Examples</a></li>
+<li><strong>Understand Architecture</strong>: <a href="ARCHITECTURE/">Architecture Overview</a></li>
+<li><strong>Explore API</strong>: <a href="API/">API Reference</a></li>
+</ol>
+<h3 id="for-developers">For Developers<a class="headerlink" href="#for-developers" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Setup</strong>: <a href="GETTING_STARTED/">Getting Started Guide</a></li>
+<li><strong>SDK Integration</strong>: </li>
+<li><a href="SDK/">Python SDK</a> - Async and sync Python clients</li>
+<li><a href="JAVASCRIPT_SDK/">JavaScript/TypeScript SDK</a> - Browser and Node.js support</li>
+<li><strong>API Reference</strong>: <a href="API/">Complete API Documentation</a></li>
+<li><strong>Architecture</strong>: <a href="ARCHITECTURE/">System Architecture</a></li>
+</ol>
+<h3 id="for-devopsadministrators">For DevOps/Administrators<a class="headerlink" href="#for-devopsadministrators" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Deployment</strong>: <a href="DEPLOYMENT/">Deployment Guide</a></li>
+<li><strong>Monitoring</strong>: <a href="METRICS/">Metrics &amp; Monitoring</a></li>
+<li><strong>Connection Management</strong>: <a href="CONNECTION_POOLS/">Connection Pools</a></li>
+<li><strong>Health Checks</strong>: See <a href="API/#health-endpoints">API Reference - Health Endpoints</a></li>
+</ol>
+<hr />
+<h2 id="core-documentation">📖 Core Documentation<a class="headerlink" href="#core-documentation" title="Permanent link">&para;</a></h2>
+<h3 id="essential-guides">Essential Guides<a class="headerlink" href="#essential-guides" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Description</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><a href="GETTING_STARTED/">Getting Started</a></strong></td>
+<td>Quick setup and first steps</td>
+<td>First time setup</td>
+</tr>
+<tr>
+<td><strong><a href="EXAMPLES/">Examples</a></strong></td>
+<td>Code samples and usage patterns</td>
+<td>Learning how to use features</td>
+</tr>
+<tr>
+<td><strong><a href="API/">API Reference</a></strong></td>
+<td>Complete API endpoint documentation</td>
+<td>Building integrations</td>
+</tr>
+<tr>
+<td><strong><a href="ARCHITECTURE/">Architecture</a></strong></td>
+<td>System design and architecture</td>
+<td>Understanding the system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="feature-guides">Feature Guides<a class="headerlink" href="#feature-guides" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Documentation</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dashboards</strong></td>
+<td><a href="DASHBOARDS/">Dashboards Guide</a></td>
+<td>Creating and managing dashboards</td>
+</tr>
+<tr>
+<td><strong>Chart Templates</strong></td>
+<td><a href="CHART_TEMPLATES/">Chart Templates</a></td>
+<td>Reusable chart configurations</td>
+</tr>
+<tr>
+<td><strong>Query Sharing</strong></td>
+<td><a href="QUERY_RESULT_SHARING/">Query Result Sharing</a></td>
+<td>Sharing query results securely</td>
+</tr>
+<tr>
+<td><strong>Webhooks</strong></td>
+<td><a href="WEBHOOKS/">Webhooks Guide</a></td>
+<td>Event notifications and integrations</td>
+</tr>
+<tr>
+<td><strong>Scheduler</strong></td>
+<td><a href="SCHEDULER/">Scheduler Guide</a></td>
+<td>Automated query execution</td>
+</tr>
+<tr>
+<td><strong>Query Versioning</strong></td>
+<td><a href="QUERY_VERSIONING/">Query Versioning</a></td>
+<td>Tracking query changes</td>
+</tr>
+<tr>
+<td><strong>Connection Pools</strong></td>
+<td><a href="CONNECTION_POOLS/">Connection Pools</a></td>
+<td>Database connection management</td>
+</tr>
+<tr>
+<td><strong>Compression</strong></td>
+<td><a href="COMPRESSION/">Compression Guide</a></td>
+<td>Data compression utilities</td>
+</tr>
+<tr>
+<td><strong>WebSocket</strong></td>
+<td><a href="WEBSOCKET/">WebSocket Guide</a></td>
+<td>Real-time updates</td>
+</tr>
+<tr>
+<td><strong>Chart Export</strong></td>
+<td><a href="CHART_EXPORT/">Chart Export</a></td>
+<td>Exporting visualizations</td>
+</tr>
+<tr>
+<td><strong>CLI Tool</strong></td>
+<td><a href="CLI/">CLI Documentation</a></td>
+<td>Command-line interface</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sdk-documentation">SDK Documentation<a class="headerlink" href="#sdk-documentation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>SDK</th>
+<th>Documentation</th>
+<th>Platform</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Python SDK</strong></td>
+<td><a href="SDK/">Python SDK Guide</a></td>
+<td>Python 3.10+</td>
+</tr>
+<tr>
+<td><strong>JavaScript/TypeScript SDK</strong></td>
+<td><a href="JAVASCRIPT_SDK/">JavaScript SDK Guide</a></td>
+<td>Browser &amp; Node.js</td>
+</tr>
+</tbody>
+</table>
+<h3 id="operations-deployment">Operations &amp; Deployment<a class="headerlink" href="#operations-deployment" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Documentation</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Deployment</strong></td>
+<td><a href="DEPLOYMENT/">Deployment Guide</a></td>
+<td>Production deployment</td>
+</tr>
+<tr>
+<td><strong>Metrics</strong></td>
+<td><a href="METRICS/">Metrics &amp; Monitoring</a></td>
+<td>Performance monitoring</td>
+</tr>
+<tr>
+<td><strong>Features</strong></td>
+<td><a href="FEATURES/">Features Overview</a></td>
+<td>Complete feature list</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="common-use-cases">🎯 Common Use Cases<a class="headerlink" href="#common-use-cases" title="Permanent link">&para;</a></h2>
+<h3 id="use-case-1-i-want-to-query-my-databases-with-natural-language">Use Case 1: "I want to query my databases with natural language"<a class="headerlink" href="#use-case-1-i-want-to-query-my-databases-with-natural-language" title="Permanent link">&para;</a></h3>
+<p><strong>Path:</strong>
+1. <a href="GETTING_STARTED/">Getting Started</a> - Setup and register your first database
+2. <a href="EXAMPLES/#query-execution">Examples</a> - See query examples
+3. <a href="API/#query-endpoints">API Reference - Query Endpoints</a> - Full query API</p>
+<p><strong>Key Features:</strong>
+- Natural language to SQL/NoSQL conversion
+- Multi-database querying
+- Query result pagination and streaming</p>
+<hr />
+<h3 id="use-case-2-i-want-to-build-a-dashboard-with-visualizations">Use Case 2: "I want to build a dashboard with visualizations"<a class="headerlink" href="#use-case-2-i-want-to-build-a-dashboard-with-visualizations" title="Permanent link">&para;</a></h3>
+<p><strong>Path:</strong>
+1. <a href="DASHBOARDS/">Dashboards Guide</a> - Create your first dashboard
+2. <a href="CHART_TEMPLATES/">Chart Templates</a> - Use reusable chart configurations
+3. <a href="CHART_EXPORT/">Chart Export</a> - Export visualizations</p>
+<p><strong>Key Features:</strong>
+- Dashboard creation and management
+- Multiple chart types (bar, line, pie, scatter, etc.)
+- Widget-based layouts
+- Public/private dashboards</p>
+<hr />
+<h3 id="use-case-3-i-want-to-integrate-the-discoverer-into-my-application">Use Case 3: "I want to integrate The Discoverer into my application"<a class="headerlink" href="#use-case-3-i-want-to-integrate-the-discoverer-into-my-application" title="Permanent link">&para;</a></h3>
+<p><strong>Path:</strong>
+1. Choose your SDK:
+   - <a href="SDK/">Python SDK</a> - For Python applications
+   - <a href="JAVASCRIPT_SDK/">JavaScript SDK</a> - For web/Node.js applications
+2. <a href="API/">API Reference</a> - Direct REST API integration
+3. <a href="EXAMPLES/">Examples</a> - Integration examples</p>
+<p><strong>Key Features:</strong>
+- Full-featured SDKs (async and sync)
+- REST API with OpenAPI documentation
+- WebSocket support for real-time updates</p>
+<hr />
+<h3 id="use-case-4-i-want-to-automate-query-execution">Use Case 4: "I want to automate query execution"<a class="headerlink" href="#use-case-4-i-want-to-automate-query-execution" title="Permanent link">&para;</a></h3>
+<p><strong>Path:</strong>
+1. <a href="SCHEDULER/">Scheduler Guide</a> - Schedule queries with cron-like syntax
+2. <a href="WEBHOOKS/">Webhooks Guide</a> - Get notified of query completion
+3. <a href="API/#export-templates">Export Templates</a> - Automated exports</p>
+<p><strong>Key Features:</strong>
+- Cron-based scheduling
+- Webhook notifications
+- Scheduled exports
+- Background job execution</p>
+<hr />
+<h3 id="use-case-5-i-want-to-share-query-results-with-my-team">Use Case 5: "I want to share query results with my team"<a class="headerlink" href="#use-case-5-i-want-to-share-query-results-with-my-team" title="Permanent link">&para;</a></h3>
+<p><strong>Path:</strong>
+1. <a href="QUERY_RESULT_SHARING/">Query Result Sharing</a> - Create shareable links
+2. <a href="DASHBOARDS/">Dashboards</a> - Create shared dashboards
+3. <a href="API/#sharing-endpoints">API Reference - Sharing Endpoints</a></p>
+<p><strong>Key Features:</strong>
+- Secure shareable links
+- Password protection
+- Access limits and expiration
+- Email restrictions</p>
+<hr />
+<h3 id="use-case-6-i-want-to-monitor-and-optimize-performance">Use Case 6: "I want to monitor and optimize performance"<a class="headerlink" href="#use-case-6-i-want-to-monitor-and-optimize-performance" title="Permanent link">&para;</a></h3>
+<p><strong>Path:</strong>
+1. <a href="METRICS/">Metrics &amp; Monitoring</a> - Prometheus metrics
+2. <a href="CONNECTION_POOLS/">Connection Pools</a> - Optimize connections
+3. <a href="API/#stats-endpoints">API Reference - Stats Endpoints</a></p>
+<p><strong>Key Features:</strong>
+- Prometheus metrics export
+- Performance statistics
+- Connection pool management
+- Health monitoring</p>
+<hr />
+<h2 id="feature-reference">🔍 Feature Reference<a class="headerlink" href="#feature-reference" title="Permanent link">&para;</a></h2>
+<h3 id="query-features">Query Features<a class="headerlink" href="#query-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ Natural language queries</li>
+<li>✅ Multi-database support</li>
+<li>✅ Query result caching</li>
+<li>✅ Query optimization</li>
+<li>✅ Query versioning</li>
+<li>✅ Query result comparison</li>
+<li>✅ Query streaming (NDJSON, JSON, CSV, TSV)</li>
+<li>✅ Query result compression</li>
+<li>✅ Query result pagination</li>
+</ul>
+<p><strong>Documentation:</strong>
+- <a href="API/#query-endpoints">API Reference - Query</a>
+- <a href="EXAMPLES/#query-execution">Examples - Query Execution</a>
+- <a href="QUERY_VERSIONING/">Query Versioning</a></p>
+<h3 id="visualization-features">Visualization Features<a class="headerlink" href="#visualization-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ Automatic chart generation</li>
+<li>✅ Chart templates</li>
+<li>✅ Dashboard creation</li>
+<li>✅ Multiple chart types (10+)</li>
+<li>✅ Chart export (PNG, PDF, HTML, SVG)</li>
+</ul>
+<p><strong>Documentation:</strong>
+- <a href="DASHBOARDS/">Dashboards Guide</a>
+- <a href="CHART_TEMPLATES/">Chart Templates</a>
+- <a href="CHART_EXPORT/">Chart Export</a></p>
+<h3 id="integration-features">Integration Features<a class="headerlink" href="#integration-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ REST API</li>
+<li>✅ Python SDK (async &amp; sync)</li>
+<li>✅ JavaScript/TypeScript SDK</li>
+<li>✅ WebSocket support</li>
+<li>✅ Webhooks</li>
+<li>✅ CLI tool</li>
+</ul>
+<p><strong>Documentation:</strong>
+- <a href="SDK/">Python SDK</a>
+- <a href="JAVASCRIPT_SDK/">JavaScript SDK</a>
+- <a href="WEBHOOKS/">Webhooks Guide</a>
+- <a href="WEBSOCKET/">WebSocket Guide</a>
+- <a href="CLI/">CLI Documentation</a></p>
+<h3 id="data-management-features">Data Management Features<a class="headerlink" href="#data-management-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ Export (CSV, JSON, Excel, Parquet, Avro)</li>
+<li>✅ Export templates</li>
+<li>✅ Scheduled exports</li>
+<li>✅ Query result sharing</li>
+<li>✅ Data compression</li>
+</ul>
+<p><strong>Documentation:</strong>
+- <a href="API/#export-endpoints">API Reference - Export</a>
+- <a href="COMPRESSION/">Compression Guide</a>
+- <a href="QUERY_RESULT_SHARING/">Query Result Sharing</a></p>
+<h3 id="administration-features">Administration Features<a class="headerlink" href="#administration-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ Database health monitoring</li>
+<li>✅ Schema change detection</li>
+<li>✅ Connection pool management</li>
+<li>✅ API key management</li>
+<li>✅ Cost tracking (LLM usage)</li>
+<li>✅ Authentication &amp; authorization</li>
+</ul>
+<p><strong>Documentation:</strong>
+- <a href="CONNECTION_POOLS/">Connection Pools</a>
+- <a href="API/#management-endpoints">API Reference - Management</a>
+- <a href="METRICS/">Metrics &amp; Monitoring</a></p>
+<hr />
+<h2 id="api-endpoints-quick-reference">🛠️ API Endpoints Quick Reference<a class="headerlink" href="#api-endpoints-quick-reference" title="Permanent link">&para;</a></h2>
+<h3 id="core-endpoints">Core Endpoints<a class="headerlink" href="#core-endpoints" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Discovery</strong>: <code>/api/discovery/*</code> - Database discovery and management</li>
+<li><strong>Query</strong>: <code>/api/query/*</code> - Query execution</li>
+<li><strong>Visualization</strong>: <code>/api/visualization/*</code> - Chart generation</li>
+<li><strong>Export</strong>: <code>/api/export/*</code> - Export query results</li>
+</ul>
+<h3 id="advanced-endpoints">Advanced Endpoints<a class="headerlink" href="#advanced-endpoints" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Dashboards</strong>: <code>/api/dashboards/*</code> - Dashboard management</li>
+<li><strong>Chart Templates</strong>: <code>/api/chart-templates/*</code> - Chart template management</li>
+<li><strong>Sharing</strong>: <code>/api/sharing/*</code> - Query result sharing</li>
+<li><strong>Webhooks</strong>: <code>/api/webhooks/*</code> - Webhook management</li>
+<li><strong>Scheduler</strong>: <code>/api/scheduler/*</code> - Query scheduling</li>
+<li><strong>Cache</strong>: <code>/api/cache/*</code> - Cache management</li>
+<li><strong>Pools</strong>: <code>/api/pools/*</code> - Connection pool management</li>
+</ul>
+<p><strong>Full Reference</strong>: <a href="API/">API Documentation</a></p>
+<hr />
+<h2 id="sdk-quick-start">📱 SDK Quick Start<a class="headerlink" href="#sdk-quick-start" title="Permanent link">&para;</a></h2>
+<h3 id="python-sdk">Python SDK<a class="headerlink" href="#python-sdk" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.sdk.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">DiscovererClient</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">client</span> <span class="o">=</span> <span class="n">DiscovererClient</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;http://localhost:8000&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="s2">&quot;Show me all customers&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Full Guide</strong>: <a href="SDK/">Python SDK Documentation</a></p>
+<h3 id="javascript-sdk">JavaScript SDK<a class="headerlink" href="#javascript-sdk" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">DiscovererClient</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@the-discoverer/sdk&#39;</span><span class="p">;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">DiscovererClient</span><span class="p">({</span><span class="w"> </span><span class="nx">baseURL</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://localhost:8000&#39;</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">executeQuery</span><span class="p">(</span><span class="s1">&#39;Show me all customers&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Full Guide</strong>: <a href="JAVASCRIPT_SDK/">JavaScript SDK Documentation</a></p>
+<hr />
+<h2 id="getting-help">🚦 Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h2>
+<h3 id="documentation-issues">Documentation Issues<a class="headerlink" href="#documentation-issues" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Check the <a href="GETTING_STARTED/">Getting Started Guide</a> for setup help</li>
+<li>Review <a href="EXAMPLES/">Examples</a> for usage patterns</li>
+<li>Consult <a href="API/">API Reference</a> for endpoint details</li>
+</ul>
+<h3 id="common-tasks">Common Tasks<a class="headerlink" href="#common-tasks" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Setup Problems</strong>: <a href="GETTING_STARTED/#troubleshooting">Getting Started - Troubleshooting</a></li>
+<li><strong>API Questions</strong>: <a href="API/">API Reference</a></li>
+<li><strong>Integration Help</strong>: <a href="SDK/">SDK Documentation</a> or <a href="JAVASCRIPT_SDK/">JavaScript SDK</a></li>
+</ul>
+<hr />
+<h2 id="documentation-structure">📋 Documentation Structure<a class="headerlink" href="#documentation-structure" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docs/
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── README.md (this file)          # Navigation index
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├── GETTING_STARTED.md              # Quick start guide
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>├── EXAMPLES.md                     # Usage examples
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>├── API.md                          # Complete API reference
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>├── ARCHITECTURE.md                 # System architecture
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>├── DEPLOYMENT.md                   # Deployment guide
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>├── FEATURES.md                     # Features overview
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>│
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>├── SDK.md                          # Python SDK
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>├── JAVASCRIPT_SDK.md               # JavaScript/TypeScript SDK
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>├── CLI.md                          # CLI tool
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>│
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>├── DASHBOARDS.md                   # Dashboard creation
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>├── CHART_TEMPLATES.md              # Chart templates
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>├── CHART_EXPORT.md                 # Chart export
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>├── QUERY_RESULT_SHARING.md         # Result sharing
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>├── QUERY_VERSIONING.md             # Query versioning
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>├── WEBHOOKS.md                     # Webhooks
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>├── WEBSOCKET.md                    # WebSocket support
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>├── SCHEDULER.md                    # Query scheduling
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>├── CONNECTION_POOLS.md             # Connection pools
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>├── COMPRESSION.md                  # Data compression
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>└── METRICS.md                      # Metrics &amp; monitoring
+</code></pre></div>
+<hr />
+<h2 id="learning-resources">🎓 Learning Resources<a class="headerlink" href="#learning-resources" title="Permanent link">&para;</a></h2>
+<h3 id="beginner-path">Beginner Path<a class="headerlink" href="#beginner-path" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Read <a href="GETTING_STARTED/">Getting Started Guide</a></li>
+<li>Try <a href="EXAMPLES/">Examples</a></li>
+<li>Explore <a href="API/">API Documentation</a></li>
+</ol>
+<h3 id="intermediate-path">Intermediate Path<a class="headerlink" href="#intermediate-path" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Build a dashboard: <a href="DASHBOARDS/">Dashboards Guide</a></li>
+<li>Integrate with SDK: <a href="SDK/">Python SDK</a> or <a href="JAVASCRIPT_SDK/">JavaScript SDK</a></li>
+<li>Set up webhooks: <a href="WEBHOOKS/">Webhooks Guide</a></li>
+</ol>
+<h3 id="advanced-path">Advanced Path<a class="headerlink" href="#advanced-path" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Understand architecture: <a href="ARCHITECTURE/">Architecture Guide</a></li>
+<li>Optimize performance: <a href="CONNECTION_POOLS/">Connection Pools</a>, <a href="METRICS/">Metrics</a></li>
+<li>Deploy to production: <a href="DEPLOYMENT/">Deployment Guide</a></li>
+</ol>
+<hr />
+<h2 id="quick-links">🔗 Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Repository</strong>: <a href="https://github.com/khannoussi-malek/the-discoverer">GitHub</a></li>
+<li><strong>API Docs (when running)</strong>: http://localhost:8000/docs</li>
+<li><strong>ReDoc (when running)</strong>: http://localhost:8000/redoc</li>
+</ul>
+<hr />
+<p><strong>Last Updated</strong>: 2024</p>
+<p><strong>Need help?</strong> Start with the <a href="GETTING_STARTED/">Getting Started Guide</a> or check the <a href="EXAMPLES/">Examples</a> for code samples.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 Malek Khannoussi
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
