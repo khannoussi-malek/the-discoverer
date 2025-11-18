@@ -1,5 +1,7 @@
 # The Discoverer
 
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/khannoussi-malek/the-discoverer)
+
 AI-powered database discovery and query agent supporting multiple SQL and NoSQL databases with vector database optimization for schema and content.
 
 ## Author
@@ -35,7 +37,7 @@ AI-powered database discovery and query agent supporting multiple SQL and NoSQL 
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/khannoussi-malek/the-discoverer.git
 cd the-discoverer
 ```
 
@@ -285,11 +287,26 @@ python scripts/setup_vector_db.py
 
 ## Documentation
 
-- [Architecture](docs/ARCHITECTURE.md) - System architecture
-- [API Documentation](docs/API.md) - API reference
-- [Examples](docs/EXAMPLES.md) - Usage examples
-- [Deployment](docs/DEPLOYMENT.md) - Deployment guide
-- [Features](docs/FEATURES.md) - Detailed features documentation
+📚 **Getting Started**: See [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md) for a quick start guide.
+
+📖 **Full Documentation**:
+- [Getting Started Guide](docs/GETTING_STARTED.md) - Quick start and setup instructions
+- [API Documentation](docs/API.md) - Complete API reference
+- [Examples](docs/EXAMPLES.md) - Usage examples and code samples
+- [Architecture](docs/ARCHITECTURE.md) - System architecture and design
+- [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment instructions
+
+🔧 **Feature-Specific Guides**:
+- [JavaScript SDK](docs/JAVASCRIPT_SDK.md) - JavaScript/TypeScript SDK usage
+- [Python SDK](docs/SDK.md) - Python SDK documentation
+- [Webhooks](docs/WEBHOOKS.md) - Webhook configuration and usage
+- [Dashboards](docs/DASHBOARDS.md) - Dashboard creation and management
+- [Chart Templates](docs/CHART_TEMPLATES.md) - Reusable chart configurations
+- [Query Result Sharing](docs/QUERY_RESULT_SHARING.md) - Share query results securely
+- [Connection Pools](docs/CONNECTION_POOLS.md) - Database connection pool management
+- [Compression](docs/COMPRESSION.md) - Data compression utilities
+- [WebSocket](docs/WEBSOCKET.md) - Real-time WebSocket support
+- [Scheduler](docs/SCHEDULER.md) - Query scheduling and automation
 
 ## Quick Commands
 
@@ -304,7 +321,31 @@ python scripts/setup_vector_db.py
 python scripts/index_database.py <database_id>
 ```
 
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
 ## License
 
-MIT
+MIT License
+
+Copyright (c) 2024 Malek Khannoussi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
