@@ -5,6 +5,15 @@ stages:
 variables:
   BASE_URL: "http://localhost:8000"
   PYTHON_VERSION: "3.10"
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  key:
+    files:
+      - requirements-ci.txt
+  paths:
+    - .cache/pip/
+  policy: pull-push
 
 services:
   - name: qdrant/qdrant:latest
@@ -19,21 +28,18 @@ test:no-llm:
   before_script:
     # Show initial disk space
     - df -h
+    # Create cache directory if it doesn't exist
+    - mkdir -p .cache/pip
     # Note: Most packages (including TensorFlow/PyTorch) come as pre-built wheels
     # Build tools are not needed and would consume additional disk space
-    # Clean up any existing caches
-    - rm -rf /root/.cache/pip || true
+    # Clean up temporary files but keep GitLab cache
     - rm -rf /tmp/* || true
     - python -m pip install --upgrade pip
-    # Clean pip cache before installation
-    - pip cache purge || true
-    # Install with no cache to save disk space
+    # Install using GitLab CI cache (will reuse downloaded packages from previous runs)
     # Use lightweight CI requirements that exclude heavy ML dependencies
-    - pip install --no-cache-dir -r requirements-ci.txt
-    - pip install --no-cache-dir pytest-timeout
-    # Aggressive cleanup after installation
-    - pip cache purge || true
-    - rm -rf /root/.cache/pip || true
+    - pip install --cache-dir $PIP_CACHE_DIR -r requirements-ci.txt
+    - pip install --cache-dir $PIP_CACHE_DIR pytest-timeout
+    # Clean up temporary build files (keep cache for next run)
     - rm -rf /tmp/pip-* || true
     - rm -rf /tmp/build || true
     # Clean up Python bytecode caches
@@ -72,8 +78,8 @@ test:no-llm:
     - echo ""
     - echo "4. Performance tests (quick subset)..."
     - pytest tests/integration/test_performance.py::TestResponseTime::test_health_endpoint_response_time \
-             tests/integration/test_performance.py::TestResponseTime::test_cache_stats_response_time \
-             -v -s --tb=short || true
+      tests/integration/test_performance.py::TestResponseTime::test_cache_stats_response_time \
+      -v -s --tb=short || true
     - echo ""
     - echo "5. Feature tests (no LLM)..."
     - python3 test_features_python.py --skip-llm || true
@@ -97,12 +103,10 @@ lint:
   stage: lint
   image: python:${PYTHON_VERSION}-slim
   before_script:
-    - rm -rf /root/.cache/pip || true
+    - mkdir -p .cache/pip
     - python -m pip install --upgrade pip
-    - pip cache purge || true
-    - pip install --no-cache-dir flake8 black mypy
-    - pip cache purge || true
-    - rm -rf /root/.cache/pip || true
+    # Use cache for linting tools too
+    - pip install --cache-dir $PIP_CACHE_DIR flake8 black mypy
   script:
     - flake8 src/ tests/ --count --select=E9,F63,F7,F82 --show-source --statistics || true
     - black --check src/ tests/ || true
@@ -110,4 +114,3 @@ lint:
     - main
     - develop
     - merge_requests
-

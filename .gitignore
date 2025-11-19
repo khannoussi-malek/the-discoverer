@@ -84,3 +84,6 @@ frontend/.next/
 # Documentation build
 site/
 
+# CI cache (GitLab CI caches pip packages here)
+.cache/
+
