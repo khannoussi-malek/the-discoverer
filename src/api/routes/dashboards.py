@@ -4,6 +4,7 @@ from typing import Optional, List, Dict, Any
 
 from src.api.models.request import DashboardCreateRequest, DashboardUpdateRequest
 from src.application.services.dashboard_service import DashboardService
+from src.infrastructure.auth.auth_dependency import require_auth, AuthInfo
 
 
 router = APIRouter(prefix="/api/dashboards", tags=["dashboards"])
@@ -21,6 +22,7 @@ def get_dashboard_service() -> DashboardService:
 @router.post("")
 async def create_dashboard(
     request: DashboardCreateRequest,
+    auth: AuthInfo = Depends(require_auth),
     service: DashboardService = Depends(get_dashboard_service)
 ):
     """Create a new dashboard."""
@@ -51,6 +53,7 @@ async def create_dashboard(
 
 @router.get("")
 async def list_dashboards(
+    auth: AuthInfo = Depends(require_auth),
     public_only: bool = Query(False),
     tags: Optional[str] = Query(None),
     service: DashboardService = Depends(get_dashboard_service)
@@ -86,6 +89,7 @@ async def list_dashboards(
 @router.get("/{dashboard_id}")
 async def get_dashboard(
     dashboard_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: DashboardService = Depends(get_dashboard_service)
 ):
     """Get a dashboard by ID."""
@@ -114,6 +118,7 @@ async def get_dashboard(
 @router.get("/{dashboard_id}/render")
 async def render_dashboard(
     dashboard_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: DashboardService = Depends(get_dashboard_service)
 ):
     """Render a dashboard with all widget data."""
@@ -130,6 +135,7 @@ async def render_dashboard(
 async def update_dashboard(
     dashboard_id: str,
     request: DashboardUpdateRequest,
+    auth: AuthInfo = Depends(require_auth),
     service: DashboardService = Depends(get_dashboard_service)
 ):
     """Update a dashboard."""
@@ -164,6 +170,7 @@ async def update_dashboard(
 @router.delete("/{dashboard_id}")
 async def delete_dashboard(
     dashboard_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: DashboardService = Depends(get_dashboard_service)
 ):
     """Delete a dashboard."""
@@ -183,6 +190,7 @@ async def delete_dashboard(
 async def add_widget(
     dashboard_id: str,
     widget: Dict[str, Any],
+    auth: AuthInfo = Depends(require_auth),
     service: DashboardService = Depends(get_dashboard_service)
 ):
     """Add a widget to a dashboard."""
@@ -206,6 +214,7 @@ async def add_widget(
 async def remove_widget(
     dashboard_id: str,
     widget_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: DashboardService = Depends(get_dashboard_service)
 ):
     """Remove a widget from a dashboard."""
@@ -230,6 +239,7 @@ async def update_widget(
     dashboard_id: str,
     widget_id: str,
     updates: Dict[str, Any],
+    auth: AuthInfo = Depends(require_auth),
     service: DashboardService = Depends(get_dashboard_service)
 ):
     """Update a widget in a dashboard."""

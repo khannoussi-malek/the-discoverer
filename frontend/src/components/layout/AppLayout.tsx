@@ -1,8 +1,12 @@
 import { Outlet } from "react-router-dom"
 import { Sidebar } from "./Sidebar"
 import { Header } from "./Header"
+import { useGlobalShortcuts } from "@/hooks/useGlobalShortcuts"
 
 export function AppLayout() {
+  // Enable global keyboard shortcuts for navigation
+  useGlobalShortcuts()
+
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar />

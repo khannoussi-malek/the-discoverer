@@ -12,6 +12,7 @@ from src.utils.query_analyzer import QueryAnalyzer
 from src.api.routes.websocket import get_connection_manager
 from src.utils.compression import CompressionService, CompressionType
 from src.utils.streaming import StreamingFormat, QueryResultStreamer, ProgressStreamer
+from src.infrastructure.auth.auth_dependency import require_auth, AuthInfo
 
 
 router = APIRouter(prefix="/api/query", tags=["query"])
@@ -26,6 +27,7 @@ def get_query_service() -> QueryService:
 @router.post("/execute")
 async def execute_query(
     request: QueryRequest,
+    auth: AuthInfo = Depends(require_auth),
     stream: bool = False,
     stream_format: str = Query("ndjson", description="Streaming format: ndjson, json, csv, tsv"),
     stream_progress: bool = Query(False, description="Include progress updates in stream"),
@@ -196,7 +198,8 @@ def _get_stream_media_type(format: str) -> str:
 
 @router.post("/analyze")
 async def analyze_query(
-    request: QueryRequest
+    request: QueryRequest,
+    auth: AuthInfo = Depends(require_auth)
 ):
     """Analyze a query without executing it."""
     try:

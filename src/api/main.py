@@ -171,6 +171,30 @@ def create_app() -> FastAPI:
         # Initialize vector DB collections
         await vector_db_client.initialize_collections()
         
+        # Create default admin user if it doesn't exist
+        default_username = settings.default_admin_username
+        default_password = settings.default_admin_password
+        default_email = settings.default_admin_email
+        
+        existing_user = await user_repository.get_by_username(default_username)
+        if not existing_user:
+            try:
+                admin_user = await user_repository.create_user(
+                    username=default_username,
+                    email=default_email,
+                    password=default_password,
+                    roles=["admin", "user"]
+                )
+                print(f"✅ Default admin user created:")
+                print(f"   Username: {default_username}")
+                print(f"   Email: {default_email}")
+                print(f"   Password: {default_password}")
+                print(f"   ⚠️  Please change the default password after first login!")
+            except Exception as e:
+                print(f"⚠️  Failed to create default admin user: {e}")
+        else:
+            print(f"ℹ️  Default admin user already exists: {default_username}")
+        
         # Start database health monitoring (already initialized)
         if hasattr(app.state, 'health_monitor'):
             await app.state.health_monitor.start_monitoring()

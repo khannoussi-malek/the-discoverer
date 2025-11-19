@@ -5,6 +5,7 @@ from typing import List
 from src.api.models.request import DatabaseConfigRequest
 from src.api.models.response import DatabaseResponse, ErrorResponse
 from src.application.services.discovery_service import DiscoveryService
+from src.infrastructure.auth.auth_dependency import require_auth, AuthInfo
 
 
 router = APIRouter(prefix="/api/discovery", tags=["discovery"])
@@ -20,6 +21,7 @@ def get_discovery_service() -> DiscoveryService:
 @router.post("/databases", response_model=DatabaseResponse)
 async def register_database(
     config: DatabaseConfigRequest,
+    auth: AuthInfo = Depends(require_auth),
     service: DiscoveryService = Depends(get_discovery_service)
 ):
     """Register and discover a new database."""
@@ -41,6 +43,7 @@ async def register_database(
 
 @router.get("/databases", response_model=List[DatabaseResponse])
 async def list_databases(
+    auth: AuthInfo = Depends(require_auth),
     service: DiscoveryService = Depends(get_discovery_service)
 ):
     """List all registered databases."""
@@ -66,6 +69,7 @@ async def list_databases(
 @router.post("/databases/{db_id}/sync", response_model=DatabaseResponse)
 async def sync_database(
     db_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: DiscoveryService = Depends(get_discovery_service)
 ):
     """Sync database schema."""

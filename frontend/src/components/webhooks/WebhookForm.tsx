@@ -5,17 +5,20 @@ import { useState } from "react"
 import { useCreateWebhook, useUpdateWebhook } from "@/hooks/useWebhooks"
 import type { Webhook, WebhookEvent } from "@/types/webhooks"
 import { extractErrorMessage } from "@/lib/errorHandler"
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "@/lib/messages"
+import { SUCCESS_MESSAGES } from "@/lib/messages"
 import { Button } from "@/components/ui/button"
 import {
   Form,
-  FormControl,
-  FormDescription,
   FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
 } from "@/components/ui/form"
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/components/ui/use-toast"
@@ -37,9 +40,9 @@ const webhookEvents: { value: WebhookEvent; label: string }[] = [
 const webhookSchema = z.object({
   url: z.string().url("Must be a valid URL"),
   events: z.array(z.string()).min(1, "At least one event must be selected"),
-  active: z.boolean().default(true),
-  timeout: z.number().min(1).max(300).default(30),
-  headers: z.record(z.string()).optional(),
+  active: z.boolean(),
+  timeout: z.number().min(1).max(300),
+  headers: z.record(z.string(), z.string()).optional(),
 })
 
 interface WebhookFormProps {
@@ -55,21 +58,23 @@ export function WebhookForm({ webhook, onSuccess, onCancel }: WebhookFormProps) 
 
   const isEditing = !!webhook
 
-  const form = useForm<z.infer<typeof webhookSchema>>({
+  type WebhookFormData = z.infer<typeof webhookSchema>
+
+  const form = useForm<WebhookFormData>({
     resolver: zodResolver(webhookSchema),
     defaultValues: {
       url: webhook?.url || "",
       events: webhook?.events || [],
       active: webhook?.active ?? true,
       timeout: webhook?.timeout || 30,
-      headers: webhook?.headers || {},
+      headers: webhook?.headers ? (webhook.headers as Record<string, string>) : {},
     },
   })
 
   const createMutation = useCreateWebhook()
   const updateMutation = useUpdateWebhook()
 
-  const onSubmit = (data: z.infer<typeof webhookSchema>) => {
+  const onSubmit = (data: WebhookFormData) => {
     if (isEditing) {
       updateMutation.mutate(
         {
@@ -79,7 +84,7 @@ export function WebhookForm({ webhook, onSuccess, onCancel }: WebhookFormProps) 
             events: data.events as WebhookEvent[],
             active: data.active,
             timeout: data.timeout,
-            headers: data.headers,
+            headers: data.headers as Record<string, string> | undefined,
           },
         },
         {
@@ -104,9 +109,8 @@ export function WebhookForm({ webhook, onSuccess, onCancel }: WebhookFormProps) 
         {
           url: data.url,
           events: data.events as WebhookEvent[],
-          active: data.active,
           timeout: data.timeout,
-          headers: data.headers,
+          headers: data.headers as Record<string, string> | undefined,
         },
         {
           onSuccess: (createdWebhook) => {
@@ -153,48 +157,52 @@ export function WebhookForm({ webhook, onSuccess, onCancel }: WebhookFormProps) 
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="url"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Webhook URL</FormLabel>
-                  <FormControl>
-                    <Input placeholder="https://example.com/webhook" {...field} />
-                  </FormControl>
-                  <FormDescription>
+              render={({ field, fieldState }) => (
+                <Field data-invalid={!!fieldState.error}>
+                  <FieldLabel htmlFor="webhook-url">Webhook URL</FieldLabel>
+                  <Input
+                    id="webhook-url"
+                    placeholder="https://example.com/webhook"
+                    aria-invalid={!!fieldState.error}
+                    {...field}
+                  />
+                  <FieldDescription>
                     The URL where webhook events will be sent
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
+                  </FieldDescription>
+                  {fieldState.error && (
+                    <FieldError>{fieldState.error.message}</FieldError>
+                  )}
+                </Field>
               )}
             />
 
             <FormField
               control={form.control}
               name="events"
-              render={() => (
-                <FormItem>
-                  <div className="mb-4">
-                    <FormLabel className="text-base">Events</FormLabel>
-                    <FormDescription>
-                      Select the events that should trigger this webhook
-                    </FormDescription>
-                  </div>
-                  {webhookEvents.map((event) => (
-                    <FormField
-                      key={event.value}
-                      control={form.control}
-                      name="events"
-                      render={({ field }) => {
-                        return (
-                          <FormItem
-                            key={event.value}
-                            className="flex flex-row items-start space-x-3 space-y-0"
-                          >
-                            <FormControl>
+              render={({ fieldState }) => (
+                <Field data-invalid={!!fieldState.error}>
+                  <FieldLabel>Events</FieldLabel>
+                  <FieldDescription>
+                    Select the events that should trigger this webhook
+                  </FieldDescription>
+                  <FieldGroup className="mt-2">
+                    {webhookEvents.map((event) => (
+                      <FormField
+                        key={event.value}
+                        control={form.control}
+                        name="events"
+                        render={({ field }) => {
+                          return (
+                            <Field
+                              key={event.value}
+                              orientation="horizontal"
+                            >
                               <Checkbox
+                                id={`event-${event.value}`}
                                 checked={field.value?.includes(event.value)}
                                 onCheckedChange={(checked) => {
                                   return checked
@@ -206,17 +214,22 @@ export function WebhookForm({ webhook, onSuccess, onCancel }: WebhookFormProps) 
                                       )
                                 }}
                               />
-                            </FormControl>
-                            <FormLabel className="font-normal">
-                              {event.label}
-                            </FormLabel>
-                          </FormItem>
-                        )
-                      }}
-                    />
-                  ))}
-                  <FormMessage />
-                </FormItem>
+                              <FieldLabel
+                                htmlFor={`event-${event.value}`}
+                                className="font-normal cursor-pointer"
+                              >
+                                {event.label}
+                              </FieldLabel>
+                            </Field>
+                          )
+                        }}
+                      />
+                    ))}
+                  </FieldGroup>
+                  {fieldState.error && (
+                    <FieldError>{fieldState.error.message}</FieldError>
+                  )}
+                </Field>
               )}
             />
 
@@ -224,50 +237,51 @@ export function WebhookForm({ webhook, onSuccess, onCancel }: WebhookFormProps) 
               control={form.control}
               name="active"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                  <div className="space-y-0.5">
-                    <FormLabel className="text-base">Active</FormLabel>
-                    <FormDescription>
+                <Field orientation="horizontal" className="rounded-lg border p-4">
+                  <Switch
+                    id="webhook-active"
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                  <FieldContent>
+                    <FieldLabel htmlFor="webhook-active">Active</FieldLabel>
+                    <FieldDescription>
                       Enable or disable this webhook
-                    </FormDescription>
-                  </div>
-                  <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                </FormItem>
+                    </FieldDescription>
+                  </FieldContent>
+                </Field>
               )}
             />
 
             <FormField
               control={form.control}
               name="timeout"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Timeout (seconds)</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      min={1}
-                      max={300}
-                      {...field}
-                      onChange={(e) => field.onChange(parseInt(e.target.value) || 30)}
-                    />
-                  </FormControl>
-                  <FormDescription>
+              render={({ field, fieldState }) => (
+                <Field data-invalid={!!fieldState.error}>
+                  <FieldLabel htmlFor="webhook-timeout">Timeout (seconds)</FieldLabel>
+                  <Input
+                    id="webhook-timeout"
+                    type="number"
+                    min={1}
+                    max={300}
+                    aria-invalid={!!fieldState.error}
+                    {...field}
+                    onChange={(e) => field.onChange(parseInt(e.target.value) || 30)}
+                  />
+                  <FieldDescription>
                     Request timeout in seconds (1-300)
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
+                  </FieldDescription>
+                  {fieldState.error && (
+                    <FieldError>{fieldState.error.message}</FieldError>
+                  )}
+                </Field>
               )}
             />
 
             {secret && (
               <div className="p-4 bg-muted rounded-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <FormLabel>Webhook Secret</FormLabel>
+                  <FieldLabel>Webhook Secret</FieldLabel>
                   <Button
                     type="button"
                     variant="ghost"
@@ -284,9 +298,9 @@ export function WebhookForm({ webhook, onSuccess, onCancel }: WebhookFormProps) 
                 <p className="text-sm text-muted-foreground font-mono break-all">
                   {secret}
                 </p>
-                <p className="text-xs text-muted-foreground mt-2">
+                <FieldDescription className="mt-2">
                   Save this secret securely. It will not be shown again.
-                </p>
+                </FieldDescription>
               </div>
             )}
 

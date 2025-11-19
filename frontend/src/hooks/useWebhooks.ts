@@ -3,7 +3,7 @@
  */
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { webhooksService, type Webhook, type WebhookStats, type WebhookCreateRequest, type WebhookUpdateRequest } from "@/api/services/webhooks"
+import { webhooksService, type WebhookCreateRequest, type WebhookUpdateRequest } from "@/api/services/webhooks"
 import { queryKeys } from "@/lib/queryKeys"
 
 export function useWebhooks(params?: { event?: string; active_only?: boolean }) {

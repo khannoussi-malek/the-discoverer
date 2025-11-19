@@ -1,4 +1,6 @@
+import { useState } from "react"
 import { useSchedules } from "@/hooks/useScheduler"
+import { ScheduleForm } from "./ScheduleForm"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
@@ -8,6 +10,7 @@ import { LoadingSpinner } from "@/components/shared/LoadingSpinner"
 import { Calendar } from "lucide-react"
 
 export function SchedulerPage() {
+  const [showForm, setShowForm] = useState(false)
   const { data: schedules, isLoading } = useSchedules()
 
   if (isLoading) {
@@ -27,11 +30,20 @@ export function SchedulerPage() {
             Manage scheduled queries
           </p>
         </div>
-        <Button>
+        <Button onClick={() => setShowForm(!showForm)}>
           <Plus className="mr-2 h-4 w-4" />
-          Create Schedule
+          {showForm ? "Cancel" : "Create Schedule"}
         </Button>
       </div>
+
+      {showForm && (
+        <ScheduleForm
+          onSuccess={() => {
+            setShowForm(false)
+          }}
+          onCancel={() => setShowForm(false)}
+        />
+      )}
 
       {!schedules || schedules.length === 0 ? (
         <EmptyState

@@ -3,7 +3,7 @@ import { clientsClaim } from 'workbox-core'
 import { ExpirationPlugin } from 'workbox-expiration'
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching'
 import { registerRoute } from 'workbox-routing'
-import { NetworkFirst, CacheFirst, StaleWhileRevalidate } from 'workbox-strategies'
+import { NetworkFirst, CacheFirst } from 'workbox-strategies'
 import { CacheableResponsePlugin } from 'workbox-cacheable-response'
 
 declare const self: ServiceWorkerGlobalScope
@@ -70,14 +70,13 @@ registerRoute(
 self.addEventListener('push', (event: PushEvent) => {
   const data = event.data?.json() || {}
   const title = data.title || 'The Discoverer'
-  const options: NotificationOptions = {
+  const options: NotificationOptions & { data?: Record<string, unknown> } = {
     body: data.body || 'You have a new notification',
     icon: data.icon || '/pwa-192x192.png',
     badge: '/pwa-192x192.png',
     tag: data.tag || 'default',
     data: data.data || {},
     requireInteraction: data.requireInteraction || false,
-    actions: data.actions || [],
   }
 
   event.waitUntil(

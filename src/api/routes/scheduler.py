@@ -5,6 +5,7 @@ from typing import List, Optional
 from src.domain.scheduled_query import ScheduleStatus, ScheduleFrequency
 from src.application.services.scheduler_service import SchedulerService
 from src.api.models.response import PaginatedResponse
+from src.infrastructure.auth.auth_dependency import require_auth, AuthInfo
 from pydantic import BaseModel
 
 
@@ -48,6 +49,7 @@ def get_scheduler_service() -> SchedulerService:
 @router.post("", response_model=ScheduledQueryResponse)
 async def create_schedule(
     request: CreateScheduleRequest,
+    auth: AuthInfo = Depends(require_auth),
     service: SchedulerService = Depends(get_scheduler_service)
 ):
     """Create a new scheduled query."""
@@ -83,6 +85,7 @@ async def create_schedule(
 
 @router.get("", response_model=PaginatedResponse)
 async def list_schedules(
+    auth: AuthInfo = Depends(require_auth),
     status: Optional[str] = Query(None),
     page: int = Query(1, ge=1),
     page_size: int = Query(20, ge=1, le=100),
@@ -130,6 +133,7 @@ async def list_schedules(
 @router.post("/{schedule_id}/execute")
 async def execute_schedule(
     schedule_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: SchedulerService = Depends(get_scheduler_service)
 ):
     """Manually execute a scheduled query."""
@@ -145,6 +149,7 @@ async def execute_schedule(
 @router.post("/{schedule_id}/pause")
 async def pause_schedule(
     schedule_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: SchedulerService = Depends(get_scheduler_service)
 ):
     """Pause a scheduled query."""
@@ -162,6 +167,7 @@ async def pause_schedule(
 @router.post("/{schedule_id}/resume")
 async def resume_schedule(
     schedule_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: SchedulerService = Depends(get_scheduler_service)
 ):
     """Resume a paused scheduled query."""
@@ -179,6 +185,7 @@ async def resume_schedule(
 @router.delete("/{schedule_id}")
 async def delete_schedule(
     schedule_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: SchedulerService = Depends(get_scheduler_service)
 ):
     """Delete a scheduled query."""

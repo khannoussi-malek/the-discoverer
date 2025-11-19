@@ -90,7 +90,7 @@ export const schedulerService = {
    * Update schedule
    * Note: Backend doesn't support updates, this will throw an error
    */
-  updateSchedule: async (id: string, schedule: Partial<ScheduledQuery>): Promise<ScheduledQuery> => {
+  updateSchedule: async (_id: string, _schedule: Partial<ScheduledQuery>): Promise<ScheduledQuery> => {
     throw new Error('Update schedule is not supported by the backend API. Delete and recreate the schedule instead.')
   },
 
@@ -105,7 +105,7 @@ export const schedulerService = {
    * Resume schedule (enable)
    */
   enableSchedule: async (id: string): Promise<ScheduledQuery> => {
-    const response = await apiClient.post<{ message: string }>(API_ENDPOINTS.SCHEDULER.RESUME(id))
+    await apiClient.post<{ message: string }>(API_ENDPOINTS.SCHEDULER.RESUME(id))
     // Resume returns a message, so we need to refetch the schedule
     return schedulerService.getSchedule(id)
   },
@@ -114,7 +114,7 @@ export const schedulerService = {
    * Pause schedule (disable)
    */
   disableSchedule: async (id: string): Promise<ScheduledQuery> => {
-    const response = await apiClient.post<{ message: string }>(API_ENDPOINTS.SCHEDULER.PAUSE(id))
+    await apiClient.post<{ message: string }>(API_ENDPOINTS.SCHEDULER.PAUSE(id))
     // Pause returns a message, so we need to refetch the schedule
     return schedulerService.getSchedule(id)
   },

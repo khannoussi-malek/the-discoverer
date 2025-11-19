@@ -25,8 +25,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Label } from "@/components/ui/label"
 import { extractErrorMessage } from "@/lib/errorHandler"
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "@/lib/messages"
 import type { Webhook as WebhookType } from "@/types/webhooks"
 
 export function WebhooksPage() {
@@ -126,30 +134,43 @@ export function WebhooksPage() {
 
       {/* Filters */}
       <div className="flex gap-4 items-center">
-        <select
-          className="px-3 py-2 border rounded-md"
-          value={eventFilter || ""}
-          onChange={(e) => setEventFilter(e.target.value || undefined)}
-        >
-          <option value="">All Events</option>
-          <option value="query.completed">Query Completed</option>
-          <option value="query.failed">Query Failed</option>
-          <option value="database.registered">Database Registered</option>
-          <option value="database.synced">Database Synced</option>
-          <option value="schema.changed">Schema Changed</option>
-          <option value="dashboard.created">Dashboard Created</option>
-          <option value="dashboard.updated">Dashboard Updated</option>
-          <option value="export.completed">Export Completed</option>
-        </select>
-        <label className="flex items-center gap-2">
-          <input
-            type="checkbox"
+        <div className="flex items-center gap-2">
+          <Label htmlFor="event-filter" className="text-sm font-medium">
+            Filter by Event:
+          </Label>
+          <Select
+            value={eventFilter || "all"}
+            onValueChange={(value) => setEventFilter(value === "all" ? undefined : value)}
+          >
+            <SelectTrigger id="event-filter" className="w-[200px]">
+              <SelectValue placeholder="All Events" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Events</SelectItem>
+              <SelectItem value="query.completed">Query Completed</SelectItem>
+              <SelectItem value="query.failed">Query Failed</SelectItem>
+              <SelectItem value="database.registered">Database Registered</SelectItem>
+              <SelectItem value="database.synced">Database Synced</SelectItem>
+              <SelectItem value="schema.changed">Schema Changed</SelectItem>
+              <SelectItem value="dashboard.created">Dashboard Created</SelectItem>
+              <SelectItem value="dashboard.updated">Dashboard Updated</SelectItem>
+              <SelectItem value="export.completed">Export Completed</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="active-only"
             checked={activeOnly}
-            onChange={(e) => setActiveOnly(e.target.checked)}
-            className="rounded"
+            onCheckedChange={(checked) => setActiveOnly(checked === true)}
           />
-          <span className="text-sm">Active only</span>
-        </label>
+          <Label
+            htmlFor="active-only"
+            className="text-sm font-normal cursor-pointer"
+          >
+            Active only
+          </Label>
+        </div>
       </div>
 
       {showForm && (

@@ -1,4 +1,6 @@
+import { useState } from "react"
 import { useDashboards } from "@/hooks/useDashboards"
+import { DashboardForm } from "./DashboardForm"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
@@ -7,6 +9,7 @@ import { LoadingSpinner } from "@/components/shared/LoadingSpinner"
 import { Layout } from "lucide-react"
 
 export function DashboardsPage() {
+  const [showForm, setShowForm] = useState(false)
   const { data: dashboards, isLoading } = useDashboards()
 
   if (isLoading) {
@@ -26,11 +29,20 @@ export function DashboardsPage() {
             Create and manage custom dashboards
           </p>
         </div>
-        <Button>
+        <Button onClick={() => setShowForm(!showForm)}>
           <Plus className="mr-2 h-4 w-4" />
-          Create Dashboard
+          {showForm ? "Cancel" : "Create Dashboard"}
         </Button>
       </div>
+
+      {showForm && (
+        <DashboardForm
+          onSuccess={() => {
+            setShowForm(false)
+          }}
+          onCancel={() => setShowForm(false)}
+        />
+      )}
 
       {!dashboards || dashboards.length === 0 ? (
         <EmptyState

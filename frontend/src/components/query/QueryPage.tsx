@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense, lazy, useRef } from "react"
 import { useExecuteQuery } from "@/hooks/useQuery"
 import { useQueryWebSocket } from "@/hooks/useQueryWebSocket"
 import { useNotifications } from "@/hooks/useNotifications"
+import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts"
 import type { QueryResponse } from "@/types/query"
 import { extractErrorMessage } from "@/lib/errorHandler"
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "@/lib/messages"
@@ -9,11 +10,15 @@ import { QueryInput } from "./QueryInput"
 import { DatabaseSelector } from "./DatabaseSelector"
 import { QueryResults } from "./QueryResults"
 import { QueryInfo } from "./QueryInfo"
-import { ChartControls } from "@/components/visualization/ChartControls"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { LoadingSpinner } from "@/components/shared/LoadingSpinner"
+import { Kbd, KbdGroup } from "@/components/ui/kbd"
+
+// Lazy load ChartControls since it includes heavy Recharts library
+const ChartControls = lazy(() => import("@/components/visualization/ChartControls").then(module => ({ default: module.ChartControls })))
 
 export function QueryPage() {
   const [query, setQuery] = useState("")
@@ -22,8 +27,27 @@ export function QueryPage() {
   const [currentQueryId, setCurrentQueryId] = useState<string | null>(null)
   const { toast } = useToast()
   const { sendNotification } = useNotifications()
+  const formRef = useRef<HTMLFormElement>(null)
 
   const executeMutation = useExecuteQuery()
+
+  // Keyboard shortcut: Ctrl+Enter to execute query
+  useKeyboardShortcuts(
+    [
+      {
+        key: 'Enter',
+        ctrl: true,
+        action: () => {
+          if (query.trim() && formRef.current) {
+            formRef.current.requestSubmit()
+          }
+        },
+        description: 'Execute query',
+        preventDefault: true,
+      },
+    ],
+    true
+  )
 
   // WebSocket connection for real-time query updates
   const { lastMessage, connectionState, isConnected } = useQueryWebSocket({
@@ -125,7 +149,7 @@ export function QueryPage() {
       </div>
 
       <Card className="p-6">
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
           <DatabaseSelector
             selected={selectedDatabases}
             onChange={setSelectedDatabases}
@@ -135,6 +159,13 @@ export function QueryPage() {
             <Button type="submit" disabled={executeMutation.isPending}>
               {executeMutation.isPending ? "Executing..." : "Execute Query"}
             </Button>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>or press</span>
+              <KbdGroup>
+                <Kbd>{navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'}</Kbd>
+                <Kbd>Enter</Kbd>
+              </KbdGroup>
+            </div>
             {currentQueryId && (
               <Badge variant={isConnected ? "default" : "secondary"}>
                 {connectionState === 'connected' ? 'Live Updates' : connectionState}
@@ -148,10 +179,18 @@ export function QueryPage() {
         <>
           <QueryInfo result={queryResult} />
           <QueryResults data={queryResult.data || queryResult.results || []} queryId={queryResult.query_id} />
-          <ChartControls
-            queryId={queryResult.query_id}
-            data={queryResult.data || queryResult.results || []}
-          />
+          <Suspense fallback={
+            <Card className="p-6">
+              <div className="flex items-center justify-center py-8">
+                <LoadingSpinner />
+              </div>
+            </Card>
+          }>
+            <ChartControls
+              queryId={queryResult.query_id}
+              data={queryResult.data || queryResult.results || []}
+            />
+          </Suspense>
         </>
       )}
     </div>

@@ -5,6 +5,7 @@ from typing import List, Optional, Dict, Any
 from datetime import datetime
 from src.utils.webhooks import WebhookService, WebhookEvent
 from src.api.models.request import WebhookCreateRequest, WebhookUpdateRequest
+from src.infrastructure.auth.auth_dependency import require_auth, AuthInfo
 
 
 router = APIRouter(prefix="/api/webhooks", tags=["webhooks"])
@@ -22,6 +23,7 @@ def get_webhook_service() -> WebhookService:
 @router.post("")
 async def create_webhook(
     request: WebhookCreateRequest,
+    auth: AuthInfo = Depends(require_auth),
     service: WebhookService = Depends(get_webhook_service)
 ):
     """Create a new webhook."""
@@ -52,6 +54,7 @@ async def create_webhook(
 
 @router.get("")
 async def list_webhooks(
+    auth: AuthInfo = Depends(require_auth),
     event: Optional[str] = Query(None, description="Filter by event type"),
     active_only: bool = Query(False, description="Only return active webhooks"),
     service: WebhookService = Depends(get_webhook_service)
@@ -89,6 +92,7 @@ async def list_webhooks(
 @router.get("/{webhook_id}")
 async def get_webhook(
     webhook_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: WebhookService = Depends(get_webhook_service)
 ):
     """Get webhook by ID."""
@@ -118,6 +122,7 @@ async def get_webhook(
 @router.get("/{webhook_id}/stats")
 async def get_webhook_stats(
     webhook_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: WebhookService = Depends(get_webhook_service)
 ):
     """Get webhook statistics."""
@@ -136,6 +141,7 @@ async def get_webhook_stats(
 async def update_webhook(
     webhook_id: str,
     request: WebhookUpdateRequest,
+    auth: AuthInfo = Depends(require_auth),
     service: WebhookService = Depends(get_webhook_service)
 ):
     """Update webhook."""
@@ -174,6 +180,7 @@ async def update_webhook(
 @router.delete("/{webhook_id}")
 async def delete_webhook(
     webhook_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: WebhookService = Depends(get_webhook_service)
 ):
     """Delete webhook."""
@@ -192,6 +199,7 @@ async def delete_webhook(
 @router.post("/test/{webhook_id}")
 async def test_webhook(
     webhook_id: str,
+    auth: AuthInfo = Depends(require_auth),
     payload: Optional[Dict[str, Any]] = Body(None),
     service: WebhookService = Depends(get_webhook_service)
 ):

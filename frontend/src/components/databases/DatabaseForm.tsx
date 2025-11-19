@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -31,11 +32,40 @@ const databaseSchema = z.object({
   id: z.string().min(1, "ID is required"),
   type: z.string().min(1, "Type is required"),
   name: z.string().optional(),
-  host: z.string().min(1, "Host is required"),
-  port: z.number().min(1).max(65535),
-  database: z.string().min(1, "Database name is required"),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  database: z.string().min(1, "Database name or path is required"),
   user: z.string().optional(),
   password: z.string().optional(),
+}).refine((data) => {
+  // For SQLite, host and port are optional
+  if (data.type === "sqlite") {
+    return true
+  }
+  // For other database types, host is required
+  if (!data.host || data.host.trim() === "") {
+    return false
+  }
+  return true
+}, {
+  message: "Host is required for this database type",
+  path: ["host"],
+}).refine((data) => {
+  // For SQLite, port is optional
+  if (data.type === "sqlite") {
+    return true
+  }
+  // For other database types, port is required and must be valid
+  if (data.port === undefined || data.port === null) {
+    return false
+  }
+  if (data.port < 1 || data.port > 65535) {
+    return false
+  }
+  return true
+}, {
+  message: "Port is required and must be between 1 and 65535",
+  path: ["port"],
 })
 
 interface DatabaseFormProps {
@@ -60,10 +90,44 @@ export function DatabaseForm({ onSuccess, onCancel }: DatabaseFormProps) {
     },
   })
 
+  const selectedType = form.watch("type")
+  const isSQLite = selectedType === "sqlite"
+
+  // Reset host/port when switching to SQLite, or set defaults when switching away
+  useEffect(() => {
+    if (isSQLite) {
+      form.setValue("host", "")
+      form.setValue("port", undefined)
+    } else {
+      // Set default port based on database type
+      const defaultPorts: Record<string, number> = {
+        postgresql: 5432,
+        mysql: 3306,
+        mssql: 1433,
+        oracle: 1521,
+      }
+      if (!form.getValues("port")) {
+        form.setValue("port", defaultPorts[selectedType] || 5432)
+      }
+      if (!form.getValues("host")) {
+        form.setValue("host", "localhost")
+      }
+    }
+  }, [selectedType, isSQLite, form])
+
   const mutation = useRegisterDatabase()
 
   const onSubmit = (data: DatabaseConfig) => {
-    mutation.mutate(data, {
+    // Clean up data: remove undefined port/host for SQLite
+    const submitData: DatabaseConfig = {
+      ...data,
+      ...(isSQLite && {
+        host: undefined,
+        port: undefined,
+      }),
+    }
+    
+    mutation.mutate(submitData, {
       onSuccess: () => {
         toast({
           title: "Success",
@@ -146,47 +210,65 @@ export function DatabaseForm({ onSuccess, onCancel }: DatabaseFormProps) {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="host"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Host</FormLabel>
-                    <FormControl>
-                      <Input placeholder="localhost" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {!isSQLite && (
+                <FormField
+                  control={form.control}
+                  name="host"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Host</FormLabel>
+                      <FormControl>
+                        <Input placeholder="localhost" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
 
-              <FormField
-                control={form.control}
-                name="port"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Port</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        {...field}
-                        onChange={(e) => field.onChange(parseInt(e.target.value))}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {!isSQLite && (
+                <FormField
+                  control={form.control}
+                  name="port"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Port</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          {...field}
+                          onChange={(e) => {
+                            const value = e.target.value
+                            field.onChange(value === "" ? undefined : parseInt(value))
+                          }}
+                          value={field.value ?? ""}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
 
               <FormField
                 control={form.control}
                 name="database"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Database Name</FormLabel>
+                    <FormLabel>
+                      {isSQLite ? "Database Path" : "Database Name"}
+                    </FormLabel>
                     <FormControl>
-                      <Input placeholder="mydb" {...field} />
+                      <Input 
+                        placeholder={isSQLite ? "/path/to/database.sqlite" : "mydb"} 
+                        {...field} 
+                      />
                     </FormControl>
+                    <FormDescription>
+                      {isSQLite 
+                        ? "Full path to the SQLite database file (e.g., /tmp/test_db.sqlite)"
+                        : "Name of the database"}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

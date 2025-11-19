@@ -1,4 +1,6 @@
+import { useState } from "react"
 import { useTemplates } from "@/hooks/useTemplates"
+import { TemplateForm } from "./TemplateForm"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
@@ -7,6 +9,7 @@ import { LoadingSpinner } from "@/components/shared/LoadingSpinner"
 import { FileText } from "lucide-react"
 
 export function TemplatesPage() {
+  const [showForm, setShowForm] = useState(false)
   const { data, isLoading } = useTemplates()
 
   if (isLoading) {
@@ -28,11 +31,20 @@ export function TemplatesPage() {
             Manage query and chart templates
           </p>
         </div>
-        <Button>
+        <Button onClick={() => setShowForm(!showForm)}>
           <Plus className="mr-2 h-4 w-4" />
-          Create Template
+          {showForm ? "Cancel" : "Create Template"}
         </Button>
       </div>
+
+      {showForm && (
+        <TemplateForm
+          onSuccess={() => {
+            setShowForm(false)
+          }}
+          onCancel={() => setShowForm(false)}
+        />
+      )}
 
       {templates.length === 0 ? (
         <EmptyState

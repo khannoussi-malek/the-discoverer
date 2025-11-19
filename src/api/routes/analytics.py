@@ -4,6 +4,7 @@ from typing import Optional
 from datetime import datetime, timedelta
 
 from src.utils.analytics import analytics_collector
+from src.infrastructure.auth.auth_dependency import require_auth, AuthInfo
 
 
 router = APIRouter(prefix="/api/analytics", tags=["analytics"])
@@ -11,6 +12,7 @@ router = APIRouter(prefix="/api/analytics", tags=["analytics"])
 
 @router.get("/stats")
 async def get_usage_stats(
+    auth: AuthInfo = Depends(require_auth),
     days: int = Query(7, ge=1, le=365, description="Number of days to analyze")
 ):
     """Get usage statistics."""
@@ -46,6 +48,7 @@ async def get_usage_stats(
 
 @router.get("/top-queries")
 async def get_top_queries(
+    auth: AuthInfo = Depends(require_auth),
     limit: int = Query(10, ge=1, le=100),
     days: int = Query(7, ge=1, le=365)
 ):

@@ -448,6 +448,47 @@ mypy src/
 
 See [API Reference](docs/API.md) for complete documentation.
 
+## 🔐 Authentication
+
+The Discoverer uses JWT (JSON Web Tokens) and API keys for authentication. All API endpoints (except `/api/auth/login`, `/api/auth/register`, and `/health`) require authentication.
+
+### Default Admin User
+
+On first startup, a default admin user is automatically created:
+
+- **Username**: `admin`
+- **Password**: `admin123`
+- **Email**: `admin@discoverer.local`
+- **Roles**: `admin`, `user`
+
+⚠️ **Important**: Change the default password immediately after first login!
+
+### Customizing Default Admin Credentials
+
+You can customize the default admin user credentials via environment variables:
+
+```bash
+# .env file
+DEFAULT_ADMIN_USERNAME=myadmin
+DEFAULT_ADMIN_PASSWORD=securepassword123
+DEFAULT_ADMIN_EMAIL=admin@example.com
+```
+
+### Authentication Methods
+
+1. **JWT Token** (Recommended for web applications)
+   - Login via `/api/auth/login` with username and password
+   - Receive a JWT token
+   - Include token in requests: `Authorization: Bearer <token>`
+
+2. **API Key** (Recommended for programmatic access)
+   - Create API keys via `/api/api-keys` endpoint
+   - Include in requests: `X-API-Key: <your-api-key>`
+
+### Frontend Login
+
+The frontend includes a login page at `/login`. Use the default admin credentials to access the application.
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.

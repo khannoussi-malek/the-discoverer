@@ -6,6 +6,7 @@ from src.api.models.request import QueryTemplateRequest, ExecuteTemplateRequest
 from src.api.models.response import QueryTemplateResponse, QueryResponse, PaginatedResponse
 from src.application.services.query_template_service import QueryTemplateService
 from src.application.services.query_service import QueryService
+from src.infrastructure.auth.auth_dependency import require_auth, AuthInfo
 
 
 router = APIRouter(prefix="/api/templates", tags=["templates"])
@@ -20,6 +21,7 @@ def get_template_service() -> QueryTemplateService:
 @router.post("", response_model=QueryTemplateResponse)
 async def create_template(
     request: QueryTemplateRequest,
+    auth: AuthInfo = Depends(require_auth),
     service: QueryTemplateService = Depends(get_template_service)
 ):
     """Create a new query template."""
@@ -40,6 +42,7 @@ async def create_template(
 
 @router.get("", response_model=PaginatedResponse)
 async def list_templates(
+    auth: AuthInfo = Depends(require_auth),
     page: int = Query(1, ge=1),
     page_size: int = Query(20, ge=1, le=100),
     tags: Optional[str] = Query(None),
@@ -74,6 +77,7 @@ async def list_templates(
 @router.get("/{template_id}", response_model=QueryTemplateResponse)
 async def get_template(
     template_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: QueryTemplateService = Depends(get_template_service)
 ):
     """Get a query template by ID."""
@@ -91,6 +95,7 @@ async def get_template(
 @router.post("/{template_id}/execute", response_model=QueryResponse)
 async def execute_template(
     template_id: str,
+    auth: AuthInfo = Depends(require_auth),
     request: Optional[ExecuteTemplateRequest] = None,
     service: QueryTemplateService = Depends(get_template_service)
 ):
@@ -118,6 +123,7 @@ async def execute_template(
 @router.get("/search", response_model=List[QueryTemplateResponse])
 async def search_templates(
     q: str = Query(..., description="Search query"),
+    auth: AuthInfo = Depends(require_auth),
     service: QueryTemplateService = Depends(get_template_service)
 ):
     """Search query templates."""
@@ -131,6 +137,7 @@ async def search_templates(
 @router.delete("/{template_id}")
 async def delete_template(
     template_id: str,
+    auth: AuthInfo = Depends(require_auth),
     service: QueryTemplateService = Depends(get_template_service)
 ):
     """Delete a query template."""

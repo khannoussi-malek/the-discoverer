@@ -60,6 +60,11 @@ class Settings(BaseSettings):
     secret_key: str = "change-me-in-production"
     allowed_origins: str = "http://localhost:3000,http://localhost:8000,http://localhost:5173"
     
+    # Default Admin User
+    default_admin_username: str = "admin"
+    default_admin_password: str = "admin123"
+    default_admin_email: str = "admin@discoverer.local"
+    
     # Server Configuration
     server_host: str = "0.0.0.0"
     server_port: int = 8000

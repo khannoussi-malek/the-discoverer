@@ -23,6 +23,10 @@ export interface AuthResponse {
     id: string
     username: string
     email: string
+    roles: string[]
+    is_active: boolean
+    created_at?: string
+    last_login?: string | null
   }
 }
 
@@ -30,15 +34,18 @@ export interface User {
   id: string
   username: string
   email: string
-  role?: string
+  roles: string[]
+  is_active: boolean
+  created_at?: string
+  last_login?: string | null
 }
 
 export const authService = {
   /**
    * Login user
    */
-  login: async (credentials: LoginRequest): Promise<AuthResponse> => {
-    const response = await apiClient.post(API_ENDPOINTS.AUTH.LOGIN, credentials)
+  login: async (username: string, password: string): Promise<AuthResponse> => {
+    const response = await apiClient.post(API_ENDPOINTS.AUTH.LOGIN, { username, password })
     const data = response.data
     if (data.access_token) {
       localStorage.setItem('auth_token', data.access_token)
@@ -49,13 +56,9 @@ export const authService = {
   /**
    * Register new user
    */
-  register: async (userData: RegisterRequest): Promise<AuthResponse> => {
+  register: async (userData: RegisterRequest): Promise<User> => {
     const response = await apiClient.post(API_ENDPOINTS.AUTH.REGISTER, userData)
-    const data = response.data
-    if (data.access_token) {
-      localStorage.setItem('auth_token', data.access_token)
-    }
-    return data
+    return response.data
   },
 
   /**

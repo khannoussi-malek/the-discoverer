@@ -10,16 +10,17 @@ import {
   TrendingUp,
   Webhook,
 } from "lucide-react"
+import { Kbd, KbdGroup } from "@/components/ui/kbd"
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: LayoutDashboard },
-  { name: "Databases", href: "/databases", icon: Database },
-  { name: "Query", href: "/query", icon: Search },
-  { name: "Dashboards", href: "/dashboards", icon: Layout },
-  { name: "Templates", href: "/templates", icon: FileText },
-  { name: "Scheduler", href: "/scheduler", icon: Calendar },
-  { name: "Analytics", href: "/analytics", icon: TrendingUp },
-  { name: "Webhooks", href: "/webhooks", icon: Webhook },
+  { name: "Dashboard", href: "/", icon: LayoutDashboard, shortcut: "1" },
+  { name: "Databases", href: "/databases", icon: Database, shortcut: "2" },
+  { name: "Query", href: "/query", icon: Search, shortcut: "3" },
+  { name: "Dashboards", href: "/dashboards", icon: Layout, shortcut: "4" },
+  { name: "Templates", href: "/templates", icon: FileText, shortcut: "5" },
+  { name: "Scheduler", href: "/scheduler", icon: Calendar, shortcut: "6" },
+  { name: "Analytics", href: "/analytics", icon: TrendingUp, shortcut: "7" },
+  { name: "Webhooks", href: "/webhooks", icon: Webhook, shortcut: "8" },
 ]
 
 export function Sidebar() {
@@ -38,14 +39,24 @@ export function Sidebar() {
               key={item.name}
               to={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                "flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors group",
                 isActive
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
               )}
             >
-              <item.icon className="h-5 w-5" />
-              {item.name}
+              <div className="flex items-center gap-3">
+                <item.icon className="h-5 w-5" />
+                {item.name}
+              </div>
+              {item.shortcut && (
+                <KbdGroup className="opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Kbd className="text-xs">
+                    {navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'}
+                  </Kbd>
+                  <Kbd className="text-xs">{item.shortcut}</Kbd>
+                </KbdGroup>
+              )}
             </Link>
           )
         })}
