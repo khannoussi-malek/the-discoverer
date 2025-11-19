@@ -58,7 +58,7 @@ class Settings(BaseSettings):
     
     # Security
     secret_key: str = "change-me-in-production"
-    allowed_origins: str = "http://localhost:3000,http://localhost:8000"
+    allowed_origins: str = "http://localhost:3000,http://localhost:8000,http://localhost:5173"
     
     # Server Configuration
     server_host: str = "0.0.0.0"
