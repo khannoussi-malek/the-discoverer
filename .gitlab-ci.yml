@@ -14,12 +14,32 @@ services:
 
 test:no-llm:
   stage: test
-  image: python:${PYTHON_VERSION}
+  image: python:${PYTHON_VERSION}-slim
   timeout: 30m
   before_script:
+    # Show initial disk space
+    - df -h
+    # Note: Most packages (including TensorFlow/PyTorch) come as pre-built wheels
+    # Build tools are not needed and would consume additional disk space
+    # Clean up any existing caches
+    - rm -rf /root/.cache/pip || true
+    - rm -rf /tmp/* || true
     - python -m pip install --upgrade pip
-    - pip install -r requirements.txt
-    - pip install pytest pytest-asyncio httpx pytest-timeout pytest-cov
+    # Clean pip cache before installation
+    - pip cache purge || true
+    # Install with no cache to save disk space
+    - pip install --no-cache-dir -r requirements.txt
+    - pip install --no-cache-dir pytest pytest-asyncio httpx pytest-timeout pytest-cov
+    # Aggressive cleanup after installation
+    - pip cache purge || true
+    - rm -rf /root/.cache/pip || true
+    - rm -rf /tmp/pip-* || true
+    - rm -rf /tmp/build || true
+    # Clean up Python bytecode caches
+    - find /usr/local/lib/python*/site-packages -type d -name __pycache__ -exec rm -r {} + 2>/dev/null || true
+    - find /usr/local/lib/python*/site-packages -name "*.pyc" -delete 2>/dev/null || true
+    # Show disk space after cleanup
+    - df -h
     - export QDRANT_URL=http://qdrant:6333
     - export REDIS_URL=redis://redis:6379
     # No LLM keys needed - this pipeline only tests non-LLM features
@@ -74,10 +94,14 @@ test:no-llm:
 
 lint:
   stage: lint
-  image: python:${PYTHON_VERSION}
+  image: python:${PYTHON_VERSION}-slim
   before_script:
+    - rm -rf /root/.cache/pip || true
     - python -m pip install --upgrade pip
-    - pip install flake8 black mypy
+    - pip cache purge || true
+    - pip install --no-cache-dir flake8 black mypy
+    - pip cache purge || true
+    - rm -rf /root/.cache/pip || true
   script:
     - flake8 src/ tests/ --count --select=E9,F63,F7,F82 --show-source --statistics || true
     - black --check src/ tests/ || true
