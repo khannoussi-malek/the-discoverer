@@ -43,6 +43,12 @@ ENV/
 htmlcov/
 .tox/
 
+# Python type checking and linting
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+dmypy.json
+
 # Logs
 *.log
 logs/
@@ -68,6 +74,12 @@ yarn-debug.log*
 yarn-error.log*
 package-lock.json
 yarn.lock
+
+# Frontend build outputs
+frontend/dist/
+frontend/.vite/
+frontend/.turbo/
+frontend/.next/
 
 # Documentation build
 site/
