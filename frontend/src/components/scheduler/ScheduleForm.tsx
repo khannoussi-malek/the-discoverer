@@ -4,7 +4,6 @@ import * as z from "zod"
 import { useCreateSchedule } from "@/hooks/useScheduler"
 import type { ScheduledQuery } from "@/api/services/scheduler"
 import { extractErrorMessage } from "@/lib/errorHandler"
-import { SUCCESS_MESSAGES } from "@/lib/messages"
 import { Button } from "@/components/ui/button"
 import { Loader2 } from "lucide-react"
 import {

@@ -76,7 +76,9 @@ interface DatabaseFormProps {
 export function DatabaseForm({ onSuccess, onCancel }: DatabaseFormProps) {
   const { toast } = useToast()
 
-  const form = useForm<DatabaseConfig>({
+  type DatabaseFormData = z.infer<typeof databaseSchema>
+
+  const form = useForm<DatabaseFormData>({
     resolver: zodResolver(databaseSchema),
     defaultValues: {
       id: "",
@@ -97,7 +99,8 @@ export function DatabaseForm({ onSuccess, onCancel }: DatabaseFormProps) {
   useEffect(() => {
     if (isSQLite) {
       form.setValue("host", "")
-      form.setValue("port", undefined)
+      // For SQLite, we don't need port, but zod schema allows optional
+      // We'll handle undefined in onSubmit
     } else {
       // Set default port based on database type
       const defaultPorts: Record<string, number> = {
@@ -106,10 +109,12 @@ export function DatabaseForm({ onSuccess, onCancel }: DatabaseFormProps) {
         mssql: 1433,
         oracle: 1521,
       }
-      if (!form.getValues("port")) {
+      const currentPort = form.getValues("port")
+      if (currentPort === undefined || currentPort === null) {
         form.setValue("port", defaultPorts[selectedType] || 5432)
       }
-      if (!form.getValues("host")) {
+      const currentHost = form.getValues("host")
+      if (!currentHost || currentHost.trim() === "") {
         form.setValue("host", "localhost")
       }
     }
@@ -117,7 +122,7 @@ export function DatabaseForm({ onSuccess, onCancel }: DatabaseFormProps) {
 
   const mutation = useRegisterDatabase()
 
-  const onSubmit = (data: DatabaseConfig) => {
+  const onSubmit = (data: DatabaseFormData) => {
     // Clean up data: remove undefined port/host for SQLite
     const submitData: DatabaseConfig = {
       ...data,

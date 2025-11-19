@@ -4,7 +4,6 @@ import * as z from "zod"
 import { useCreateDashboard, useUpdateDashboard } from "@/hooks/useDashboards"
 import type { Dashboard } from "@/types/dashboard"
 import { extractErrorMessage } from "@/lib/errorHandler"
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "@/lib/messages"
 import { Button } from "@/components/ui/button"
 import { Loader2 } from "lucide-react"
 import {
@@ -25,7 +24,7 @@ import { Switch } from "@/components/ui/switch"
 const dashboardSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().optional(),
-  is_public: z.boolean().default(false),
+  is_public: z.boolean(),
   tags: z.array(z.string()).optional(),
 })
 

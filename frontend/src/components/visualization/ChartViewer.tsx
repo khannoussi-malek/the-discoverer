@@ -5,18 +5,30 @@ import {
   Line,
   PieChart,
   Pie,
-  Cell,
   AreaChart,
   Area,
+  ScatterChart,
+  Scatter,
+  RadarChart,
+  Radar,
+  PolarGrid,
+  PolarAngleAxis,
+  RadialBarChart,
+  RadialBar,
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
 } from "recharts"
 import type { ChartType } from "@/types/visualization"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import type { ChartConfig } from "@/components/ui/chart"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+} from "@/components/ui/chart"
 
 interface ChartViewerProps {
   data: Record<string, unknown>[]
@@ -25,8 +37,6 @@ interface ChartViewerProps {
   yAxis: string
   title?: string
 }
-
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884d8", "#82ca9d"]
 
 export function ChartViewer({
   data,
@@ -40,61 +50,241 @@ export function ChartViewer({
     [yAxis]: row[yAxis],
   }))
 
+  // Use a fixed key for CSS variable compatibility, but set label to yAxis for tooltips
+  const chartConfig = {
+    data: {
+      label: yAxis,
+      color: "hsl(var(--chart-1))",
+    },
+  } satisfies ChartConfig
+
+  const colorVar = "var(--color-data)"
+
   const renderChart = () => {
     switch (chartType) {
       case "bar":
         return (
-          <BarChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey={xAxis} />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey={yAxis} fill="#8884d8" />
-          </BarChart>
+          <ChartContainer config={chartConfig} className="min-h-[400px] w-full">
+            <BarChart
+              accessibilityLayer
+              data={chartData}
+              margin={{
+                left: 12,
+                right: 12,
+              }}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey={xAxis}
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+              />
+              <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent />}
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+              <Bar
+                dataKey={yAxis}
+                fill={colorVar}
+                radius={4}
+              />
+            </BarChart>
+          </ChartContainer>
         )
       case "line":
         return (
-          <LineChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey={xAxis} />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey={yAxis} stroke="#8884d8" />
-          </LineChart>
-        )
-      case "pie":
-        return (
-          <PieChart>
-            <Pie
+          <ChartContainer config={chartConfig} className="min-h-[400px] w-full">
+            <LineChart
+              accessibilityLayer
               data={chartData}
-              dataKey={yAxis}
-              nameKey={xAxis}
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              label
+              margin={{
+                left: 12,
+                right: 12,
+              }}
             >
-              {chartData.map((_entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey={xAxis}
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+              />
+              <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent hideLabel />}
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+              <Line
+                dataKey={yAxis}
+                type="natural"
+                stroke={colorVar}
+                strokeWidth={2}
+                dot={false}
+              />
+            </LineChart>
+          </ChartContainer>
         )
+      case "pie": {
+        const pieChartConfig = {
+          data: {
+            label: yAxis,
+          },
+        } satisfies ChartConfig
+
+        const pieData = chartData.map((entry, index) => ({
+          ...entry,
+          fill: `hsl(var(--chart-${(index % 5) + 1}))`,
+        }))
+
+        return (
+          <ChartContainer
+            config={pieChartConfig}
+            className="mx-auto aspect-square max-h-[400px]"
+          >
+            <PieChart>
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent hideLabel />}
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+              <Pie
+                data={pieData}
+                dataKey={yAxis}
+                nameKey={xAxis}
+                cx="50%"
+                cy="50%"
+                outerRadius={120}
+              />
+            </PieChart>
+          </ChartContainer>
+        )
+      }
       case "area":
         return (
-          <AreaChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey={xAxis} />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Area type="monotone" dataKey={yAxis} stroke="#8884d8" fill="#8884d8" />
-          </AreaChart>
+          <ChartContainer config={chartConfig} className="min-h-[400px] w-full">
+            <AreaChart
+              accessibilityLayer
+              data={chartData}
+              margin={{
+                left: 12,
+                right: 12,
+              }}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey={xAxis}
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+              />
+              <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="line" />}
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+              <Area
+                dataKey={yAxis}
+                type="natural"
+                fill={colorVar}
+                fillOpacity={0.4}
+                stroke={colorVar}
+              />
+            </AreaChart>
+          </ChartContainer>
         )
+      case "scatter": {
+        return (
+          <ChartContainer config={chartConfig} className="min-h-[400px] w-full">
+            <ScatterChart
+              accessibilityLayer
+              data={chartData}
+              margin={{
+                left: 12,
+                right: 12,
+              }}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey={xAxis}
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+              />
+              <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent />}
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+              <Scatter
+                dataKey={yAxis}
+                fill={colorVar}
+              />
+            </ScatterChart>
+          </ChartContainer>
+        )
+      }
+      case "radar": {
+        return (
+          <ChartContainer
+            config={chartConfig}
+            className="mx-auto aspect-square max-h-[400px]"
+          >
+            <RadarChart data={chartData}>
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent />}
+              />
+              <PolarAngleAxis dataKey={xAxis} />
+              <PolarGrid />
+              <Radar
+                dataKey={yAxis}
+                fill={colorVar}
+                fillOpacity={0.6}
+              />
+            </RadarChart>
+          </ChartContainer>
+        )
+      }
+      case "gauge": {
+        // Radial bar chart for gauge-like visualization
+        const radialData = chartData.map((entry, index) => ({
+          ...entry,
+          fill: `hsl(var(--chart-${(index % 5) + 1}))`,
+        }))
+
+        const radialConfig = {
+          data: {
+            label: yAxis,
+          },
+        } satisfies ChartConfig
+
+        return (
+          <ChartContainer
+            config={radialConfig}
+            className="mx-auto aspect-square max-h-[400px]"
+          >
+            <RadialBarChart
+              data={radialData}
+              innerRadius={60}
+              outerRadius={120}
+              startAngle={90}
+              endAngle={-270}
+            >
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent hideLabel />}
+              />
+              <RadialBar dataKey={yAxis} background />
+            </RadialBarChart>
+          </ChartContainer>
+        )
+      }
       default:
         return <div>Unsupported chart type</div>
     }
@@ -108,9 +298,7 @@ export function ChartViewer({
         </CardHeader>
       )}
       <CardContent>
-        <ResponsiveContainer width="100%" height={400}>
-          {renderChart()}
-        </ResponsiveContainer>
+        {renderChart()}
       </CardContent>
     </Card>
   )

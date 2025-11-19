@@ -17,8 +17,8 @@ export interface DatabaseConfig {
   id: string
   type: string
   name?: string
-  host: string
-  port: number
+  host?: string // Optional for SQLite
+  port?: number // Optional for SQLite
   database: string
   user?: string
   password?: string

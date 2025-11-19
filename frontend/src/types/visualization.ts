@@ -8,6 +8,7 @@ export type ChartType =
   | 'pie' 
   | 'area' 
   | 'scatter' 
+  | 'radar'
   | 'heatmap' 
   | 'box' 
   | 'violin' 

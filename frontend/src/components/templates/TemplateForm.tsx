@@ -4,7 +4,6 @@ import * as z from "zod"
 import { useCreateTemplate, useUpdateTemplate } from "@/hooks/useTemplates"
 import type { Template } from "@/api/services/templates"
 import { extractErrorMessage } from "@/lib/errorHandler"
-import { SUCCESS_MESSAGES } from "@/lib/messages"
 import { Button } from "@/components/ui/button"
 import { Loader2 } from "lucide-react"
 import {
@@ -20,7 +19,6 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/components/ui/use-toast"
-import { Switch } from "@/components/ui/switch"
 import { useDatabases } from "@/hooks/useDatabases"
 import {
   Select,
@@ -35,7 +33,7 @@ const templateSchema = z.object({
   user_query: z.string().min(1, "Query is required"),
   description: z.string().optional(),
   database_ids: z.array(z.string()).optional(),
-  is_public: z.boolean().default(false),
+  is_public: z.boolean(),
   tags: z.string().optional(), // Comma-separated tags
 })
 
@@ -57,7 +55,7 @@ export function TemplateForm({ template, onSuccess, onCancel }: TemplateFormProp
       user_query: template?.user_query || "",
       description: template?.description || "",
       database_ids: template?.database_ids || [],
-      is_public: false, // Templates don't have is_public in the type, but we'll handle it
+      is_public: false,
       tags: template?.tags?.join(", ") || "",
     },
   })
