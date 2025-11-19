@@ -28,8 +28,9 @@ test:no-llm:
     # Clean pip cache before installation
     - pip cache purge || true
     # Install with no cache to save disk space
-    - pip install --no-cache-dir -r requirements.txt
-    - pip install --no-cache-dir pytest pytest-asyncio httpx pytest-timeout pytest-cov
+    # Use lightweight CI requirements that exclude heavy ML dependencies
+    - pip install --no-cache-dir -r requirements-ci.txt
+    - pip install --no-cache-dir pytest-timeout
     # Aggressive cleanup after installation
     - pip cache purge || true
     - rm -rf /root/.cache/pip || true

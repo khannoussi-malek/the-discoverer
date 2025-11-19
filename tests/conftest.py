@@ -7,6 +7,13 @@ from src.infrastructure.embeddings.generator import EmbeddingGenerator
 from src.infrastructure.cache.repository import MultiLayerCacheRepository
 from src.infrastructure.llm.client import LLMClient
 
+# Check if sentence-transformers is available
+try:
+    import sentence_transformers
+    SENTENCE_TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    SENTENCE_TRANSFORMERS_AVAILABLE = False
+
 
 @pytest.fixture(scope="session")
 def event_loop():
@@ -31,6 +38,8 @@ def cache_repository():
 @pytest.fixture
 def embedding_generator():
     """Embedding generator fixture."""
+    # EmbeddingGenerator can be instantiated without sentence-transformers
+    # Tests that use it should check availability or be marked to skip
     return EmbeddingGenerator()
 
 

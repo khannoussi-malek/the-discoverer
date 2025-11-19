@@ -4,6 +4,13 @@ from src.infrastructure.vector_db.client import QdrantVectorDBClient
 from src.infrastructure.embeddings.generator import EmbeddingGenerator
 from config.settings import get_settings
 
+# Check if sentence-transformers is available
+try:
+    import sentence_transformers
+    SENTENCE_TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    SENTENCE_TRANSFORMERS_AVAILABLE = False
+
 
 @pytest.mark.integration
 class TestQdrantVectorDB:
@@ -26,6 +33,7 @@ class TestQdrantVectorDB:
         # Should not raise exception
     
     @pytest.mark.asyncio
+    @pytest.mark.skipif(not SENTENCE_TRANSFORMERS_AVAILABLE, reason="sentence-transformers not available in CI")
     async def test_search(self, vector_db_client, embedding_generator):
         """Test vector search."""
         settings = get_settings()
