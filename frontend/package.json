@@ -2,6 +2,7 @@
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
+  "author": "malek khannoussi <khannoussimalek@gmail.com>",
   "type": "module",
   "scripts": {
     "dev": "vite",
