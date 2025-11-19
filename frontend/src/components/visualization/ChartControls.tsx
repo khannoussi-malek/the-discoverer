@@ -87,7 +87,7 @@ export function ChartControls({ queryId, data }: ChartControlsProps) {
           <CardTitle>Chart Configuration</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
             <div>
               <Label>Chart Type</Label>
               <Select

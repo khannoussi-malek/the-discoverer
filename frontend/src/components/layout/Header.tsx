@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -7,27 +8,48 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/shared/ThemeToggle"
 import { AppBreadcrumb } from "@/components/shared/AppBreadcrumb"
 import { KeyboardShortcuts } from "@/components/shared/KeyboardShortcuts"
+import { SidebarContent } from "./Sidebar"
 import { useAuth } from "@/hooks/useAuth"
-import { User, Settings, LogOut } from "lucide-react"
+import { User, Settings, LogOut, Menu } from "lucide-react"
 
 export function Header() {
   const { user, logout } = useAuth()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="flex h-16 items-center justify-between border-b bg-background px-6">
-      <div className="flex items-center gap-4">
+    <header className="flex h-16 items-center justify-between border-b bg-background px-4 md:px-6">
+      <div className="flex items-center gap-2 md:gap-4">
+        <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+          <SheetTrigger asChild className="md:hidden">
+            <Button variant="ghost" size="icon">
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-64 p-0">
+            <SidebarContent onNavigate={() => setMobileMenuOpen(false)} />
+          </SheetContent>
+        </Sheet>
         <AppBreadcrumb />
       </div>
-      <div className="flex items-center gap-4">
-        <KeyboardShortcuts />
+      <div className="flex items-center gap-2 md:gap-4">
+        <div className="hidden md:block">
+          <KeyboardShortcuts />
+        </div>
         <ThemeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon">
               <User className="h-5 w-5" />
+              <span className="sr-only">User menu</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

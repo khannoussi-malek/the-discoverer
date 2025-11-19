@@ -59,9 +59,9 @@ export function AppBreadcrumb() {
           <BreadcrumbItem>
             <BreadcrumbPage className="flex items-center gap-2">
               {homeInfo.icon && (
-                <homeInfo.icon className="h-4 w-4" />
+                <homeInfo.icon className="hidden sm:block h-4 w-4" />
               )}
-              {homeInfo.label}
+              <span className="text-sm sm:text-base">{homeInfo.label}</span>
             </BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
@@ -88,18 +88,18 @@ export function AppBreadcrumb() {
               {isLast ? (
                 <BreadcrumbPage className="flex items-center gap-2">
                   {routeInfo.icon && (
-                    <routeInfo.icon className="h-4 w-4" />
+                    <routeInfo.icon className="hidden sm:block h-4 w-4" />
                   )}
-                  {routeInfo.label}
+                  <span className="text-sm sm:text-base">{routeInfo.label}</span>
                 </BreadcrumbPage>
               ) : (
                 <>
                   <BreadcrumbLink asChild>
                     <Link to={to} className="flex items-center gap-2">
                       {routeInfo.icon && (
-                        <routeInfo.icon className="h-4 w-4" />
+                        <routeInfo.icon className="hidden sm:block h-4 w-4" />
                       )}
-                      {routeInfo.label}
+                      <span className="text-sm sm:text-base">{routeInfo.label}</span>
                     </Link>
                   </BreadcrumbLink>
                   <BreadcrumbSeparator />

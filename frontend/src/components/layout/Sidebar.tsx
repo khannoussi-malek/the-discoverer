@@ -23,11 +23,15 @@ const navigation = [
   { name: "Webhooks", href: "/webhooks", icon: Webhook, shortcut: "8" },
 ]
 
-export function Sidebar() {
+interface SidebarContentProps {
+  onNavigate?: () => void
+}
+
+function SidebarContent({ onNavigate }: SidebarContentProps) {
   const location = useLocation()
 
   return (
-    <div className="flex h-full w-64 flex-col border-r bg-background">
+    <>
       <div className="flex h-16 items-center border-b px-6">
         <h1 className="text-xl font-bold">The Discoverer</h1>
       </div>
@@ -38,6 +42,7 @@ export function Sidebar() {
             <Link
               key={item.name}
               to={item.href}
+              onClick={onNavigate}
               className={cn(
                 "flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors group",
                 isActive
@@ -50,7 +55,7 @@ export function Sidebar() {
                 {item.name}
               </div>
               {item.shortcut && (
-                <KbdGroup className="opacity-0 group-hover:opacity-100 transition-opacity">
+                <KbdGroup className="hidden md:flex opacity-0 group-hover:opacity-100 transition-opacity">
                   <Kbd className="text-xs">
                     {navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'}
                   </Kbd>
@@ -61,7 +66,17 @@ export function Sidebar() {
           )
         })}
       </nav>
-    </div>
+    </>
   )
 }
+
+export function Sidebar() {
+  return (
+    <aside className="hidden md:flex h-full w-64 flex-col border-r bg-background">
+      <SidebarContent />
+    </aside>
+  )
+}
+
+export { SidebarContent }
 

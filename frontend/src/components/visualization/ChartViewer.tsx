@@ -64,7 +64,7 @@ export function ChartViewer({
     switch (chartType) {
       case "bar":
         return (
-          <ChartContainer config={chartConfig} className="min-h-[400px] w-full">
+          <ChartContainer config={chartConfig} className="min-h-[300px] sm:min-h-[400px] w-full">
             <BarChart
               accessibilityLayer
               data={chartData}
@@ -96,7 +96,7 @@ export function ChartViewer({
         )
       case "line":
         return (
-          <ChartContainer config={chartConfig} className="min-h-[400px] w-full">
+          <ChartContainer config={chartConfig} className="min-h-[300px] sm:min-h-[400px] w-full">
             <LineChart
               accessibilityLayer
               data={chartData}
@@ -143,7 +143,7 @@ export function ChartViewer({
         return (
           <ChartContainer
             config={pieChartConfig}
-            className="mx-auto aspect-square max-h-[400px]"
+            className="mx-auto aspect-square max-h-[300px] sm:max-h-[400px]"
           >
             <PieChart>
               <ChartTooltip
@@ -165,7 +165,7 @@ export function ChartViewer({
       }
       case "area":
         return (
-          <ChartContainer config={chartConfig} className="min-h-[400px] w-full">
+          <ChartContainer config={chartConfig} className="min-h-[300px] sm:min-h-[400px] w-full">
             <AreaChart
               accessibilityLayer
               data={chartData}
@@ -199,7 +199,7 @@ export function ChartViewer({
         )
       case "scatter": {
         return (
-          <ChartContainer config={chartConfig} className="min-h-[400px] w-full">
+          <ChartContainer config={chartConfig} className="min-h-[300px] sm:min-h-[400px] w-full">
             <ScatterChart
               accessibilityLayer
               data={chartData}
@@ -233,7 +233,7 @@ export function ChartViewer({
         return (
           <ChartContainer
             config={chartConfig}
-            className="mx-auto aspect-square max-h-[400px]"
+            className="mx-auto aspect-square max-h-[300px] sm:max-h-[400px]"
           >
             <RadarChart data={chartData}>
               <ChartTooltip
@@ -267,7 +267,7 @@ export function ChartViewer({
         return (
           <ChartContainer
             config={radialConfig}
-            className="mx-auto aspect-square max-h-[400px]"
+            className="mx-auto aspect-square max-h-[300px] sm:max-h-[400px]"
           >
             <RadialBarChart
               data={radialData}

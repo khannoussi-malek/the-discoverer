@@ -67,3 +67,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Mobile touch improvements */
+@layer utilities {
+  /* Improve touch target sizes on mobile */
+  @media (max-width: 640px) {
+    button, a, input, select, textarea {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+  
+  /* Prevent text size adjustment on iOS */
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+}

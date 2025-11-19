@@ -140,26 +140,26 @@ export function QueryPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Query</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Query</h1>
+        <p className="text-sm md:text-base text-muted-foreground">
           Execute natural language queries on your databases
         </p>
       </div>
 
-      <Card className="p-6">
+      <Card className="p-4 md:p-6">
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
           <DatabaseSelector
             selected={selectedDatabases}
             onChange={setSelectedDatabases}
           />
           <QueryInput value={query} onChange={setQuery} />
-          <div className="flex items-center gap-4">
-            <Button type="submit" disabled={executeMutation.isPending}>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+            <Button type="submit" disabled={executeMutation.isPending} className="w-full sm:w-auto">
               {executeMutation.isPending ? "Executing..." : "Execute Query"}
             </Button>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="hidden sm:flex items-center gap-2 text-sm text-muted-foreground">
               <span>or press</span>
               <KbdGroup>
                 <Kbd>{navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'}</Kbd>
@@ -167,7 +167,7 @@ export function QueryPage() {
               </KbdGroup>
             </div>
             {currentQueryId && (
-              <Badge variant={isConnected ? "default" : "secondary"}>
+              <Badge variant={isConnected ? "default" : "secondary"} className="w-fit">
                 {connectionState === 'connected' ? 'Live Updates' : connectionState}
               </Badge>
             )}
