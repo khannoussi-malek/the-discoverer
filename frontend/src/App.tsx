@@ -11,6 +11,7 @@ import { DashboardsPage } from "@/components/dashboards/DashboardsPage"
 import { TemplatesPage } from "@/components/templates/TemplatesPage"
 import { SchedulerPage } from "@/components/scheduler/SchedulerPage"
 import { AnalyticsPage } from "@/components/analytics/AnalyticsPage"
+import { WebhooksPage } from "@/components/webhooks/WebhooksPage"
 
 // Create a client
 const queryClient = new QueryClient({
@@ -37,6 +38,7 @@ function App() {
               <Route path="templates" element={<TemplatesPage />} />
               <Route path="scheduler" element={<SchedulerPage />} />
               <Route path="analytics" element={<AnalyticsPage />} />
+              <Route path="webhooks" element={<WebhooksPage />} />
             </Route>
           </Routes>
           <Toaster />

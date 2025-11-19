@@ -7,6 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { ThemeToggle } from "@/components/shared/ThemeToggle"
 import { User, Settings, LogOut } from "lucide-react"
 
 export function Header() {
@@ -16,6 +17,7 @@ export function Header() {
         {/* Breadcrumb or page title can go here */}
       </div>
       <div className="flex items-center gap-4">
+        <ThemeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon">

@@ -4,6 +4,7 @@ import { useAnalyticsStats } from "@/hooks/useAnalytics"
 import { StatsCards } from "./StatsCards"
 import { SystemStatus } from "./SystemStatus"
 import { QuickActions } from "./QuickActions"
+import { NotificationSettings } from "@/components/shared/NotificationSettings"
 import { LoadingSpinner } from "@/components/shared/LoadingSpinner"
 import { ErrorMessage } from "@/components/shared/ErrorMessage"
 
@@ -41,6 +42,8 @@ export function DashboardPage() {
       />
 
       <QuickActions />
+
+      <NotificationSettings />
     </div>
   )
 }

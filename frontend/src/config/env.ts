@@ -38,3 +38,21 @@ function getEnvConfig(): EnvConfig {
 
 export const env = getEnvConfig()
 
+/**
+ * Convert HTTP/HTTPS URL to WebSocket URL
+ * @param path - WebSocket path (e.g., '/api/ws/query/123')
+ * @returns WebSocket URL (ws:// or wss://)
+ */
+export function getWebSocketUrl(path: string): string {
+  const baseUrl = env.apiBaseUrl
+  const url = new URL(baseUrl)
+  
+  // Convert protocol: http -> ws, https -> wss
+  const wsProtocol = url.protocol === 'https:' ? 'wss:' : 'ws:'
+  
+  // Build WebSocket URL
+  const wsUrl = `${wsProtocol}//${url.host}${path.startsWith('/') ? path : `/${path}`}`
+  
+  return wsUrl
+}
+

@@ -83,6 +83,8 @@ export const API_ENDPOINTS = {
     GET: (id: string) => `/api/webhooks/${id}`,
     UPDATE: (id: string) => `/api/webhooks/${id}`,
     DELETE: (id: string) => `/api/webhooks/${id}`,
+    STATS: (id: string) => `/api/webhooks/${id}/stats`,
+    TEST: (id: string) => `/api/webhooks/test/${id}`,
   },
 
   // Auth
@@ -91,6 +93,12 @@ export const API_ENDPOINTS = {
     LOGOUT: '/api/auth/logout',
     REGISTER: '/api/auth/register',
     ME: '/api/auth/me',
+  },
+
+  // WebSocket
+  WS: {
+    QUERY: (queryId: string) => `/api/ws/query/${queryId}`,
+    GENERAL: '/api/ws/general',
   },
 
   // Health

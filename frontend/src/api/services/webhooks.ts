@@ -4,47 +4,47 @@
 
 import apiClient from '../client'
 import { API_ENDPOINTS } from '../endpoints'
+import type { Webhook, WebhookStats, WebhookCreateRequest, WebhookUpdateRequest } from '@/types/webhooks'
 
-export interface Webhook {
-  id: string
-  url: string
-  events: string[]
-  secret?: string
-  enabled: boolean
-  created_at?: string
-  updated_at?: string
+// Re-export types for convenience
+export type { Webhook, WebhookStats, WebhookCreateRequest, WebhookUpdateRequest } from '@/types/webhooks'
+
+interface WebhooksListResponse {
+  webhooks: Webhook[]
+  total: number
 }
 
 export const webhooksService = {
   /**
    * List all webhooks
    */
-  listWebhooks: async (): Promise<Webhook[]> => {
-    const response = await apiClient.get(API_ENDPOINTS.WEBHOOKS.LIST)
-    return response.data
+  listWebhooks: async (params?: { event?: string; active_only?: boolean }): Promise<Webhook[]> => {
+    const response = await apiClient.get<WebhooksListResponse>(API_ENDPOINTS.WEBHOOKS.LIST, { params })
+    // Backend returns {webhooks: [...], total: ...}, extract webhooks array
+    return response.data.webhooks || []
   },
 
   /**
    * Get webhook by ID
    */
   getWebhook: async (id: string): Promise<Webhook> => {
-    const response = await apiClient.get(API_ENDPOINTS.WEBHOOKS.GET(id))
+    const response = await apiClient.get<Webhook>(API_ENDPOINTS.WEBHOOKS.GET(id))
     return response.data
   },
 
   /**
    * Create a new webhook
    */
-  createWebhook: async (webhook: Omit<Webhook, 'id' | 'created_at' | 'updated_at'>): Promise<Webhook> => {
-    const response = await apiClient.post(API_ENDPOINTS.WEBHOOKS.CREATE, webhook)
+  createWebhook: async (webhook: WebhookCreateRequest): Promise<Webhook> => {
+    const response = await apiClient.post<Webhook>(API_ENDPOINTS.WEBHOOKS.CREATE, webhook)
     return response.data
   },
 
   /**
    * Update webhook
    */
-  updateWebhook: async (id: string, webhook: Partial<Webhook>): Promise<Webhook> => {
-    const response = await apiClient.put(API_ENDPOINTS.WEBHOOKS.UPDATE(id), webhook)
+  updateWebhook: async (id: string, webhook: WebhookUpdateRequest): Promise<Webhook> => {
+    const response = await apiClient.put<Webhook>(API_ENDPOINTS.WEBHOOKS.UPDATE(id), webhook)
     return response.data
   },
 
@@ -53,6 +53,22 @@ export const webhooksService = {
    */
   deleteWebhook: async (id: string): Promise<void> => {
     await apiClient.delete(API_ENDPOINTS.WEBHOOKS.DELETE(id))
+  },
+
+  /**
+   * Get webhook statistics
+   */
+  getWebhookStats: async (id: string): Promise<WebhookStats> => {
+    const response = await apiClient.get<WebhookStats>(API_ENDPOINTS.WEBHOOKS.STATS(id))
+    return response.data
+  },
+
+  /**
+   * Test webhook
+   */
+  testWebhook: async (id: string, payload?: Record<string, unknown>): Promise<unknown> => {
+    const response = await apiClient.post(API_ENDPOINTS.WEBHOOKS.TEST(id), payload)
+    return response.data
   },
 }
 

@@ -8,6 +8,7 @@ import {
   FileText,
   Calendar,
   TrendingUp,
+  Webhook,
 } from "lucide-react"
 
 const navigation = [
@@ -18,6 +19,7 @@ const navigation = [
   { name: "Templates", href: "/templates", icon: FileText },
   { name: "Scheduler", href: "/scheduler", icon: Calendar },
   { name: "Analytics", href: "/analytics", icon: TrendingUp },
+  { name: "Webhooks", href: "/webhooks", icon: Webhook },
 ]
 
 export function Sidebar() {
