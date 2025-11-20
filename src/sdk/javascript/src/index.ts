@@ -1,12 +1,12 @@
 /**
- * The Discoverer JavaScript/TypeScript SDK
+ * Navo JavaScript/TypeScript SDK
  * 
- * A client library for interacting with The Discoverer API
+ * A client library for interacting with Navo API
  */
 
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
-export interface DiscovererConfig {
+export interface NavoConfig {
     baseURL?: string;
     apiKey?: string;
     timeout?: number;
@@ -83,11 +83,11 @@ export interface SharesListResponse {
     total: number;
 }
 
-export class DiscovererClient {
+export class NavoClient {
     private client: AxiosInstance;
-    private config: DiscovererConfig;
+    private config: NavoConfig;
 
-    constructor(config: DiscovererConfig = {}) {
+    constructor(config: NavoConfig = {}) {
         this.config = {
             baseURL: config.baseURL || 'http://localhost:8000',
             apiKey: config.apiKey,
@@ -312,5 +312,5 @@ export class DiscovererClient {
 }
 
 // Default export
-export default DiscovererClient;
+export default NavoClient;
 

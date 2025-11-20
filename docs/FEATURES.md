@@ -4,7 +4,7 @@
 
 ### 1. Multi-Database Support
 
-The Discoverer supports multiple database types:
+Navo supports multiple database types:
 
 - **PostgreSQL**: Full schema extraction with relationships
 - **MySQL**: Complete schema discovery

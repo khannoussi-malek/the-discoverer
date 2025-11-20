@@ -3,7 +3,7 @@
 
 self.addEventListener('push', (event) => {
   const data = event.data?.json() || {}
-  const title = data.title || 'The Discoverer'
+  const title = data.title || 'Navo'
   const options = {
     body: data.body || 'You have a new notification',
     icon: data.icon || '/pwa-192x192.png',

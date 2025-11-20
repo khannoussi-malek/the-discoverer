@@ -1,10 +1,10 @@
-site_name: The Discoverer
+site_name: Navo
 site_description: AI-powered database discovery and query agent
 site_author: Malek Khannoussi
-site_url: https://khannoussi-malek.github.io/the-discoverer
+site_url: https://khannoussi-malek.github.io/navo
 
-repo_name: the-discoverer
-repo_url: https://github.com/khannoussi-malek/the-discoverer
+repo_name: navo
+repo_url: https://github.com/khannoussi-malek/navo
 edit_uri: edit/main/docs/
 
 docs_dir: docs
@@ -67,21 +67,20 @@ nav:
   - Deployment: DEPLOYMENT.md
   - Features: FEATURES.md
   - SDKs:
-    - Python SDK: SDK.md
-    - JavaScript SDK: JAVASCRIPT_SDK.md
-    - CLI Tool: CLI.md
+      - Python SDK: SDK.md
+      - JavaScript SDK: JAVASCRIPT_SDK.md
+      - CLI Tool: CLI.md
   - Features:
-    - Dashboards: DASHBOARDS.md
-    - Chart Templates: CHART_TEMPLATES.md
-    - Query Result Sharing: QUERY_RESULT_SHARING.md
-    - Webhooks: WEBHOOKS.md
-    - Scheduler: SCHEDULER.md
-    - Query Versioning: QUERY_VERSIONING.md
-    - Connection Pools: CONNECTION_POOLS.md
-    - Compression: COMPRESSION.md
-    - WebSocket: WEBSOCKET.md
-    - Chart Export: CHART_EXPORT.md
-    - Metrics: METRICS.md
+      - Dashboards: DASHBOARDS.md
+      - Chart Templates: CHART_TEMPLATES.md
+      - Query Result Sharing: QUERY_RESULT_SHARING.md
+      - Webhooks: WEBHOOKS.md
+      - Scheduler: SCHEDULER.md
+      - Query Versioning: QUERY_VERSIONING.md
+      - Connection Pools: CONNECTION_POOLS.md
+      - Compression: COMPRESSION.md
+      - WebSocket: WEBSOCKET.md
+      - Chart Export: CHART_EXPORT.md
+      - Metrics: METRICS.md
 
 copyright: Copyright &copy; 2024 Malek Khannoussi
-

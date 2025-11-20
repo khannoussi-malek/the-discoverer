@@ -21,7 +21,7 @@ python -m src.cli.main
 Register a new database:
 
 ```bash
-discoverer register \
+navo register \
   --database-id db1 \
   --type postgresql \
   --host-db localhost \
@@ -48,7 +48,7 @@ discoverer register \
 List all registered databases:
 
 ```bash
-discoverer list-databases [--host http://localhost:8000]
+navo list-databases [--host http://localhost:8000]
 ```
 
 ### Execute Query
@@ -56,7 +56,7 @@ discoverer list-databases [--host http://localhost:8000]
 Execute a natural language query:
 
 ```bash
-discoverer query "Count all users" \
+navo query "Count all users" \
   --database-ids db1 db2 \
   --format table \
   --page 1 \
@@ -80,7 +80,7 @@ discoverer query "Count all users" \
 Check API health:
 
 ```bash
-discoverer health [--host http://localhost:8000]
+navo health [--host http://localhost:8000]
 ```
 
 ### Sync Schema
@@ -88,7 +88,7 @@ discoverer health [--host http://localhost:8000]
 Sync database schema:
 
 ```bash
-discoverer sync db1 [--host http://localhost:8000]
+navo sync db1 [--host http://localhost:8000]
 ```
 
 ### Export Query Result
@@ -96,7 +96,7 @@ discoverer sync db1 [--host http://localhost:8000]
 Export a query result to a file:
 
 ```bash
-discoverer export query_id \
+navo export query_id \
   --format csv \
   [--host http://localhost:8000]
 ```
@@ -110,7 +110,7 @@ discoverer export query_id \
 
 ```bash
 # 1. Register a database
-discoverer register \
+navo register \
   --database-id production_db \
   --type postgresql \
   --host-db db.example.com \
@@ -120,25 +120,25 @@ discoverer register \
   --password secret
 
 # 2. Check health
-discoverer health
+navo health
 
 # 3. Sync schema
-discoverer sync production_db
+navo sync production_db
 
 # 4. Execute a query
-discoverer query "Show top 10 customers by revenue" \
+navo query "Show top 10 customers by revenue" \
   --database-ids production_db \
   --format table
 
 # 5. Export result (using query_id from previous step)
-discoverer export abc123 --format excel
+navo export abc123 --format excel
 ```
 
 ### Using Different Hosts
 
 ```bash
 # Connect to remote API
-discoverer query "Count users" \
+navo query "Count users" \
   --host https://api.example.com \
   --format json
 ```
@@ -147,11 +147,11 @@ discoverer query "Count users" \
 
 ```bash
 # List all databases
-discoverer list-databases
+navo list-databases
 
 # Sync all databases (using shell loop)
 for db in db1 db2 db3; do
-  discoverer sync $db
+  navo sync $db
 done
 ```
 
@@ -177,20 +177,20 @@ The CLI provides clear error messages:
 
 1. **Use aliases**: Create shell aliases for common commands
    ```bash
-   alias dq='discoverer query'
-   alias dl='discoverer list-databases'
+   alias dq='navo query'
+   alias dl='navo list-databases'
    ```
 
 2. **Output redirection**: Save query results to files
    ```bash
-   discoverer query "SELECT * FROM users" --format json > results.json
+   navo query "SELECT * FROM users" --format json > results.json
    ```
 
 3. **Scripting**: Use in shell scripts for automation
    ```bash
    #!/bin/bash
-   discoverer health || exit 1
-   discoverer query "Daily report" --format csv > daily_report.csv
+   navo health || exit 1
+   navo query "Daily report" --format csv > daily_report.csv
    ```
 
 

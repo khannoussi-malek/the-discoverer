@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     """Application settings - Singleton pattern."""
     
     # Application
-    app_name: str = "The Discoverer"
+    app_name: str = "Navo"
     app_version: str = "1.0.0"
     debug: bool = False
     log_level: str = "INFO"
@@ -63,7 +63,7 @@ class Settings(BaseSettings):
     # Default Admin User
     default_admin_username: str = "admin"
     default_admin_password: str = "admin123"
-    default_admin_email: str = "admin@discoverer.local"
+    default_admin_email: str = "admin@navo.local"
     
     # Server Configuration
     server_host: str = "0.0.0.0"

@@ -11,8 +11,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'The Discoverer',
-        short_name: 'Discoverer',
+        name: 'Navo',
+        short_name: 'Navo',
         description: 'Database query and analytics platform',
         theme_color: '#3b82f6',
         background_color: '#ffffff',

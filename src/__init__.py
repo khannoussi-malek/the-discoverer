@@ -1,2 +1,2 @@
-"""The Discoverer - AI-powered database discovery and query agent."""
+"""Navo - AI-powered database discovery and query agent."""
 

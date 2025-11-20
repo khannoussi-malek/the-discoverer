@@ -2,7 +2,7 @@
 
 > 📖 **Navigation**: [Documentation Index](README.md) | [Getting Started](GETTING_STARTED.md) | [API Reference](API.md) | [Python SDK](SDK.md) | [JavaScript SDK](JAVASCRIPT_SDK.md)
 
-This guide provides practical, real-world examples of using The Discoverer. Each example includes:
+This guide provides practical, real-world examples of using Navo. Each example includes:
 - **What it does** - Clear explanation
 - **When to use it** - Use case scenarios
 - **Code example** - Ready-to-use code
@@ -23,7 +23,7 @@ This guide provides practical, real-world examples of using The Discoverer. Each
 
 ### Example 1: Register a PostgreSQL Database
 
-**What it does:** Registers a PostgreSQL database so The Discoverer can query it.
+**What it does:** Registers a PostgreSQL database so Navo can query it.
 
 **When to use:** When you have a PostgreSQL database you want to query.
 
@@ -76,7 +76,7 @@ else:
 ```
 
 **What happens automatically:**
-1. The Discoverer connects to your database
+1. Navo connects to your database
 2. Extracts all tables, columns, and relationships
 3. Indexes the schema into the vector database
 4. Makes it searchable via natural language
@@ -400,7 +400,7 @@ print(f"Chart HTML: {chart['chart_html'][:100]}...")
 
 ### Example 2: Automatic Chart Type Detection
 
-**What it does:** Lets The Discoverer automatically choose the best chart type.
+**What it does:** Lets Navo automatically choose the best chart type.
 
 **When to use:** When you're not sure which chart type to use.
 
@@ -470,11 +470,11 @@ print("Chart exported to chart.png")
 **Code:**
 ```python
 import asyncio
-from src.sdk.client import DiscovererClient
+from src.sdk.client import NavoClient
 
 async def main():
     # Initialize client
-    client = DiscovererClient(base_url="http://localhost:8000")
+    client = NavoClient(base_url="http://localhost:8000")
     
     # Register database
     db = await client.register_database(
@@ -547,10 +547,10 @@ print(f"Found {result['total_rows']} customers")
 
 **Code:**
 ```javascript
-import { DiscovererClient } from '@the-discoverer/sdk';
+import { NavoClient } from 'navo-sdk';
 
 // Initialize client
-const client = new DiscovererClient({
+const client = new NavoClient({
   baseURL: 'http://localhost:8000'
 });
 
@@ -587,10 +587,10 @@ result.data.forEach(customer => {
 
 **Code:**
 ```javascript
-const { DiscovererClient } = require('@the-discoverer/sdk');
+const { NavoClient } = require('navo-sdk');
 
 async function main() {
-  const client = new DiscovererClient({
+  const client = new NavoClient({
     baseURL: 'http://localhost:8000'
   });
 

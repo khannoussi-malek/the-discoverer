@@ -1,22 +1,22 @@
-"""The Discoverer Python SDK client."""
+"""Navo Python SDK client."""
 import httpx
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
 
 
 @dataclass
-class DiscovererConfig:
+class NavoConfig:
     """SDK configuration."""
     base_url: str = "http://localhost:8000"
     api_key: Optional[str] = None
     timeout: float = 30.0
 
 
-class DiscovererClient:
-    """Python SDK client for The Discoverer."""
+class NavoClient:
+    """Python SDK client for Navo."""
     
-    def __init__(self, config: Optional[DiscovererConfig] = None):
-        self.config = config or DiscovererConfig()
+    def __init__(self, config: Optional[NavoConfig] = None):
+        self.config = config or NavoConfig()
         self.client = httpx.AsyncClient(
             base_url=self.config.base_url,
             timeout=self.config.timeout,

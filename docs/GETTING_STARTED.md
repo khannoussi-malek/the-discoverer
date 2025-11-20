@@ -2,12 +2,12 @@
 
 > 📖 **Navigation**: [Documentation Index](README.md) | [Examples](EXAMPLES.md) | [API Reference](API.md) | [Architecture](ARCHITECTURE.md)
 
-Welcome to The Discoverer! This guide will help you get up and running in **5 minutes**.
+Welcome to Navo! This guide will help you get up and running in **5 minutes**.
 
 ## What You'll Learn
 
 By the end of this guide, you will:
-- ✅ Have The Discoverer running on your machine
+- ✅ Have Navo running on your machine
 - ✅ Register your first database
 - ✅ Execute your first natural language query
 - ✅ Understand how to integrate it into your solution
@@ -38,8 +38,8 @@ Before you begin, ensure you have:
 
 ```bash
 # Clone the repository
-git clone https://github.com/khannoussi-malek/the-discoverer.git
-cd the-discoverer
+git clone https://github.com/khannoussi-malek/navo.git
+cd navo
 ```
 
 ### Step 2: Install Dependencies
@@ -75,7 +75,7 @@ cp .env.example .env
 
 ### Step 4: Start Required Services
 
-The Discoverer requires Redis (caching) and Qdrant (vector database). Start them with Docker Compose:
+Navo requires Redis (caching) and Qdrant (vector database). Start them with Docker Compose:
 
 ```bash
 # Start all services (Redis, Qdrant, and optional test databases)
@@ -110,7 +110,7 @@ Created collection: content
 Vector database setup complete!
 ```
 
-### Step 6: Start The Discoverer Service
+### Step 6: Start Navo Service
 
 ```bash
 # Start the FastAPI application
@@ -146,7 +146,7 @@ curl http://localhost:8000/health
 
 ## Your First Database Registration
 
-Now let's register your first database. The Discoverer needs to know about your databases before it can query them.
+Now let's register your first database. Navo needs to know about your databases before it can query them.
 
 ### Example 1: Register a PostgreSQL Database
 
@@ -177,7 +177,7 @@ curl -X POST "http://localhost:8000/api/discovery/databases" \
 ```
 
 **What happens automatically:**
-1. The Discoverer connects to your database
+1. Navo connects to your database
 2. Extracts the complete schema (tables, columns, relationships)
 3. Indexes the schema into the vector database
 4. Makes it searchable via natural language
@@ -240,7 +240,7 @@ curl -X POST "http://localhost:8000/api/query/execute" \
   }'
 ```
 
-**What The Discoverer does:**
+**What Navo does:**
 1. Understands your natural language query
 2. Searches the vector database to find relevant tables/columns
 3. Generates optimized SQL query using AI
@@ -347,7 +347,7 @@ make load-databases
 
 ### Workflow 1: Basic Query Workflow
 
-1. **Register database** → The Discoverer extracts schema automatically
+1. **Register database** → Navo extracts schema automatically
 2. **Wait a few seconds** → Schema indexing completes
 3. **Execute queries** → Use natural language
 4. **View results** → Get data + auto-generated visualizations
@@ -394,10 +394,10 @@ curl -X POST "http://localhost:8000/api/visualization/generate" \
 ### Option 1: Python SDK
 
 ```python
-from src.sdk.client import DiscovererClient
+from src.sdk.client import NavoClient
 
 # Initialize client
-client = DiscovererClient(base_url="http://localhost:8000")
+client = NavoClient(base_url="http://localhost:8000")
 
 # Register database
 await client.register_database(
@@ -417,9 +417,9 @@ print(result.data)
 ### Option 2: JavaScript/TypeScript SDK
 
 ```javascript
-import { DiscovererClient } from '@the-discoverer/sdk';
+import { NavoClient } from 'navo-sdk';
 
-const client = new DiscovererClient({ 
+const client = new NavoClient({ 
   baseURL: 'http://localhost:8000' 
 });
 
@@ -516,7 +516,7 @@ lsof -ti:8000 | xargs kill -9
 
 ## Next Steps
 
-Now that you have The Discoverer running:
+Now that you have Navo running:
 
 1. **Explore the API**: Visit http://localhost:8000/docs for interactive API documentation
 2. **Read Examples**: Check [Examples Guide](EXAMPLES.md) for more use cases

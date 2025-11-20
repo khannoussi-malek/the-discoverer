@@ -4,14 +4,14 @@
 
 ## Overview
 
-The Discoverer JavaScript/TypeScript SDK provides a complete client library for interacting with The Discoverer API from both browser and Node.js environments.
+Navo JavaScript/TypeScript SDK provides a complete client library for interacting with Navo API from both browser and Node.js environments.
 
 ## Installation
 
 ```bash
-npm install @discoverer/sdk
+npm install navo-sdk
 # or
-yarn add @discoverer/sdk
+yarn add navo-sdk
 ```
 
 ## Quick Start
@@ -19,9 +19,9 @@ yarn add @discoverer/sdk
 ### TypeScript/ES6
 
 ```typescript
-import DiscovererClient from '@discoverer/sdk';
+import NavoClient from 'navo-sdk';
 
-const client = new DiscovererClient({
+const client = new NavoClient({
   baseURL: 'http://localhost:8000',
   apiKey: 'your-api-key',
 });
@@ -36,9 +36,9 @@ const result = await client.executeQuery({
 ### JavaScript (CommonJS)
 
 ```javascript
-const DiscovererClient = require('@discoverer/sdk').default;
+const NavoClient = require('navo-sdk').default;
 
-const client = new DiscovererClient({
+const client = new NavoClient({
   baseURL: 'http://localhost:8000',
 });
 ```
@@ -46,7 +46,7 @@ const client = new DiscovererClient({
 ## Configuration
 
 ```typescript
-interface DiscovererConfig {
+interface NavoConfig {
   baseURL?: string;      // Default: 'http://localhost:8000'
   apiKey?: string;       // Optional API key
   timeout?: number;      // Default: 30000ms
@@ -180,9 +180,9 @@ try {
 ## Browser Usage
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@discoverer/sdk/dist/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/navo-sdk/dist/index.umd.js"></script>
 <script>
-  const client = new DiscovererClient({
+  const client = new NavoClient({
     baseURL: 'https://api.example.com',
   });
   

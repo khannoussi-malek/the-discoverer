@@ -66,7 +66,7 @@ async def test_feature(name: str, method: str, endpoint: str,
 async def test_all_features(skip_llm: bool = False):
     """Test all features systematically."""
     print(f"{Colors.BLUE}{'='*60}{Colors.NC}")
-    print(f"{Colors.BLUE}The Discoverer - Feature Testing Suite{Colors.NC}")
+    print(f"{Colors.BLUE}Navo - Feature Testing Suite{Colors.NC}")
     print(f"{Colors.BLUE}{'='*60}{Colors.NC}")
     print(f"Base URL: {BASE_URL}")
     if skip_llm:

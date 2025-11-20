@@ -65,7 +65,7 @@ export function LoginPage() {
         <CardHeader>
           <CardTitle>Login</CardTitle>
           <CardDescription>
-            Enter your credentials to access The Discoverer
+            Enter your credentials to access Navo
           </CardDescription>
         </CardHeader>
         <CardContent>

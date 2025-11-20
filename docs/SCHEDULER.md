@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Discoverer includes a powerful query scheduling system that allows you to automatically execute queries at specified intervals. This is useful for:
+Navo includes a powerful query scheduling system that allows you to automatically execute queries at specified intervals. This is useful for:
 - Regular reports
 - Data synchronization checks
 - Automated monitoring

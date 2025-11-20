@@ -13,7 +13,7 @@ interface EnvConfig {
 function getEnvConfig(): EnvConfig {
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
   const apiKey = import.meta.env.VITE_API_KEY
-  const appName = import.meta.env.VITE_APP_NAME || 'The Discoverer'
+  const appName = import.meta.env.VITE_APP_NAME || 'Navo'
   const enableAnalytics = import.meta.env.VITE_ENABLE_ANALYTICS === 'true' || false
 
   // Validate required environment variables

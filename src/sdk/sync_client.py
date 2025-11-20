@@ -1,14 +1,14 @@
-"""Synchronous wrapper for Discoverer SDK."""
+"""Synchronous wrapper for Navo SDK."""
 from typing import List, Dict, Any, Optional
 import httpx
-from src.sdk.client import DiscovererConfig
+from src.sdk.client import NavoConfig
 
 
-class DiscovererSyncClient:
-    """Synchronous Python SDK client for The Discoverer."""
+class NavoSyncClient:
+    """Synchronous Python SDK client for Navo."""
     
-    def __init__(self, config: Optional[DiscovererConfig] = None):
-        self.config = config or DiscovererConfig()
+    def __init__(self, config: Optional[NavoConfig] = None):
+        self.config = config or NavoConfig()
         self.client = httpx.Client(
             base_url=self.config.base_url,
             timeout=self.config.timeout,

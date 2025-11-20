@@ -4,7 +4,7 @@ import sys
 from config.settings import get_settings
 
 
-def setup_logger(name: str = "the_discoverer") -> logging.Logger:
+def setup_logger(name: str = "navo") -> logging.Logger:
     """Set up logger with configuration."""
     settings = get_settings()
     

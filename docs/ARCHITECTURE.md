@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Discoverer follows a clean architecture pattern with clear separation of concerns:
+Navo follows a clean architecture pattern with clear separation of concerns:
 
 ```
 ┌─────────────────────────────────────┐

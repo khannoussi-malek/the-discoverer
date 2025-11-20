@@ -2,7 +2,7 @@
 
 ## Overview
 
-Query result compression reduces response size and improves network transfer performance. The Discoverer supports multiple compression algorithms with configurable compression levels.
+Query result compression reduces response size and improves network transfer performance. Navo supports multiple compression algorithms with configurable compression levels.
 
 ## Features
 

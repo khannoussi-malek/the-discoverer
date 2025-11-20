@@ -20,15 +20,15 @@ pip install httpx
 
 ```python
 import asyncio
-from src.sdk.client import DiscovererClient, DiscovererConfig
+from src.sdk.client import NavoClient, NavoConfig
 
 async def main():
-    config = DiscovererConfig(
+    config = NavoConfig(
         base_url="http://localhost:8000",
         api_key="your-token-here"  # Optional
     )
     
-    async with DiscovererClient(config) as client:
+    async with NavoClient(config) as client:
         # Register a database
         db = await client.register_database({
             "id": "db1",
@@ -60,9 +60,9 @@ asyncio.run(main())
 ### Sync Client
 
 ```python
-from src.sdk.sync_client import DiscovererSyncClient, DiscovererConfig
+from src.sdk.sync_client import DiscovererSyncClient, NavoConfig
 
-config = DiscovererConfig(base_url="http://localhost:8000")
+config = NavoConfig(base_url="http://localhost:8000")
 
 with DiscovererSyncClient(config) as client:
     # List databases
@@ -85,7 +85,7 @@ with DiscovererSyncClient(config) as client:
 
 ## API Reference
 
-### DiscovererClient (Async)
+### NavoClient (Async)
 
 #### Discovery
 - `register_database(config: Dict) -> Dict` - Register a database
@@ -124,9 +124,9 @@ Same methods as async client, but synchronous.
 ### Complete Workflow
 
 ```python
-from src.sdk.sync_client import DiscovererSyncClient, DiscovererConfig
+from src.sdk.sync_client import DiscovererSyncClient, NavoConfig
 
-config = DiscovererConfig(base_url="http://localhost:8000")
+config = NavoConfig(base_url="http://localhost:8000")
 
 with DiscovererSyncClient(config) as client:
     # 1. Register database
@@ -200,7 +200,7 @@ except Exception as e:
 Set API key in config:
 
 ```python
-config = DiscovererConfig(
+config = NavoConfig(
     base_url="https://api.example.com",
     api_key="your-jwt-token"
 )

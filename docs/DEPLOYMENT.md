@@ -10,8 +10,8 @@
 
 1. Clone repository:
 ```bash
-git clone https://github.com/khannoussi-malek/the-discoverer.git
-cd the-discoverer
+git clone https://github.com/khannoussi-malek/navo.git
+cd navo
 ```
 
 2. Install dependencies:
@@ -41,7 +41,7 @@ uvicorn src.api.main:app --reload
 
 1. Build image:
 ```bash
-docker build -t the-discoverer .
+docker build -t navo .
 ```
 
 2. Run container:
@@ -51,7 +51,7 @@ docker run -d \
   -e OPENAI_API_KEY=your_key \
   -e QDRANT_URL=http://qdrant:6333 \
   -e REDIS_URL=redis://redis:6379 \
-  the-discoverer
+  navo
 ```
 
 ### Environment Variables

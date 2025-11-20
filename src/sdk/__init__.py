@@ -1,3 +1,3 @@
-"""The Discoverer Python SDK."""
+"""Navo Python SDK."""
 
 

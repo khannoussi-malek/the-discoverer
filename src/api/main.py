@@ -30,12 +30,12 @@ from src.api.routes import discovery, query, visualization, indexing, stats, his
 from src.infrastructure.vector_db.content_indexer import ContentIndexer
 from src.application.services.indexing_service import IndexingService
 from src.api.middleware.error_handler import (
-    discoverer_exception_handler,
+    navo_exception_handler,
     validation_exception_handler,
     http_exception_handler,
     general_exception_handler
 )
-from src.core.exceptions import DiscovererException
+from src.core.exceptions import NavoException
 from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
@@ -69,7 +69,7 @@ def create_app() -> FastAPI:
     )
     
     # Error handlers
-    app.add_exception_handler(DiscovererException, discoverer_exception_handler)
+    app.add_exception_handler(NavoException, navo_exception_handler)
     app.add_exception_handler(RequestValidationError, validation_exception_handler)
     app.add_exception_handler(StarletteHTTPException, http_exception_handler)
     app.add_exception_handler(Exception, general_exception_handler)

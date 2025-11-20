@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Discoverer provides WebSocket support for real-time updates and notifications. This enables:
+Navo provides WebSocket support for real-time updates and notifications. This enables:
 - Real-time query progress updates
 - Live query result notifications
 - System status updates

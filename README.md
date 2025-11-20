@@ -1,10 +1,10 @@
-# The Discoverer
+# Navo
 
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/khannoussi-malek/the-discoverer)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/khannoussi-malek/navo)
 
-## 🎯 What is The Discoverer?
+## 🎯 What is Navo?
 
-**The Discoverer** is an AI-powered database discovery and query platform that transforms how you interact with your databases. Instead of writing complex SQL queries, you simply ask questions in natural language, and The Discoverer automatically:
+**Navo** is an AI-powered database discovery and query platform that transforms how you interact with your databases. Instead of writing complex SQL queries, you simply ask questions in natural language, and Navo automatically:
 
 - **Discovers** your database schemas across multiple database types
 - **Understands** your data structure using AI and vector search
@@ -18,29 +18,29 @@
 ### Problem 1: Complex Database Queries
 **Before:** You need to know SQL syntax, table names, column names, and relationships to write queries.
 
-**With The Discoverer:** Simply ask "Show me all customers who placed orders in the last month" and get results instantly.
+**With Navo:** Simply ask "Show me all customers who placed orders in the last month" and get results instantly.
 
 ### Problem 2: Multiple Database Types
 **Before:** You need different tools and knowledge for PostgreSQL, MySQL, MongoDB, etc.
 
-**With The Discoverer:** One platform queries all your databases using the same natural language interface.
+**With Navo:** One platform queries all your databases using the same natural language interface.
 
 ### Problem 3: Slow Data Discovery
 **Before:** You spend hours exploring schemas, understanding relationships, and finding the right tables.
 
-**With The Discoverer:** AI-powered schema discovery with vector search finds relevant tables and columns in seconds.
+**With Navo:** AI-powered schema discovery with vector search finds relevant tables and columns in seconds.
 
 ### Problem 4: Manual Visualization
 **Before:** Export data, import into Excel/Tableau, create charts manually.
 
-**With The Discoverer:** Automatic chart generation from query results with 15+ chart types.
+**With Navo:** Automatic chart generation from query results with 15+ chart types.
 
 ### Problem 5: Team Collaboration
 **Before:** Share SQL queries via email, recreate visualizations, lose context.
 
-**With The Discoverer:** Share query results with secure links, create dashboards, schedule automated reports.
+**With Navo:** Share query results with secure links, create dashboards, schedule automated reports.
 
-## 🚀 What The Discoverer Offers
+## 🚀 What Navo Offers
 
 ### Core Capabilities
 
@@ -88,11 +88,11 @@
 - **CLI Tool**: Command-line interface for automation
 - **WebSocket**: Real-time updates and streaming
 
-## 📋 How to Implement The Discoverer in Your Solution
+## 📋 How to Implement Navo in Your Solution
 
 ### Option 1: Standalone Service (Recommended)
 
-Deploy The Discoverer as a separate microservice that your applications connect to via API or SDK.
+Deploy Navo as a separate microservice that your applications connect to via API or SDK.
 
 **Best for:**
 - Multiple applications needing database access
@@ -101,11 +101,11 @@ Deploy The Discoverer as a separate microservice that your applications connect 
 
 **Implementation Steps:**
 
-1. **Deploy The Discoverer Service**
+1. **Deploy Navo Service**
    ```bash
    # Clone and setup
-   git clone https://github.com/khannoussi-malek/the-discoverer.git
-   cd the-discoverer
+   git clone https://github.com/khannoussi-malek/nova.git
+   cd nova
    pip install -r requirements.txt
    
    # Start services (Redis, Qdrant)
@@ -118,9 +118,9 @@ Deploy The Discoverer as a separate microservice that your applications connect 
 2. **Register Your Databases**
    ```python
    # Using Python SDK
-   from src.sdk.client import DiscovererClient
+   from src.sdk.client import NavoClient
    
-   client = DiscovererClient(base_url="http://discoverer-service:8000")
+   client = NavoClient(base_url="http://discoverer-service:8000")
    
    await client.register_database(
        id="production_db",
@@ -143,7 +143,7 @@ Deploy The Discoverer as a separate microservice that your applications connect 
 
 ### Option 2: Embedded Library
 
-Import The Discoverer as a Python library directly into your application.
+Import Navo as a Python library directly into your application.
 
 **Best for:**
 - Single application use
@@ -154,7 +154,7 @@ Import The Discoverer as a Python library directly into your application.
 
 1. **Install as Package**
    ```bash
-   pip install the-discoverer
+   pip install navo
    # Or from source
    pip install -e .
    ```
@@ -182,7 +182,7 @@ Import The Discoverer as a Python library directly into your application.
 
 ### Option 3: API Integration
 
-Call The Discoverer REST API directly from any application.
+Call Navo REST API directly from any application.
 
 **Best for:**
 - Non-Python applications
@@ -191,7 +191,7 @@ Call The Discoverer REST API directly from any application.
 
 **Implementation Steps:**
 
-1. **Deploy The Discoverer Service** (same as Option 1)
+1. **Deploy Navo Service** (same as Option 1)
 
 2. **Call API from Your Application**
    ```javascript
@@ -209,7 +209,7 @@ Call The Discoverer REST API directly from any application.
 
 ### Option 4: CLI Integration
 
-Use The Discoverer CLI in scripts and automation pipelines.
+Use Navo CLI in scripts and automation pipelines.
 
 **Best for:**
 - Automation scripts
@@ -226,19 +226,19 @@ Use The Discoverer CLI in scripts and automation pipelines.
 2. **Use in Scripts**
    ```bash
    # Register database
-   discoverer register --database-id db1 --type postgresql \
+   navo register --database-id db1 --type postgresql \
      --host-db localhost --port 5432 --database mydb
    
    # Execute query
-   discoverer query "Show sales by category" --format json
+   navo query "Show sales by category" --format json
    
    # Export results
-   discoverer export query_id --format csv --output sales.csv
+   navo export query_id --format csv --output sales.csv
    ```
 
 ## 🏗️ Architecture Overview
 
-The Discoverer follows clean architecture principles:
+Navo follows clean architecture principles:
 
 ```
 ┌─────────────────────────────────────────┐
@@ -249,7 +249,7 @@ The Discoverer follows clean architecture principles:
                │ API / SDK
                │
 ┌──────────────▼──────────────────────────┐
-│      The Discoverer Service             │
+│           Navo Service                  │
 │  ┌──────────────────────────────────┐  │
 │  │  API Layer (FastAPI)             │  │
 │  └──────────────┬───────────────────┘  │
@@ -290,8 +290,8 @@ The Discoverer follows clean architecture principles:
 
 ```bash
 # Clone repository
-git clone https://github.com/khannoussi-malek/the-discoverer.git
-cd the-discoverer
+git clone https://github.com/khannoussi-malek/navo.git
+cd navo
 
 # Install dependencies
 pip install -r requirements.txt
@@ -450,7 +450,7 @@ See [API Reference](docs/API.md) for complete documentation.
 
 ## 🔐 Authentication
 
-The Discoverer uses JWT (JSON Web Tokens) and API keys for authentication. All API endpoints (except `/api/auth/login`, `/api/auth/register`, and `/health`) require authentication.
+Navo uses JWT (JSON Web Tokens) and API keys for authentication. All API endpoints (except `/api/auth/login`, `/api/auth/register`, and `/health`) require authentication.
 
 ### Default Admin User
 
@@ -458,7 +458,7 @@ On first startup, a default admin user is automatically created:
 
 - **Username**: `admin`
 - **Password**: `admin123`
-- **Email**: `admin@discoverer.local`
+- **Email**: `admin@navo.local`
 - **Roles**: `admin`, `user`
 
 ⚠️ **Important**: Change the default password immediately after first login!

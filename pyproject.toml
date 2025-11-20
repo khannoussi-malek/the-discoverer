@@ -3,9 +3,9 @@ requires = ["setuptools==69.5.1", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "the-discoverer"
+name = "navo-ai"
 version = "1.0.1"
-description = "AI-powered database discovery and query agent"
+description = "AI-powered database discovery and query agent - Navo"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [
@@ -86,14 +86,14 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/khannoussi-malek/the-discoverer"
-Repository = "https://github.com/khannoussi-malek/the-discoverer"
-Documentation = "https://github.com/khannoussi-malek/the-discoverer"
-Issues = "https://github.com/khannoussi-malek/the-discoverer/issues"
+Homepage = "https://github.com/khannoussi-malek/navo"
+Repository = "https://github.com/khannoussi-malek/navo"
+Documentation = "https://github.com/khannoussi-malek/navo"
+Issues = "https://github.com/khannoussi-malek/navo/issues"
 LinkedIn = "https://www.linkedin.com/in/khannoussi-malek/"
 
 [project.scripts]
-discoverer = "src.cli.main:cli"
+navo = "src.cli.main:cli"
 
 [project.optional-dependencies]
 dev = [

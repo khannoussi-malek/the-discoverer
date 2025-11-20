@@ -1,6 +1,6 @@
-# The Discoverer Frontend
+# Navo Frontend
 
-A modern React TypeScript frontend for The Discoverer API, built with Vite, shadcn/ui, and React Query.
+A modern React TypeScript frontend for Navo API, built with Vite, shadcn/ui, and React Query.
 
 ## Features
 

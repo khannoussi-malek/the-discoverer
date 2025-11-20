@@ -9,7 +9,7 @@ import httpx
 @click.group()
 @click.version_option(version="1.0.0")
 def cli():
-    """The Discoverer CLI - AI-powered database discovery and query agent."""
+    """Navo CLI - AI-powered database discovery and query agent."""
     pass
 
 

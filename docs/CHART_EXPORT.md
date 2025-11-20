@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Discoverer supports exporting charts to various formats for sharing, reporting, and integration with other tools.
+Navo supports exporting charts to various formats for sharing, reporting, and integration with other tools.
 
 ## Supported Formats
 

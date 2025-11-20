@@ -69,7 +69,7 @@ registerRoute(
 // Push notification handler
 self.addEventListener('push', (event: PushEvent) => {
   const data = event.data?.json() || {}
-  const title = data.title || 'The Discoverer'
+  const title = data.title || 'Navo'
   const options: NotificationOptions & { data?: Record<string, unknown> } = {
     body: data.body || 'You have a new notification',
     icon: data.icon || '/pwa-192x192.png',

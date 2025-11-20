@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Discoverer exposes Prometheus-compatible metrics for monitoring and observability. All metrics are available at `/api/metrics/prometheus`.
+Navo exposes Prometheus-compatible metrics for monitoring and observability. All metrics are available at `/api/metrics/prometheus`.
 
 ## Metrics Endpoint
 

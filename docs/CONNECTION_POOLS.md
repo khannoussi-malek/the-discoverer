@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Discoverer provides per-database connection pool management, allowing fine-grained control over database connections for optimal performance and resource utilization.
+Navo provides per-database connection pool management, allowing fine-grained control over database connections for optimal performance and resource utilization.
 
 ## Features
 

@@ -2,16 +2,16 @@
 
 ## Overview
 
-The Discoverer documentation is built using [MkDocs](https://www.mkdocs.org/) with the [Material theme](https://squidfunk.github.io/mkdocs-material/), providing a beautiful, searchable documentation website.
+Navo documentation is built using [MkDocs](https://www.mkdocs.org/) with the [Material theme](https://squidfunk.github.io/mkdocs-material/), providing a beautiful, searchable documentation website.
 
 ## Documentation URL
 
 Once enabled, your documentation will be available at:
-**https://khannoussi-malek.github.io/the-discoverer**
+**https://khannoussi-malek.github.io/navo**
 
 ## Enabling GitHub Pages
 
-1. Go to your repository on GitHub: https://github.com/khannoussi-malek/the-discoverer
+1. Go to your repository on GitHub: https://github.com/khannoussi-malek/navo
 2. Click on **Settings** (in the repository menu)
 3. Scroll down to **Pages** (in the left sidebar)
 4. Under **Source**, select:

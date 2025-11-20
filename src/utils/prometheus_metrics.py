@@ -6,83 +6,83 @@ import time
 
 # Query metrics
 query_counter = Counter(
-    'discoverer_queries_total',
+    'navo_queries_total',
     'Total number of queries executed',
     ['database_type', 'status']
 )
 
 query_duration = Histogram(
-    'discoverer_query_duration_seconds',
+    'navo_query_duration_seconds',
     'Query execution duration in seconds',
     ['database_type'],
     buckets=[0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 30.0]
 )
 
 query_cache_hits = Counter(
-    'discoverer_cache_hits_total',
+    'navo_cache_hits_total',
     'Total number of cache hits',
     ['cache_layer']
 )
 
 query_cache_misses = Counter(
-    'discoverer_cache_misses_total',
+    'navo_cache_misses_total',
     'Total number of cache misses',
     ['cache_layer']
 )
 
 # Database metrics
 database_connections = Gauge(
-    'discoverer_database_connections',
+    'navo_database_connections',
     'Number of active database connections',
     ['database_id', 'database_type']
 )
 
 database_health = Gauge(
-    'discoverer_database_health',
+    'navo_database_health',
     'Database health status (1=healthy, 0=unhealthy)',
     ['database_id', 'database_type']
 )
 
 # Vector DB metrics
 vector_db_operations = Counter(
-    'discoverer_vector_db_operations_total',
+    'navo_vector_db_operations_total',
     'Total number of vector DB operations',
     ['operation_type', 'status']
 )
 
 vector_db_duration = Histogram(
-    'discoverer_vector_db_duration_seconds',
+    'navo_vector_db_duration_seconds',
     'Vector DB operation duration in seconds',
     ['operation_type']
 )
 
 # LLM metrics
 llm_requests = Counter(
-    'discoverer_llm_requests_total',
+    'navo_llm_requests_total',
     'Total number of LLM requests',
     ['model', 'status']
 )
 
 llm_duration = Histogram(
-    'discoverer_llm_duration_seconds',
+    'navo_llm_duration_seconds',
     'LLM request duration in seconds',
     ['model']
 )
 
 llm_tokens = Counter(
-    'discoverer_llm_tokens_total',
+    'navo_llm_tokens_total',
     'Total number of LLM tokens used',
     ['model', 'type']  # type: prompt or completion
 )
 
 # System metrics
 active_queries = Gauge(
-    'discoverer_active_queries',
+    'navo_active_queries',
     'Number of currently active queries'
 )
 
 scheduled_queries = Gauge(
-    'discoverer_scheduled_queries',
+    'navo_scheduled_queries',
     'Number of scheduled queries',
     ['status']
 )

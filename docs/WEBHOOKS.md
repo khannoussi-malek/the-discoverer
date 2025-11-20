@@ -2,7 +2,7 @@
 
 ## Overview
 
-Webhooks allow you to receive real-time notifications when events occur in The Discoverer. Perfect for integrating with external systems, monitoring, and automation.
+Webhooks allow you to receive real-time notifications when events occur in Navo. Perfect for integrating with external systems, monitoring, and automation.
 
 ## Features
 

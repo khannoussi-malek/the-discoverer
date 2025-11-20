@@ -1,10 +1,10 @@
-# The Discoverer - Documentation Index
+# Navo - Documentation Index
 
-Welcome to The Discoverer documentation! This index will help you navigate through all available guides and find exactly what you need.
+Welcome to Navo documentation! This index will help you navigate through all available guides and find exactly what you need.
 
-## 🎯 What is The Discoverer?
+## 🎯 What is Navo?
 
-**The Discoverer** is an AI-powered database discovery and query platform that transforms how you interact with your databases. Instead of writing complex SQL queries, you simply ask questions in natural language, and The Discoverer automatically:
+**Navo** is an AI-powered database discovery and query platform that transforms how you interact with your databases. Instead of writing complex SQL queries, you simply ask questions in natural language, and Navo automatically:
 
 - **Discovers** your database schemas across multiple database types (PostgreSQL, MySQL, MongoDB, etc.)
 - **Understands** your data structure using AI and vector search
@@ -22,11 +22,11 @@ Welcome to The Discoverer documentation! This index will help you navigate throu
 ✅ **Easy Integration** - REST API, Python SDK, JavaScript SDK, CLI  
 ✅ **Enterprise Ready** - Authentication, scheduling, webhooks, monitoring  
 
-## 🚀 How to Implement The Discoverer
+## 🚀 How to Implement Navo
 
 ### Option 1: Standalone Service (Recommended)
 
-Deploy The Discoverer as a separate microservice that your applications connect to.
+Deploy Navo as a separate microservice that your applications connect to.
 
 **Best for:** Multiple applications, centralized data access, team collaboration
 
@@ -38,29 +38,29 @@ Deploy The Discoverer as a separate microservice that your applications connect 
 
 ### Option 2: Embedded Library
 
-Import The Discoverer as a Python library directly into your application.
+Import Navo as a Python library directly into your application.
 
 **Best for:** Single application use, tight integration requirements
 
 **Quick Start:**
-1. Install: `pip install the-discoverer`
+1. Install: `pip install navo`
 2. Import and use services directly in your code
 3. See [Python SDK](SDK.md) for examples
 
 ### Option 3: API Integration
 
-Call The Discoverer REST API directly from any application.
+Call Navo REST API directly from any application.
 
 **Best for:** Non-Python applications, microservices architecture
 
 **Quick Start:**
-1. Deploy The Discoverer service
+1. Deploy Navo service
 2. Call REST API endpoints from your application
 3. See [API Reference](API.md) for complete endpoint documentation
 
 ### Option 4: CLI Tool
 
-Use The Discoverer CLI in scripts and automation pipelines.
+Use Navo CLI in scripts and automation pipelines.
 
 **Best for:** Automation scripts, CI/CD pipelines, scheduled reports
 
@@ -71,7 +71,7 @@ Use The Discoverer CLI in scripts and automation pipelines.
 
 ## 📚 Quick Start
 
-**New to The Discoverer?** Start here:
+**New to Navo?** Start here:
 
 1. **[Getting Started Guide](GETTING_STARTED.md)** - Complete setup instructions (5 minutes)
    - Installation and prerequisites
@@ -189,7 +189,7 @@ Use The Discoverer CLI in scripts and automation pipelines.
 
 ---
 
-### Use Case 3: "I want to integrate The Discoverer into my application"
+### Use Case 3: "I want to integrate Navo into my application"
 
 **Path:**
 1. Choose your SDK:
@@ -359,9 +359,9 @@ result = await client.execute_query("Show me all customers")
 ### JavaScript SDK
 
 ```javascript
-import { DiscovererClient } from '@the-discoverer/sdk';
+import { NavoClient } from 'navo-sdk';
 
-const client = new DiscovererClient({ baseURL: 'http://localhost:8000' });
+const client = new NavoClient({ baseURL: 'http://localhost:8000' });
 const result = await client.executeQuery('Show me all customers');
 ```
 
@@ -435,7 +435,7 @@ docs/
 
 ## 🔗 Quick Links
 
-- **Repository**: [GitHub](https://github.com/khannoussi-malek/the-discoverer)
+- **Repository**: [GitHub](https://github.com/khannoussi-malek/navo)
 - **API Docs (when running)**: http://localhost:8000/docs
 - **ReDoc (when running)**: http://localhost:8000/redoc
 

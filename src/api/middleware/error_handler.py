@@ -5,7 +5,7 @@ from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from src.core.exceptions import (
-    DiscovererException,
+    NavoException,
     DatabaseConnectionError,
     SchemaExtractionError,
     QueryGenerationError,
@@ -13,8 +13,8 @@ from src.core.exceptions import (
 )
 
 
-async def discoverer_exception_handler(request: Request, exc: DiscovererException):
-    """Handle custom Discoverer exceptions."""
+async def navo_exception_handler(request: Request, exc: NavoException):
+    """Handle custom Navo exceptions."""
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
     
     if isinstance(exc, DatabaseConnectionError):

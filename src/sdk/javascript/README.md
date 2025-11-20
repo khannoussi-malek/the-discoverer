@@ -1,13 +1,13 @@
-# The Discoverer JavaScript/TypeScript SDK
+# Navo JavaScript/TypeScript SDK
 
-Official JavaScript and TypeScript SDK for The Discoverer API.
+Official JavaScript and TypeScript SDK for Navo API.
 
 ## Installation
 
 ```bash
-npm install @discoverer/sdk
+npm install navo-sdk
 # or
-yarn add @discoverer/sdk
+yarn add navo-sdk
 ```
 
 ## Quick Start
@@ -15,9 +15,9 @@ yarn add @discoverer/sdk
 ### TypeScript/ES6
 
 ```typescript
-import DiscovererClient from '@discoverer/sdk';
+import NavoClient from 'navo-sdk';
 
-const client = new DiscovererClient({
+const client = new NavoClient({
   baseURL: 'http://localhost:8000',
   apiKey: 'your-api-key', // Optional
 });
@@ -56,9 +56,9 @@ const chartBlob = await client.exportChart(result.query_id, 'png', 1920, 1080);
 ### JavaScript (CommonJS)
 
 ```javascript
-const DiscovererClient = require('@discoverer/sdk').default;
+const NavoClient = require('navo-sdk').default;
 
-const client = new DiscovererClient({
+const client = new NavoClient({
   baseURL: 'http://localhost:8000',
 });
 
@@ -70,7 +70,7 @@ const client = new DiscovererClient({
 ### Constructor
 
 ```typescript
-new DiscovererClient(config?: DiscovererConfig)
+new NavoClient(config?: NavoConfig)
 ```
 
 **Config options:**
@@ -117,9 +117,9 @@ new DiscovererClient(config?: DiscovererConfig)
 ### Complete Workflow
 
 ```typescript
-import DiscovererClient from '@discoverer/sdk';
+import NavoClient from 'navo-sdk';
 
-const client = new DiscovererClient({
+const client = new NavoClient({
   baseURL: 'https://api.example.com',
   apiKey: 'your-api-key',
 });
@@ -202,9 +202,9 @@ try {
 ## Browser Usage
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@discoverer/sdk/dist/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/navo-sdk/dist/index.umd.js"></script>
 <script>
-  const client = new DiscovererClient({
+  const client = new NavoClient({
     baseURL: 'https://api.example.com',
     apiKey: 'your-api-key',
   });

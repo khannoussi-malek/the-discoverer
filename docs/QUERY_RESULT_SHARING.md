@@ -186,9 +186,9 @@ curl -X POST "http://localhost:8000/api/sharing/share-456/revoke"
 ### Python SDK
 
 ```python
-from discoverer import DiscovererClient
+from discoverer import NavoClient
 
-client = DiscovererClient("http://localhost:8000")
+client = NavoClient("http://localhost:8000")
 
 # Create share
 share = await client.create_share(
@@ -204,9 +204,9 @@ result = await client.get_shared_result(share["share_token"])
 ### JavaScript SDK
 
 ```javascript
-import { DiscovererClient } from '@discoverer/sdk';
+import { NavoClient } from 'navo-sdk';
 
-const client = new DiscovererClient('http://localhost:8000');
+const client = new NavoClient('http://localhost:8000');
 
 // Create share
 const share = await client.createShare({
