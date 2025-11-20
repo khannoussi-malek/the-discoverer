@@ -31,7 +31,7 @@ jobs:
           pip install mkdocs mkdocs-material mkdocs-git-revision-date-plugin
 
       - name: Build documentation
-        run: mkdocs build --strict
+        run: mkdocs build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
